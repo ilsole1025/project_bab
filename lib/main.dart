@@ -63,11 +63,11 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Project BAB'),
-        ),
+    //    appBar: AppBar(
+    //      title: Text('TabBar Example'),
+   //     ),
         body: TabBarView(
-          children: <Widget>[FirstApp(), SecondApp(), ThirdApp(), FourthApp()],
+          children: <Widget>[FirstApp(), SecondApp(), ThirdApp(), MyPage()],
           controller: controller,
         ),
         bottomNavigationBar:TabBar(tabs: <Tab>[

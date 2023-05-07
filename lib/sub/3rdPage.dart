@@ -12,4 +12,3 @@ class ThirdApp extends StatelessWidget{
     );
   }
 }
-
