@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "432119244131",
+    "project_id": "projbab-fb3a6",
+    "storage_bucket": "projbab-fb3a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432119244131:android:ab3a247024705259d59f56",
+        "android_client_info": {
+          "package_name": "com.teamf5.project_bab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432119244131-v6cj3egri2pbr31f54nggeinij26ncaf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzg-_4ywdPCr8zFGY5LQPT-xHzb0HW26M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432119244131-v6cj3egri2pbr31f54nggeinij26ncaf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "432119244131-7r6r3mqa9hispha3k7bntaj4461ka2mj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.teamf5.projectBab"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
