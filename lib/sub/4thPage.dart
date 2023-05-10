@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_bab/widgets/app_large_text.dart';
 import 'package:project_bab/widgets/app_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -31,6 +32,11 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Icon(Icons.arrow_back_ios, size: 30, color: Colors.black54),
+                  IconButton(
+                      onPressed: (){
+                    FirebaseAuth.instance.signOut();
+                  },
+                      icon: Icon(Icons.logout)),
                   Icon(Icons.notifications, size: 30, color: Colors.black54),
                 ],
               )

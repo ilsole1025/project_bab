@@ -41,7 +41,16 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.teal,
       ),
-      home: LogIn(),
+      home: StreamBuilder<User?> (
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData){
+            return MyHomePage(title: "밥먹공");
+          } else{
+            return LogIn();
+          }
+        },
+      ),
     );
   }
 }

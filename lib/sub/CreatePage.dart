@@ -19,6 +19,66 @@ class _CreateState extends State<Create> {
   TextEditingController password1controller = TextEditingController();
   TextEditingController password2controller = TextEditingController();
 
+  _checkValidAccount() async {
+    try {
+      if (emailcontroller.text == '') {
+        throw FirebaseAuthException(code: 'empty-email');
+      }
+      if (password1controller.text == '' || password2controller == '') {
+        throw FirebaseAuthException(code: 'empty-password');
+      }
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+          email: emailcontroller.text,
+          password: password1controller.text)
+          .then((value){
+        if(value.user!.email == '') {
+        } else {
+          // 비밀번호 확인
+          if (password1controller.text != password2controller.text){
+            throw FirebaseAuthException(code : "password-missmatch");
+          }
+          //
+          if (emailcontroller.text.substring(emailcontroller.text.indexOf('@')) != '@sogang.ac.kr') {
+            throw FirebaseAuthException(code: "not-sogang");
+          }
+        }
+        return value;
+          });
+      FirebaseAuth.instance.currentUser?.sendEmailVerification();
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      String message = '';
+      if (e.code == 'empty-email') {
+        message = '이메일을 입력하세요';
+      } else if (e.code == 'email-already-in-use') {
+        message = '이미 가입하셨네요!';
+      } else if (e.code == 'empty-password') {
+        message = '비밀번호를 입력하세요';
+      } else if (e.code == 'invalid-email') {
+        message = '이메일 형식이 올바르지 않습니다.';
+      } else if (e.code == 'password-missmatch') {
+        message = '비밀번호가 다릅니다';
+      } else if (e.code == 'not-sogang') {
+        message = '서강대학교 이메일을 이용해주세요';
+      } else if (e.code == 'weak-password'){
+        message = '취약한 비밀번호입니다.';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              message,
+              style: TextStyle(
+                  color: Colors.white
+              ),
+
+            ),
+            backgroundColor: Colors.deepPurple,
+          )
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +87,9 @@ class _CreateState extends State<Create> {
         elevation: 0.0,
         backgroundColor: Colors.redAccent,
         centerTitle: true,
-        leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+        leading: IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () {
+          Navigator.pop(context);
+        }),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.search), onPressed: () {})
         ],
@@ -65,58 +127,14 @@ class _CreateState extends State<Create> {
                             decoration: InputDecoration(labelText: '비밀번호 확인'),
                             keyboardType: TextInputType.emailAddress,
                           ),
-                          SizedBox(height: 40.0,),
-                          ElevatedButton(
-                              onPressed: () async{
-                                try {
-                                  // 비밀번호 확인
-                                  if (password1controller.text != password2controller.text){
-                                    throw FirebaseAuthException(code : "password-missmatch");
-                                  }
-                                  if (emailcontroller.text.substring(emailcontroller.text.indexOf('@')) != '@sogang.ac.kr') {
-                                    throw FirebaseAuthException(code: "not-sogang");
-                                  }
-
-                                  UserCredential userCredential = await FirebaseAuth.instance
-                                      .createUserWithEmailAndPassword(
-                                      email: emailcontroller.text,
-                                      password: password1controller.text)
-                                      .then((value){
-                                        if(value.user!.email == null) {
-                                        } else {
-                                          Navigator.pop(context);
-                                        }
-                                        return value;
-                                  });
-                                  FirebaseAuth.instance.currentUser?.sendEmailVerification();
-                                } on FirebaseAuthException catch (e) {
-                                  String message = '';
-                                  if (e.code == 'email-already-in-use') {
-                                    message = '이미 가입하셨네요!';
-                                  } else if (e.code == 'invalid-email') {
-                                    message = '이메일 형식이 올바르지 않습니다.';
-                                  } else if (e.code == 'password-missmatch') {
-                                    message = '비밀번호가 다릅니다';
-                                  } else if (e.code == 'not-sogang') {
-                                    message = '서강대학교 이메일을 이용해주세요';
-                                  } else if (e.code == 'weak-password'){
-                                    message = '취약한 비밀번호입니다.';
-                                  }
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          message,
-                                          style: TextStyle(
-                                              color: Colors.white
-                                          ),
-
-                                        ),
-                                        backgroundColor: Colors.deepPurple,
-                                      )
-                                  );
-                                }
-                              },
-                              child: Text("이메일 인증하기"))
+                          SizedBox(height: 20.0,),
+                          Container(
+                            child: ElevatedButton(
+                                onPressed: () async{
+                                  return _checkValidAccount();
+                                },
+                                child: Text("이메일 인증하기")),
+                          )
                         ],
                       ),
                     )),
