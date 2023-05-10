@@ -66,7 +66,6 @@ class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Log in'),
         elevation: 0.0,
@@ -92,8 +91,6 @@ class _LogInState extends State<LogIn> {
                           labelStyle: TextStyle(color: Colors.teal, fontSize: 15.0))),
                   child: Container(
                       padding: EdgeInsets.all(50.0),
-                      // 키보드가 올라와서 만약 스크린 영역을 차지하는 경우 스크롤이 되도록
-                      // SingleChildScrollView으로 감싸 줌
                       child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: Column(
