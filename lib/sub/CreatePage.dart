@@ -8,7 +8,8 @@ import 'package:flutterfire_ui/auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_bab/main.dart';
 import 'package:project_bab/sub/LoginPage.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'exception.dart';
 
 class Create extends StatefulWidget {
   const Create({Key? key}) : super(key: key);
@@ -24,6 +25,14 @@ class _CreateState extends State<Create> {
 
   bool showSpinner = false;
 
+  _makeFirestore(value) {
+    final user = <String, dynamic> {
+      "uid": "${value.user!.uid}",
+      "checked" : false,
+    };
+    db.collection("users").doc("${value.user!.uid}").set(user)..onError((e, _) => print("Error writing document: $e"));
+  }
+
   _checkValidAccount() async {
     try {
       if (emailcontroller.text == '') {
@@ -38,22 +47,24 @@ class _CreateState extends State<Create> {
           password: password1controller.text)
           .then((value){
         if(value.user!.email == '') {
-        } else {
+          throw FirebaseAuthException(code: 'empty-email');
+        }
           // 비밀번호 확인
-          if (password1controller.text != password2controller.text){
+        if (password1controller.text != password2controller.text){
             throw FirebaseAuthException(code : "password-missmatch");
           }
           //
-          if (emailcontroller.text.substring(emailcontroller.text.indexOf('@')) != '@sogang.ac.kr') {
+        if (emailcontroller.text.substring(emailcontroller.text.indexOf('@')) != '@sogang.ac.kr') {
             throw FirebaseAuthException(code: "not-sogang");
           }
-        }
-        return value;
-          });
+        _makeFirestore(value);
+        return value;});
       FirebaseAuth.instance.currentUser?.sendEmailVerification();
+
       setState(() {
         showSpinner = false;
       });
+
       Navigator.push(
         context, MaterialPageRoute(builder: (context) => LogIn())
       );

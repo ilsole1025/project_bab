@@ -1,5 +1,6 @@
 // LoginPage
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -7,8 +8,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:project_bab/main.dart';
 import 'CreatePage.dart';
-
+import 'userinfosave.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
+
 
 class LogIn extends StatefulWidget {
   @override
@@ -21,26 +24,40 @@ class _LogInState extends State<LogIn> {
 
   bool showSpinner = false;
 
+
+
   _authentication() async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(
           email: emailcontroller.text,
           password: passwordcontroller.text)
-          .then((value){
+          .then((value) async {
         if(value.user!.emailVerified == true) {
+
+          var snapshot = await db.collection("users").doc(value.user!.uid).get();
+
+          bool checking = snapshot.data()!['checked'];
+          if(!checking){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>
+                UserInfoSave())
+            );
+          } else {
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>
+                    MyHomePage(title: "bab"))
+            );
+          }
         } else {
           throw FirebaseAuthException(code: 'not-verified');
         }
+        setState(() {
+          showSpinner = false;
+        });
         return value;
-      });
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) =>
-        MyHomePage(title: "bab"))
-      );
-      setState(() {
-        showSpinner = false;
       });
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -163,7 +180,8 @@ class _LogInState extends State<LogIn> {
                                 ],
                               ),
                             ),
-                          )),
+                          )
+                ),
               ],
             ),
           ),
@@ -171,6 +189,5 @@ class _LogInState extends State<LogIn> {
       ),
     );
   }
-
 }
 
