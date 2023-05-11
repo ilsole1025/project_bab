@@ -30,7 +30,7 @@ class _CreateState extends State<Create> {
       "uid": "${value.user!.uid}",
       "checked" : false,
     };
-    db.collection("users").doc("${value.user!.uid}").set(user)..onError((e, _) => print("Error writing document: $e"));
+    db.collection("users").doc("${value.user!.uid}").set(user);
   }
 
   _checkValidAccount() async {
