@@ -94,52 +94,59 @@ class _CreateState extends State<Create> {
           IconButton(icon: Icon(Icons.search), onPressed: () {})
         ],
       ),
-      body: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 50)),
-          Center(
-              child: Text("회원가입!")
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(padding: EdgeInsets.only(top: 50)),
+              Center(
+                  child: Text("회원가입!")
+              ),
+              Form(
+                  child: Theme(
+                    data: ThemeData(
+                        primaryColor: Colors.blue,
+                        inputDecorationTheme: InputDecorationTheme(
+                            labelStyle: TextStyle(color: Colors.teal, fontSize: 15.0))),
+                    child: Container(
+                        padding: EdgeInsets.all(50.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Column(
+                            children: [
+                              TextField(
+                                controller: emailcontroller,
+                                decoration: InputDecoration(labelText: '이메일'),
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+                              TextField(
+                                controller: password1controller,
+                                decoration: InputDecoration(labelText: '비밀번호'),
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+                              TextField(
+                                controller: password2controller,
+                                decoration: InputDecoration(labelText: '비밀번호 확인'),
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+                              SizedBox(height: 20.0,),
+                              Container(
+                                child: ElevatedButton(
+                                    onPressed: () async{
+                                      return _checkValidAccount();
+                                    },
+                                    child: Text("이메일 인증하기")),
+                              )
+                            ],
+                          ),
+                        )),
+                  ))
+            ],
           ),
-          Form(
-              child: Theme(
-                data: ThemeData(
-                    primaryColor: Colors.blue,
-                    inputDecorationTheme: InputDecorationTheme(
-                        labelStyle: TextStyle(color: Colors.teal, fontSize: 15.0))),
-                child: Container(
-                    padding: EdgeInsets.all(50.0),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(
-                        children: [
-                          TextField(
-                            controller: emailcontroller,
-                            decoration: InputDecoration(labelText: '이메일'),
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                          TextField(
-                            controller: password1controller,
-                            decoration: InputDecoration(labelText: '비밀번호'),
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                          TextField(
-                            controller: password2controller,
-                            decoration: InputDecoration(labelText: '비밀번호 확인'),
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                          SizedBox(height: 20.0,),
-                          Container(
-                            child: ElevatedButton(
-                                onPressed: () async{
-                                  return _checkValidAccount();
-                                },
-                                child: Text("이메일 인증하기")),
-                          )
-                        ],
-                      ),
-                    )),
-              ))
-        ],
+        ),
       ),
     );
   }

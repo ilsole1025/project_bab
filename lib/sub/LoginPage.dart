@@ -76,78 +76,81 @@ class _LogInState extends State<LogIn> {
           IconButton(icon: Icon(Icons.search), onPressed: () {})
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(padding: EdgeInsets.only(top: 50)),
-            Center(
-              child: Text("로그인!")
-            ),
-            Form(
-                child: Theme(
-                  data: ThemeData(
-                      primaryColor: Colors.blue,
-                      inputDecorationTheme: InputDecorationTheme(
-                          labelStyle: TextStyle(color: Colors.teal, fontSize: 15.0))),
-                  child: Container(
-                      padding: EdgeInsets.all(50.0),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          children: [
-                            TextField(
-                              controller: emailcontroller,
-                              decoration: InputDecoration(labelText: '이메일'),
-                              keyboardType: TextInputType.emailAddress,
-                            ),
-                            TextField(
-                              controller: passwordcontroller,
-                              decoration:
-                              InputDecoration(labelText: '비밀번호'),
-                              keyboardType: TextInputType.text,
-                              obscureText: true, // 비밀번호 안보이도록 하는 것
-                            ),
-                            SizedBox(height: 40.0,),
-                            Container(
-                                width: double.infinity,
-                                height: 40,
-                                child: ElevatedButton(
-                                  onPressed: (){
-                                    return _authentication();
-                                  },
-                                  child: Text(
-                                    "로그인"
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.orangeAccent
-                                  ),
+      body: GestureDetector(
+        onTap: (){
+          FocusScope.of(context).unfocus();
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(padding: EdgeInsets.only(top: 50)),
+              Center(
+                child: Text("로그인!")
+              ),
+              Form(
+                  child: Theme(
+                    data: ThemeData(
+                        primaryColor: Colors.blue,
+                        inputDecorationTheme: InputDecorationTheme(
+                            labelStyle: TextStyle(color: Colors.teal, fontSize: 15.0))),
+                    child: Container(
+                        padding: EdgeInsets.all(50.0),
+                          child: Column(
+                              children: [
+                                TextField(
+                                  controller: emailcontroller,
+                                  decoration: InputDecoration(labelText: '이메일'),
+                                  keyboardType: TextInputType.emailAddress,
+                                ),
+                                TextField(
+                                  controller: passwordcontroller,
+                                  decoration:
+                                  InputDecoration(labelText: '비밀번호'),
+                                  keyboardType: TextInputType.text,
+                                  obscureText: true, // 비밀번호 안보이도록 하는 것
+                                ),
+                                SizedBox(height: 40.0,),
+                                Container(
+                                    width: double.infinity,
+                                    height: 40,
+                                    child: ElevatedButton(
+                                      onPressed: (){
+                                        return _authentication();
+                                      },
+                                      child: Text(
+                                        "로그인"
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.orangeAccent
+                                      ),
+                                    )
+                                ),
+                                SizedBox(height: 10.0),
+                                Container(
+                                    width: double.infinity,
+                                    height: 40,
+                                    child: ElevatedButton(
+                                      onPressed: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                                        Create()));
+                                      },
+                                      child: Text(
+                                          "회원가입",
+                                        style: TextStyle(
+                                          color: Colors.black
+                                        ),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.white
+                                      ),
+                                    )
                                 )
+                              ],
                             ),
-                            SizedBox(height: 10.0),
-                            Container(
-                                width: double.infinity,
-                                height: 40,
-                                child: ElevatedButton(
-                                  onPressed: (){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                                    Create()));
-                                  },
-                                  child: Text(
-                                      "회원가입",
-                                    style: TextStyle(
-                                      color: Colors.black
-                                    ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.white
-                                  ),
-                                )
-                            )
-                          ],
-                        ),
-                      )),
-                ))
-          ],
+                          ),
+                        )),
+            ],
+          ),
         ),
       ),
     );
