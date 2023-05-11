@@ -15,10 +15,10 @@ class UserInfoSave extends StatefulWidget {
 }
 
 class _UserInfoSaveState extends State<UserInfoSave> {
-  TextEditingController namecontroller = TextEditingController();
-  String _gender = '';
-  List<String> _ageList = ['선택하기','20','21','22','23','24','25','26','27','28','29','30'];
-  String _age = '선택하기';
+  final List<String> _ageList = ['선택하기','20','21','22','23','24','25','26','27','28','29','30'];
+  final List<String> _mbtiList = ['infp','infj','intp','intj','isfp','isfj','istp','istj','enfp','enfj','entp','entj','esfp','esfj','estp','estj'];
+  TextEditingController nicknamecontroller = TextEditingController();
+  String _gender = '', _age = '선택하기', _mbti = 'intp'; // 아직 mbti 입력창을 못 만들어서 임의의 값으로 초기화
 
   bool showSpinner = false;
 
@@ -26,24 +26,33 @@ class _UserInfoSaveState extends State<UserInfoSave> {
   _userInfoSaveInFireStore() {
     var currentUser = FirebaseAuth.instance.currentUser;
     final user = <String, dynamic>{
-      "name": namecontroller.text,
+      "nickname": nicknamecontroller.text,
       "age": _age,
       "gender": _gender,
+      "mbti": _mbti,
       "checked": true,
     };
     if (currentUser != null) {
       try {
-        // 이름 입력 안했을 때
-        if(namecontroller.text == ''){
-          throw myException('no-name');
+        // 닉네임
+        if(nicknamecontroller.text == ''){
+          throw myException('no-name'); // 닉네임 입력 안했을 때
+        } else if(nicknamecontroller.text.length < 2 || nicknamecontroller.text.length > 10){
+          throw myException('exceed-name'); // 닉네임 2~10글자 사이로 제한(임시)
+        } else if(nicknamecontroller.text.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))){
+          throw myException('special-name'); // 닉네임에 특수 문자가 포함될 때
+        }
+        // 나이 입력 안했을 때
+        if(_age == '선택하기'){
+          throw myException('no-age');
         }
         // 성별 입력 안했을 때
         if(_gender == ''){
           throw myException('no-gender');
         }
-        // 나이 입력 안했을 때
-        if(_age == '선택하기'){
-          throw myException('no-age');
+        // mbti 입력 안했을 때
+        if(_mbti == ''){
+          throw myException('no-mbti');
         }
         db.collection("users").doc("${currentUser.uid}").set(user);
         Navigator.push(
@@ -55,10 +64,16 @@ class _UserInfoSaveState extends State<UserInfoSave> {
         String message = '';
         if (e.toString() == 'no-name') {
           message = "닉네임을 입력해주세요";
-        } else if(e.toString() == 'no-gender') {
-          message = "성별을 선택해주세요";
+        } else if(e.toString() == 'exceed-name') {
+          message = "닉네임은 2글자에서 10글자 사이여야 합니다";
+        } else if(e.toString() == 'special-name') {
+          message = "닉네임에 특수문자를 사용할 수 없습니다";
         } else if(e.toString() == 'no-age') {
           message = "나이를 선택해주세요";
+        } else if(e.toString() == 'no-gender') {
+          message = "성별을 선택해주세요";
+        } else if(e.toString() == 'no-mbti') {
+          message = "mbti를 선택해주세요";
         }
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -121,7 +136,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
                                 ),
                                 Expanded(
                                   child: TextField(
-                                    controller: namecontroller,
+                                    controller: nicknamecontroller,
                                     keyboardType: TextInputType.name,
                                   ),
                                 ),
