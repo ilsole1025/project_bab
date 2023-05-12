@@ -16,9 +16,10 @@ class UserInfoSave extends StatefulWidget {
 
 class _UserInfoSaveState extends State<UserInfoSave> {
   final List<String> _ageList = ['선택하기','20','21','22','23','24','25','26','27','28','29','30'];
-  final List<String> _mbtiList = ['infp','infj','intp','intj','isfp','isfj','istp','istj','enfp','enfj','entp','entj','esfp','esfj','estp','estj'];
+  final List<String> _mbtiList = ['선택하기','infp','infj','intp','intj','isfp','isfj','istp','istj','enfp','enfj','entp','entj','esfp','esfj','estp','estj'];
   TextEditingController nicknamecontroller = TextEditingController();
-  String _gender = '', _age = '선택하기', _mbti = 'intp'; // 아직 mbti 입력창을 못 만들어서 임의의 값으로 초기화
+  TextEditingController namecontroller = TextEditingController();
+  String _gender = '', _age = '선택하기', _mbti = '선택하기';
 
   bool showSpinner = false;
 
@@ -27,6 +28,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
     var currentUser = FirebaseAuth.instance.currentUser;
     final user = <String, dynamic>{
       "nickname": nicknamecontroller.text,
+      "name" : namecontroller.text,
       "age": _age,
       "gender": _gender,
       "mbti": _mbti,
@@ -36,11 +38,19 @@ class _UserInfoSaveState extends State<UserInfoSave> {
       try {
         // 닉네임
         if(nicknamecontroller.text == ''){
-          throw myException('no-name'); // 닉네임 입력 안했을 때
+          throw myException('no-nickname'); // 닉네임 입력 안했을 때
         } else if(nicknamecontroller.text.length < 2 || nicknamecontroller.text.length > 10){
-          throw myException('exceed-name'); // 닉네임 2~10글자 사이로 제한(임시)
+          throw myException('exceed-nickname'); // 닉네임 2~10글자 사이로 제한(임시)
         } else if(nicknamecontroller.text.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))){
-          throw myException('special-name'); // 닉네임에 특수 문자가 포함될 때
+          throw myException('special-nickname'); // 닉네임에 특수 문자가 포함될 때
+        }
+        // 이름 입력 안했을 때
+        if(namecontroller.text == '선택하기'){
+          throw myException('no-name');
+        } else if(namecontroller.text.length > 20){
+          throw myException('exceed-name'); // 이름 ~20글자 로 제한(임시)
+        } else if(namecontroller.text.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))){
+          throw myException('special-name'); // 이름에 특수 문자가 포함될 때
         }
         // 나이 입력 안했을 때
         if(_age == '선택하기'){
@@ -51,23 +61,29 @@ class _UserInfoSaveState extends State<UserInfoSave> {
           throw myException('no-gender');
         }
         // mbti 입력 안했을 때
-        if(_mbti == ''){
+        if(_mbti == '선택하기'){
           throw myException('no-mbti');
         }
         db.collection("users").doc("${currentUser.uid}").set(user);
         Navigator.push(
-          context, MaterialPageRoute(builder: (context) =>
-          MyHomePage(title: "밥먹공"))
+            context, MaterialPageRoute(builder: (context) =>
+            MyHomePage(title: "밥먹공"))
         );
         showSpinner = false;
       } on myException catch (e) {
         String message = '';
-        if (e.toString() == 'no-name') {
+        if (e.toString() == 'no-nickname') {
           message = "닉네임을 입력해주세요";
-        } else if(e.toString() == 'exceed-name') {
+        } else if(e.toString() == 'exceed-nickname') {
           message = "닉네임은 2글자에서 10글자 사이여야 합니다";
-        } else if(e.toString() == 'special-name') {
+        } else if(e.toString() == 'special-nickname') {
           message = "닉네임에 특수문자를 사용할 수 없습니다";
+        } else if(e.toString() == 'no-name') {
+          message = "이름을 입력해주세요";
+        } else if(e.toString() == 'exceed-name') {
+          message = "이름이 너무 깁니다";
+        } else if(e.toString() == 'special-name') {
+          message = "이름에 특수문자가 포함되어 있습니다";
         } else if(e.toString() == 'no-age') {
           message = "나이를 선택해주세요";
         } else if(e.toString() == 'no-gender') {
@@ -146,6 +162,23 @@ class _UserInfoSaveState extends State<UserInfoSave> {
                               height: 40,
                             ),
                             Row(
+                              children: [
+                                SizedBox(
+                                  width: 100,
+                                  child: Text("이름"),
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    controller: namecontroller,
+                                    keyboardType: TextInputType.name,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   SizedBox(
@@ -203,6 +236,36 @@ class _UserInfoSaveState extends State<UserInfoSave> {
                                       });
                                     },
                                   )
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 100,
+                                  child: Text("MBTI"),
+                                ),
+                                Expanded(
+                                    child: DropdownButton(
+                                      isExpanded: true,
+                                      value: _mbti,
+                                      items: _mbtiList.map(
+                                              (String item) {
+                                            return DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Center(
+                                                child: Text(item, textAlign: TextAlign.center),),
+                                            );
+                                          }).toList(),
+                                      onChanged: (dynamic value) {
+                                        setState(() {
+                                          _mbti = value;
+                                        });
+                                      },
+                                    )
                                 ),
                               ],
                             ),
