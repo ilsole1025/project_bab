@@ -150,11 +150,13 @@ class _CreateState extends State<Create> {
                                   controller: password1controller,
                                   decoration: InputDecoration(labelText: '비밀번호'),
                                   keyboardType: TextInputType.emailAddress,
+                                  obscureText: true,
                                 ),
                                 TextField(
                                   controller: password2controller,
                                   decoration: InputDecoration(labelText: '비밀번호 확인'),
                                   keyboardType: TextInputType.emailAddress,
+                                  obscureText: true,
                                 ),
                                 SizedBox(height: 20.0,),
                                 Container(

@@ -23,14 +23,18 @@ class _UserInfoSaveState extends State<UserInfoSave> {
 
   bool showSpinner = false;
 
+  Future<bool> _checkNickname(String nickname) async {
+    final querySnapshot = await db.collection('users').where('nickname', isEqualTo: nickname).get();
+    return querySnapshot.docs.isNotEmpty;
+  }
 
-  _userInfoSaveInFireStore() {
+  _userInfoSaveInFireStore() async {
     var currentUser = FirebaseAuth.instance.currentUser;
     final user = <String, dynamic>{
       "nickname": nicknamecontroller.text,
       "name" : namecontroller.text,
-      "age": _age,
       "gender": _gender,
+      "age": _age,
       "mbti": _mbti,
       "checked": true,
     };
@@ -44,6 +48,10 @@ class _UserInfoSaveState extends State<UserInfoSave> {
         } else if(nicknamecontroller.text.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))){
           throw myException('special-nickname'); // 닉네임에 특수 문자가 포함될 때
         }
+        bool isDuplicated = await _checkNickname(nicknamecontroller.text);
+        if(isDuplicated == true) {
+          throw myException('duplicated-nickname'); // 닉네임 중복 확인
+        }
         // 이름 입력 안했을 때
         if(namecontroller.text == '선택하기'){
           throw myException('no-name');
@@ -52,13 +60,13 @@ class _UserInfoSaveState extends State<UserInfoSave> {
         } else if(namecontroller.text.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))){
           throw myException('special-name'); // 이름에 특수 문자가 포함될 때
         }
-        // 나이 입력 안했을 때
-        if(_age == '선택하기'){
-          throw myException('no-age');
-        }
         // 성별 입력 안했을 때
         if(_gender == ''){
           throw myException('no-gender');
+        }
+        // 나이 입력 안했을 때
+        if(_age == '선택하기'){
+          throw myException('no-age');
         }
         // mbti 입력 안했을 때
         if(_mbti == '선택하기'){
@@ -78,16 +86,18 @@ class _UserInfoSaveState extends State<UserInfoSave> {
           message = "닉네임은 2글자에서 10글자 사이여야 합니다";
         } else if(e.toString() == 'special-nickname') {
           message = "닉네임에 특수문자를 사용할 수 없습니다";
+        } else if(e.toString() == 'duplicated-nickname') {
+          message = "중복된 닉네임입니다";
         } else if(e.toString() == 'no-name') {
           message = "이름을 입력해주세요";
         } else if(e.toString() == 'exceed-name') {
           message = "이름이 너무 깁니다";
         } else if(e.toString() == 'special-name') {
           message = "이름에 특수문자가 포함되어 있습니다";
-        } else if(e.toString() == 'no-age') {
-          message = "나이를 선택해주세요";
         } else if(e.toString() == 'no-gender') {
           message = "성별을 선택해주세요";
+        } else if(e.toString() == 'no-age') {
+          message = "나이를 선택해주세요";
         } else if(e.toString() == 'no-mbti') {
           message = "mbti를 선택해주세요";
         }
@@ -276,9 +286,9 @@ class _UserInfoSaveState extends State<UserInfoSave> {
                                 width: double.infinity,
                                 height: 40,
                                 child: ElevatedButton(
-                                  onPressed: (){
+                                  onPressed: () async {
                                     showSpinner = true;
-                                    _userInfoSaveInFireStore();
+                                    await _userInfoSaveInFireStore();
                                   },
                                   child: Text(
                                       "다음으로"

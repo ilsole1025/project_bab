@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:project_bab/main.dart';
+import 'package:project_bab/sub/PwReset.dart';
 import 'CreatePage.dart';
 import 'userinfosave.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -174,6 +175,23 @@ class _LogInState extends State<LogIn> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.white
+                                        ),
+                                      )
+                                  ),
+                                  SizedBox(height: 10.0),
+                                  Container(
+                                      width: 120,
+                                      height: 40,
+                                      child: TextButton(
+                                        onPressed: (){
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                                              PwReset()));
+                                        },
+                                        child: Text(
+                                          "비밀번호 재발급",
+                                          style: TextStyle(
+                                              color: Colors.black
+                                          ),
                                         ),
                                       )
                                   )
