@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'post_detail_page.dart';
 import 'post_data.dart';
 
 class ThirdApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      body : Container(
-        child: Center(
-          child: ElevatedButton(
-            child: Text('세번째 페이지'),
-            onPressed: () {
-              Navigator.pushNamed(context, PostListPage.routeName);
-            },
-          ),
-        ),
-      ),
-    );
+    return PostListPage();
   }
 }
 
@@ -27,7 +17,24 @@ class PostListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('게시판'),
+          backgroundColor: Colors.grey,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: 80,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children:[
+                      //Icon(Icons.arrow_back),
+                      Text("자유게시판")
+                    ]
+                ),
+              ),
+              Icon(Icons.add),
+              Icon(Icons.notifications),
+            ],
+          )
       ),
       body: ListView.builder(
         itemCount: postList.length,
@@ -35,10 +42,11 @@ class PostListPage extends StatelessWidget {
           final post = postList[index];
           return InkWell(
             onTap: () {
-              Navigator.pushNamed(
+              Navigator.push(
                 context,
-                PostDetailPage.routeName,
-                arguments: post.id,
+                MaterialPageRoute(
+                  builder: (context) =>PostDetailPage(id: post.id, postList: postList),
+                ),
               );
             },
             child: Card(
