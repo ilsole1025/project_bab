@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_bab/sub/LoginPage.dart';
 import 'package:project_bab/widgets/app_large_text.dart';
 import 'package:project_bab/widgets/app_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:project_bab/main.dart';
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
 
@@ -12,6 +13,8 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
+  var user = FirebaseAuth.instance.currentUser;
+
   var images ={
     "homeicon2.png":"지난 약속",
     "homeicon1.jpg":"받은 후기",

@@ -8,9 +8,14 @@ import 'sub/4thPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'sub/LoginPage.dart';
 
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+var db = FirebaseFirestore.instance;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
