@@ -33,12 +33,42 @@ class _CreateState extends State<Create> {
     db.collection("users").doc("${value.user!.uid}").set(user);
   }
 
+  void _showCreatedDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('회원 가입 완료'),
+          content: const Text(
+            '인증 메일이 발송되었으니 확인해 주세요.',
+            textAlign: TextAlign.center,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true); // No
+              },
+              child: const Text('확인'),
+            ),
+          ],
+        );
+      },
+    ).then((result) {
+      if (result == true) {
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    LogIn()), (route) => false);
+      }
+    });
+  }
+
   _checkValidAccount() async {
     try {
       if (emailcontroller.text == '') {
         throw FirebaseAuthException(code: 'empty-email');
       }
-      if (password1controller.text == '' || password2controller == '') {
+      if (password1controller.text == '' || password2controller.text == '') {
         throw FirebaseAuthException(code: 'empty-password');
       }
       UserCredential userCredential = await FirebaseAuth.instance
@@ -65,9 +95,7 @@ class _CreateState extends State<Create> {
         showSpinner = false;
       });
 
-      Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LogIn())
-      );
+      _showCreatedDialog(context);
     } on FirebaseAuthException catch (e) {
       setState(() {
         showSpinner = false;

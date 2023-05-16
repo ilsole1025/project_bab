@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project_bab/sub/DelAccount.dart';
 import 'package:project_bab/sub/LoginPage.dart';
+import 'package:project_bab/sub/userinfosave.dart';
 import 'package:project_bab/widgets/app_large_text.dart';
 import 'package:project_bab/widgets/app_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_bab/main.dart';
+
+
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
 
@@ -40,14 +44,47 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                     Icon(Icons.arrow_back_ios, size: 30, color: Colors.black54),
                     IconButton(
                         onPressed: (){
-                      FirebaseAuth.instance.signOut();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) =>
-                        LogIn())
-                      );
-                    },
-                        icon: Icon(Icons.logout)),
+                          FirebaseAuth.instance.signOut();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>
+                            LogIn())
+                          );
+                        },
+                        icon: Icon(Icons.logout),
+                    ),
+                    TextButton( // 임시로 제작 : 아직 기능구현 덜 되어있음
+                      onPressed: () {
+                        /*Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>
+                                UserInfoSave())
+                        );*/
+                      },
+                      child: Text(
+                        '회원정보 수정',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ),
+                    TextButton( // 임시 버튼 : 기능구성 완료, 위치나 디자인 등 조절 가능
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>
+                                DeleteAccount())
+                        );
+                      },
+                      child: Text(
+                        '회원 탈퇴',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ),
                     Icon(Icons.notifications, size: 30, color: Colors.black54),
                   ],
                 )

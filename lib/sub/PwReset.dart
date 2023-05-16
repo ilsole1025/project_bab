@@ -1,11 +1,7 @@
-// CreatePage
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:project_bab/main.dart';
-import 'package:project_bab/sub/LoginPage.dart';
 
 class PwReset extends StatefulWidget {
   const PwReset({Key? key}) : super(key: key);
@@ -15,19 +11,19 @@ class PwReset extends StatefulWidget {
 }
 
 class _PwResetState extends State<PwReset> {
-  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   bool showSpinner = false;
 
-  _PasswordReset() async {
+  passwordReset() async {
     String message = '';
     try {
-      if (emailcontroller.text == '') {
+      if (emailController.text == '') {
         throw FirebaseAuthException(code: 'empty-email');
-      } else if (emailcontroller.text.substring(emailcontroller.text.indexOf('@')) != '@sogang.ac.kr') {
+      } else if (emailController.text.substring(emailController.text.indexOf('@')) != '@sogang.ac.kr') {
         throw FirebaseAuthException(code: 'not-sogang');
       }
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: emailcontroller.text)
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: emailController.text)
           .then((value){
         message = '비밀번호 재설정 이메일이 발송되었습니다';
       });
@@ -103,7 +99,7 @@ class _PwResetState extends State<PwReset> {
                         child: Column(
                           children: [
                             TextField(
-                              controller: emailcontroller,
+                              controller: emailController,
                               decoration: InputDecoration(labelText: '이메일'),
                               keyboardType: TextInputType.emailAddress,
                             ),
@@ -114,7 +110,7 @@ class _PwResetState extends State<PwReset> {
                                     setState(() {
                                       showSpinner = true;
                                     });
-                                    await _PasswordReset();
+                                    await passwordReset();
                                   },
                                   child: Text("비밀번호 재설정")),
                             )
