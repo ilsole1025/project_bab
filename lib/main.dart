@@ -12,9 +12,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'sub/LoginPage.dart';
 
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 var db = FirebaseFirestore.instance;
 
 void main() async{
@@ -22,7 +19,7 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(const MaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
