@@ -261,15 +261,15 @@ class FirstApp extends StatelessWidget{
           child: Scaffold(
             appBar: AppBar(
                 backgroundColor: Colors.grey,
+                automaticallyImplyLeading: false,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: 80,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children:[
-                            Icon(Icons.arrow_back),
+                            //Icon(Icons.arrow_back),
                             Text("홈")
                           ]
                       ),
