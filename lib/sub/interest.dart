@@ -1,4 +1,4 @@
-const INTEREST = {
+const Map<String, List<String>> INTEREST = {
   "MBTI" : [
     "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp",
     "entp", "esfj", "intj", "istj", "entj", "estp", "estj"
@@ -25,4 +25,23 @@ const INTEREST = {
     "언어", "디자인", "교육", "취준", "IT", "아르바이트", "프로그래밍",
     "이직", "마케팅", "스타트업", "인턴", "HR"
   ]
+};
+
+const Map<String, List<String>> emptyInterest =
+{
+  "MBTI" : [],
+  "성격" : [],
+  "관심사" : [],
+  "엔터테인먼트" : [],
+  "스포츠" : [],
+  "커리어" : []
+};
+
+const Map<String, int> maxSelectCountOfInterest = {
+  "MBTI" : 1,
+  "성격" : 4,
+  "관심사" : 10,
+  "엔터테인먼트" : 10,
+  "스포츠" : 10,
+  "커리어" : 10,
 };
