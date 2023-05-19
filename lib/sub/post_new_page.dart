@@ -9,16 +9,19 @@ class NewPostPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.white,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 80,
+                width: 100,
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:[
-                      Text("게시글 쓰기")
+                      Text(
+                        '게시글 쓰기',
+                        style: TextStyle(color: Colors.black),
+                      )
                     ]
                 ),
               ),
@@ -35,6 +38,7 @@ class NewPostPage extends StatelessWidget {
               decoration: InputDecoration(
                 labelText: '제목',
               ),
+              maxLength: 20,
             ),
             SizedBox(height: 16.0),
             Expanded(
@@ -53,6 +57,7 @@ class NewPostPage extends StatelessWidget {
                     border: InputBorder.none,
                   ),
                   maxLines: null,
+                  maxLength: 300,
                 ),
               ),
             ),

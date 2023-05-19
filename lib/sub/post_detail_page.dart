@@ -4,7 +4,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'post_data.dart';
 import 'dart:async';
 
-
 class PostDetailPage extends StatefulWidget {
   final String id;
   final List<Post> postList;
@@ -56,25 +55,25 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
       } else {
         formattedTime = '방금';
       }
-      //final postId = widget.id ?? ModalRoute.of(context)?.settings.arguments as String?;
 
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.white,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: 80,
+                width: 100,
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:[
-                      //Icon(Icons.arrow_back),
-                      Text("자유게시판")
+                      Text(
+                          '자유게시판',
+                          style: TextStyle(color: Colors.black),)
                     ]
                 ),
               ),
-              Icon(Icons.notifications),
+              Icon(Icons.notifications_outlined, color: Colors.black),
             ],
           )
       ),
@@ -93,6 +92,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  SizedBox(height: 5),
                   Text(
                     '${post.author} | $formattedTime',
                     style: const TextStyle(
@@ -111,10 +111,25 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                               _postLikes++;
                               _isLiked = true;
                             }
+                            else {
+                              _postLikes--;
+                              _isLiked = false;
+                            }
                           });
                         },
-                        icon: Icon(Icons.thumb_up, color: Colors.grey),
-                        label: Text('좋아요 $_postLikes', style: TextStyle(color: Colors.grey)),
+                        icon: Icon(Icons.thumb_up_outlined, color: Colors.red),
+                        label: Text('좋아요 ${post.likes}', style: TextStyle(color: Colors.red)),
+                      ),
+                      SizedBox(width: 8),
+                      Row(
+                        children: [
+                          Icon(Icons.chat_bubble_outline, color: Colors.orange),
+                          SizedBox(width: 6),
+                          Text(
+                            '댓글 ${post.commentCount}', // 댓글 수
+                            style: TextStyle(color: Colors.orange),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -123,7 +138,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
             ),
             Divider(),
             Padding(
-              padding: const EdgeInsets.all(2),
+              padding: const EdgeInsets.all(1),
               child: Text(
                 '댓글',
                 style: TextStyle(
@@ -139,14 +154,11 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
               itemCount: _comments.length,
               itemBuilder: (ctx, index) {
                 final comment = _comments[index];
+                String formattedTimestamp = DateFormat('MM/dd HH:mm').format(comment.createdAt);
+
                 return ListTile(
-                  title: Text(comment.author),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(comment.content),
-                    ]
-                  ),
+                  title:Text(comment.content),
+                  subtitle: Text('${comment.author} | $formattedTimestamp'),
                 );
               },
             ),
@@ -159,6 +171,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                   border: OutlineInputBorder(),
                   labelText: '댓글 작성',
                 ),
+                maxLength: 100,
               ),
             ),
             SizedBox(height: 16),
@@ -172,7 +185,6 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                       postId: post.id,
                       author: '작성자',
                       content: _commentController.text,
-                      //likes: 0,
                       createdAt: DateTime.now(), //현재 시간 할당
                     );
                     _comments.add(comment);
