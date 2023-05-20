@@ -72,10 +72,6 @@ class _UserInfoSaveState extends State<UserInfoSave> {
             context, MaterialPageRoute(builder: (context) =>
             UserInterestSave())
         );
-        /*Navigator.push(
-            context, MaterialPageRoute(builder: (context) =>
-            MyHomePage(title: "밥먹공"))
-        );*/
       } on myException catch (e) {
         String message = '';
         if (e.toString() == 'no-nickname') {
@@ -298,21 +294,47 @@ class _UserInterestSaveState extends State<UserInterestSave> {
 
   bool showSpinner = false;
 
+  String _checkinterestList() {
+    for (var entry in _interest.entries) {
+      String key = entry.key;
+      List<String> list = entry.value;
+      int min = minSelectCountOfInterest[key] ?? 0;
+
+      if (list.length < min) {
+        return "${key} : ${min}개 이상 선택해야 합니다";
+      }
+    }
+    return "true";
+  }
+
   _saveinterest() async{
+    String message = _checkinterestList();
     var currentUser = FirebaseAuth.instance.currentUser;
     final chk = <String, dynamic>{
       "checked": true
     };
     if (currentUser != null) {
       try {
+        if(message != "true") throw Exception(message);
         await db.collection("users").doc("${currentUser.uid}").update(_interest);
         await db.collection("users").doc("${currentUser.uid}").update(chk);
         Navigator.pushAndRemoveUntil(context,
             MaterialPageRoute(
                 builder: (context) =>
                     MyHomePage(title: "bab")), (route) => false);
-      } catch (e) {
-        ;
+      } on Exception catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                message,
+                style: TextStyle(
+                    color: Colors.white
+                ),
+
+              ),
+              backgroundColor: Colors.deepPurple,
+            )
+        );
       }
     }
   }

@@ -45,3 +45,12 @@ const Map<String, int> maxSelectCountOfInterest = {
   "스포츠" : 10,
   "커리어" : 10,
 };
+
+const Map<String, int> minSelectCountOfInterest = {
+  "MBTI" : 1,
+  "성격" : 1,
+  "관심사" : 3,
+  "엔터테인먼트" : 3,
+  "스포츠" : 3,
+  "커리어" : 2,
+};
