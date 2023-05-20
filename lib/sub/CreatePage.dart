@@ -2,14 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:project_bab/main.dart';
 import 'package:project_bab/sub/LoginPage.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'exception.dart';
 
 class Create extends StatefulWidget {
   const Create({Key? key}) : super(key: key);
@@ -40,7 +36,7 @@ class _CreateState extends State<Create> {
         return AlertDialog(
           title: const Text('회원 가입 완료'),
           content: const Text(
-            '인증 메일이 발송되었으니 확인해 주세요.',
+            '인증 메일이 발송되었으니 확인후 로그인해 주세요.',
             textAlign: TextAlign.center,
           ),
           actions: [
@@ -48,7 +44,7 @@ class _CreateState extends State<Create> {
               onPressed: () {
                 Navigator.of(context).pop(true); // No
               },
-              child: const Text('확인'),
+              child: const Text('로그인'),
             ),
           ],
         );

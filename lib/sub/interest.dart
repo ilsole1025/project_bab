@@ -1,4 +1,4 @@
-const INTEREST = {
+const Map<String, List<String>> INTEREST = {
   "MBTI" : [
     "\u{1F408}infp", "\u{1F433}enfp", "\u{1F428}isfp", "\u{1F43C}infj", "\u{1F989}intp", "\u{1F98F}isfj", "\u{1F415}enfj", "\u{1F40D}istp", "\u{1F98A}esfp",
     "\u{1F99C}entp", "\u{1F418}esfj", "\u{1F405}intj", "\u{1F422}istj", "\u{1F981}entj", "\u{1F406}estp", "\u{1F43A}estj"
@@ -25,4 +25,23 @@ const INTEREST = {
     "\u{1F310}언어", "\u{1F58C}디자인", "\u{1F3EB}교육", "\u{1F4D1}취준", "\u{1F4BB}IT", "\u{1F4B0}아르바이트", "\u{1F4BB}프로그래밍",
     "\u{1F5D3}이직", "\u{1F4CA}마케팅", "\u{1F4A1}스타트업", "\u{1F393}인턴", "\u{1F91D}HR"
   ]
+};
+
+const Map<String, List<String>> emptyInterest =
+{
+  "MBTI" : [],
+  "성격" : [],
+  "관심사" : [],
+  "엔터테인먼트" : [],
+  "스포츠" : [],
+  "커리어" : []
+};
+
+const Map<String, int> maxSelectCountOfInterest = {
+  "MBTI" : 1,
+  "성격" : 4,
+  "관심사" : 10,
+  "엔터테인먼트" : 10,
+  "스포츠" : 10,
+  "커리어" : 10,
 };

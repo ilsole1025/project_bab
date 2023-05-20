@@ -4,7 +4,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_bab/main.dart';
 import 'exception.dart';
-
+import 'interest.dart';
 
 
 class UserInfoSave extends StatefulWidget {
@@ -16,10 +16,9 @@ class UserInfoSave extends StatefulWidget {
 
 class _UserInfoSaveState extends State<UserInfoSave> {
   final List<String> _ageList = ['선택하기','20','21','22','23','24','25','26','27','28','29','30'];
-  final List<String> _mbtiList = ['선택하기','infp','infj','intp','intj','isfp','isfj','istp','istj','enfp','enfj','entp','entj','esfp','esfj','estp','estj'];
   TextEditingController nicknamecontroller = TextEditingController();
   TextEditingController namecontroller = TextEditingController();
-  String _gender = '', _age = '선택하기', _mbti = '선택하기';
+  String _gender = '', _age = '선택하기';
 
   bool showSpinner = false;
 
@@ -35,8 +34,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
       "name" : namecontroller.text,
       "gender": _gender,
       "age": _age,
-      "mbti": _mbti,
-      "checked": true,
+      "checked": true
     };
     if (currentUser != null) {
       try {
@@ -68,16 +66,16 @@ class _UserInfoSaveState extends State<UserInfoSave> {
         if(_age == '선택하기'){
           throw myException('no-age');
         }
-        // mbti 입력 안했을 때
-        if(_mbti == '선택하기'){
-          throw myException('no-mbti');
-        }
-        db.collection("users").doc("${currentUser.uid}").set(user);
+        db.collection("users").doc("${currentUser.uid}").update(user);
+        showSpinner = false;
         Navigator.push(
             context, MaterialPageRoute(builder: (context) =>
-            MyHomePage(title: "밥먹공"))
+            UserInterestSave())
         );
-        showSpinner = false;
+        /*Navigator.push(
+            context, MaterialPageRoute(builder: (context) =>
+            MyHomePage(title: "밥먹공"))
+        );*/
       } on myException catch (e) {
         String message = '';
         if (e.toString() == 'no-nickname') {
@@ -98,8 +96,6 @@ class _UserInfoSaveState extends State<UserInfoSave> {
           message = "성별을 선택해주세요";
         } else if(e.toString() == 'no-age') {
           message = "나이를 선택해주세요";
-        } else if(e.toString() == 'no-mbti') {
-          message = "mbti를 선택해주세요";
         }
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -189,63 +185,33 @@ class _UserInfoSaveState extends State<UserInfoSave> {
                               height: 40,
                             ),
                             Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  SizedBox(
-                                    width: 100,
-                                    child: Text("성별"),
-                                  ),
-                                  Expanded(
-                                    child: RadioListTile(
-                                        title: Text('남자'),
-                                        value: 'man',
-                                        groupValue: _gender,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            if (value != null) _gender = value;
-                                          });
-                                        }),
-                                  ),
-                                  Expanded(
-                                    child: RadioListTile(
-                                        title: Text('여자'),
-                                        value: 'woman',
-                                        groupValue: _gender,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            if (value != null) _gender = value;
-                                          });
-                                        }),
-                                  ),
-                                ],
-                              ),
-                            SizedBox(
-                              height: 40,
-                            ),
-                            Row(
-                              children: [
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
                                 SizedBox(
                                   width: 100,
-                                  child: Text("나이"),
+                                  child: Text("성별"),
                                 ),
                                 Expanded(
-                                  child: DropdownButton(
-                                    isExpanded: true,
-                                    value: _age,
-                                    items: _ageList.map(
-                                        (String item) {
-                                          return DropdownMenuItem<String>(
-                                            value: item,
-                                            child: Center(
-                                            child: Text(item, textAlign: TextAlign.center),),
-                                          );
-                                        }).toList(),
-                                    onChanged: (dynamic value) {
-                                      setState(() {
-                                        _age = value;
-                                      });
-                                    },
-                                  )
+                                  child: RadioListTile(
+                                      title: Text('남자'),
+                                      value: 'man',
+                                      groupValue: _gender,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value != null) _gender = value;
+                                        });
+                                      }),
+                                ),
+                                Expanded(
+                                  child: RadioListTile(
+                                      title: Text('여자'),
+                                      value: 'woman',
+                                      groupValue: _gender,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value != null) _gender = value;
+                                        });
+                                      }),
                                 ),
                               ],
                             ),
@@ -256,13 +222,13 @@ class _UserInfoSaveState extends State<UserInfoSave> {
                               children: [
                                 SizedBox(
                                   width: 100,
-                                  child: Text("MBTI"),
+                                  child: Text("나이"),
                                 ),
                                 Expanded(
                                     child: DropdownButton(
                                       isExpanded: true,
-                                      value: _mbti,
-                                      items: _mbtiList.map(
+                                      value: _age,
+                                      items: _ageList.map(
                                               (String item) {
                                             return DropdownMenuItem<String>(
                                               value: item,
@@ -272,7 +238,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
                                           }).toList(),
                                       onChanged: (dynamic value) {
                                         setState(() {
-                                          _mbti = value;
+                                          _age = value;
                                         });
                                       },
                                     )
@@ -308,6 +274,203 @@ class _UserInfoSaveState extends State<UserInfoSave> {
           ),
         ),
       ),
+    );
+  }
+}
+
+
+class UserInterestSave extends StatefulWidget {
+  const UserInterestSave({Key? key}) : super(key: key);
+
+  @override
+  State<UserInterestSave> createState() => _UserInterestSaveState();
+}
+
+class _UserInterestSaveState extends State<UserInterestSave> {
+  Map<String, List<String>> _interest = {
+    "MBTI" : [],
+    "성격" : [],
+    "관심사" : [],
+    "엔터테인먼트" : [],
+    "스포츠" : [],
+    "커리어" : []
+  };
+
+  bool showSpinner = false;
+
+  _saveinterest() async{
+    var currentUser = FirebaseAuth.instance.currentUser;
+    final chk = <String, dynamic>{
+      "checked": true
+    };
+    if (currentUser != null) {
+      try {
+        await db.collection("users").doc("${currentUser.uid}").update(_interest);
+        await db.collection("users").doc("${currentUser.uid}").update(chk);
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    MyHomePage(title: "bab")), (route) => false);
+      } catch (e) {
+        ;
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('save user interest'),
+          elevation: 0.0,
+          backgroundColor: Colors.redAccent,
+          centerTitle: true,
+          leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+          actions: <Widget>[
+            IconButton(icon: Icon(Icons.search), onPressed: () {})
+          ],
+        ),
+        body: Container(
+            padding: EdgeInsets.all(5),
+            margin: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("나의 관심사", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
+                  Container(
+                    height: 25,
+                    width: double.infinity,
+                    margin: EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _interest.values.fold<int>(0, (sum, list) => sum + list.length),
+                      itemBuilder: (BuildContext context, int index) {
+                        int sumLength = 0;
+                        String key = '';
+                        List<String> values = [];
+
+                        for (final entry in _interest.entries) { // new
+                          final list = entry.value;
+                          if (index < sumLength + list.length) {
+                            key = entry.key;
+                            values = list;
+                            break;
+                          }
+                          sumLength += list.length;
+                        }
+
+                        return Container(
+                          height: 25,
+                          width: values[index - sumLength].length * 12.0 + 25.0, // 20->25 상향
+                          margin: EdgeInsets.only(right: 10),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(5)),
+                              backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
+                              foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
+                              shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                            ),
+                            child: Text(values[index - sumLength] + " ✖", style: TextStyle(fontSize: 12), textAlign: TextAlign.center), // x표시는 임시
+                            onPressed: () {
+                              setState(() {
+                                _interest[key]!.removeAt(index - sumLength);
+                              });
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Container(
+                    height: 10,
+                    width: double.infinity,
+                    color: Color(int.parse("0xFFEBEBEB")),
+                    margin: EdgeInsets.only(bottom: 20),
+                  ),
+                  Expanded(
+                      child: Container(
+                          height: INTEREST.length * 300,
+                          width: double.infinity,
+                          child: ListView.builder(
+                              itemCount: INTEREST.length,
+                              itemBuilder: (BuildContext context, int idx) {
+                                String key = INTEREST.keys.elementAt(idx);
+                                return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children:[
+                                      Text(key, style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
+                                      Container(
+                                          height: 25,
+                                          width: double.infinity,
+                                          margin: EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: (INTEREST[key] as List<String>).length,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              return Container(
+                                                  height: 25,
+                                                  width: (INTEREST[key] as List<String>)[index].length * 12.0 + 20.0,
+                                                  margin: EdgeInsets.only(right: 10),
+                                                  child: ElevatedButton(
+                                                    style: ButtonStyle(
+                                                      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(5)),
+                                                      backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
+                                                      foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
+                                                      shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
+                                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(20),
+                                                          )),
+                                                    ),
+                                                    child: Text((INTEREST[key] as List<String>)[index], style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+                                                    onPressed: (){
+                                                      if((_interest[key] as List<String>).length < (maxSelectCountOfInterest[key] ?? 0)) {
+                                                        setState(() {
+                                                          (_interest[key] as List<String>).add((INTEREST[key] as List<String>)[index]);
+                                                          _interest[key] = (_interest[key.toString()] as List<String>).toSet().toList();
+                                                        });
+                                                      }
+                                                    },
+                                                  )
+                                              );
+                                            },
+                                          )
+                                      ),
+                                    ]
+                                );
+                              }
+                          )
+                      )
+                  ),
+                  Container(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(5)),
+                          backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
+                          foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
+                          shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              )),
+                        ),
+                        child: Text("확인", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+                        onPressed: () async{
+                          await _saveinterest();
+                        },
+                      )
+                  ),
+                ]
+            )
+        )
     );
   }
 }
