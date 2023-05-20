@@ -55,6 +55,7 @@ class _PostListPageState extends State<PostListPage> {
       ),
       appBar: AppBar(
           backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -63,10 +64,7 @@ class _PostListPageState extends State<PostListPage> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:[
-                      Text(
-                        '자유게시판',
-                        style: TextStyle(color: Colors.black),
-                      )
+                      Text('자유게시판',)
                     ]
                 ),
               ),

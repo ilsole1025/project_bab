@@ -59,6 +59,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -67,9 +68,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:[
-                      Text(
-                          '자유게시판',
-                          style: TextStyle(color: Colors.black),)
+                      Text('자유게시판',)
                     ]
                 ),
               ),

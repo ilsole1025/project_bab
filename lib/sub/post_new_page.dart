@@ -10,6 +10,7 @@ class NewPostPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -18,10 +19,7 @@ class NewPostPage extends StatelessWidget {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:[
-                      Text(
-                        '게시글 쓰기',
-                        style: TextStyle(color: Colors.black),
-                      )
+                      Text('게시글 쓰기',)
                     ]
                 ),
               ),
