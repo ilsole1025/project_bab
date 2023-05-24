@@ -17,80 +17,34 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
   var user = FirebaseAuth.instance.currentUser;
 
-  var images ={
-    "homeicon2.png":"지난 약속",
-    "homeicon1.jpg":"받은 후기",
-    "homeicon3.png":"나의 취향",
-    "homeicon4.png":"내 프로필",
-  };
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 3, vsync: this);
     return Scaffold(
-      
+      appBar: AppBar(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: 100,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children:[
+                      Text('마이페이지',)
+                    ]
+                ),
+              ),
+              Icon(Icons.notifications_outlined, color:Colors.black),
+            ],
+          )
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start, //정렬
           children: [
-            // menu text
-            Container(
-                // 상단바
-                padding: const EdgeInsets.only(top: 70, left: 20, right:20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(Icons.arrow_back_ios, size: 30, color: Colors.black54),
-                    IconButton(
-                        onPressed: (){
-                          FirebaseAuth.instance.signOut();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) =>
-                            LogIn())
-                          );
-                        },
-                        icon: Icon(Icons.logout),
-                    ),
-                    TextButton( // 임시 버튼 : 기능구성 완료, 위치나 디자인 등 조절 가능
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) =>
-                                UserInterestSave())
-                        );
-                      },
-                      child: Text(
-                        '정보 수정',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black54,
-                        ),
-                      ),
-                    ),
-                    TextButton( // 임시 버튼 : 기능구성 완료, 위치나 디자인 등 조절 가능
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) =>
-                                DeleteAccount())
-                        );
-                      },
-                      child: Text(
-                        '회원 탈퇴',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black54,
-                        ),
-                      ),
-                    ),
-                    Icon(Icons.notifications, size: 30, color: Colors.black54),
-                  ],
-                )
-            ),
-            SizedBox(
-              height: 20,
-            ), //위아래 공간 주기
-
+            SizedBox(height: 10,),
             // 프로필 자리
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
@@ -117,126 +71,257 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                       ),
                       AppText(text: "36.5도", color: Colors.redAccent),
                       AppText(text: "이것은 한줄소개입니다", size:15, color: Colors.black),
-                      AppText(text: "프로필 수정 버튼은 여기에", size:15, color: Colors.grey),
                     ],
                   )
                 ],
               ),
             ),
 
+            SizedBox(height: 20,),
+
+            Divider(),
+
             SizedBox(
-              height: 20,
+              height: 30,
             ),
-            // 나의 알바트로스 레벨
+
+            // 메인 기능 아이콘들
             Container(
-              margin: const EdgeInsets.only(left: 20),
-              child: AppLargeText(text: "나의 알바트로스 레벨", size:22),
-            ),
-            SizedBox(height: 10,),
-            // tabbar
-            Container(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TabBar(
-                    labelPadding: const EdgeInsets.only(left: 20, right: 20),
-                    controller: _tabController,
-                    labelColor: Colors.teal,
-                    unselectedLabelColor: Colors.grey,
-                    isScrollable: true,
-                    indicatorSize: TabBarIndicatorSize.label,
-                    indicator: CircleTabIndicator(color: Colors.teal, radius: 4),
-                    tabs: [
-                      Tab(text: "약속예정목록"),
-                      Tab(text: "지난 약속 목록"),
-                      Tab(text: "Temp"),
-                    ]),
-              ),
-            ),
-            // 약속예정목록
-            Container(
-              padding: const EdgeInsets.only(left: 20),
-              height: 150,
               width: double.maxFinite,
-              child: TabBarView(
-                controller: _tabController,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // 첫 번째 탭
-                  ListView.builder(
-                    itemCount: 3, //현재 예정 약속의 목록 개수
-                    scrollDirection: Axis.horizontal, //가로로 스크롤
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: const EdgeInsets.only(right: 15, top: 10),
-                        width: 200,
-                        height: 150,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                            image: DecorationImage(
-                                image: AssetImage("img/111.jpeg"),
-                                fit: BoxFit.cover)),
-                      );
-                    },
+                  Column( //1
+                    children: [
+                      SizedBox.fromSize(
+                        size: Size(120, 120),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Material(
+                            color: Colors.black12,
+                            child: InkWell(
+                              splashColor: Colors.green,
+                              onTap: () {
+                                print("프로필 버튼클릭");
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(Icons.person), // <-- Icon
+                                  Text("Profile"), // <-- Text
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      Container(
+                          child: AppText(
+                            text: '내 프로필',
+                            color: Colors.black,
+                          )
+                      ),
+                    ],
                   ),
-                  // 두 번째 탭
-                  Text("지난 약속 목록이나..리스트 들어갈 자리"),
-                  // 세 번째 탭
-                  Text("세 번째 탭에 들어갈 내용")
+                  Column( // 2
+                    children: [
+                      SizedBox.fromSize(
+                        size: Size(120, 120),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Material(
+                            color: Colors.white,
+                            child: InkWell(
+                              splashColor: Colors.white70,
+                              onTap: () {
+                                print("약속목록 버튼 클릭");
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(Icons.list_alt), // <-- Icon
+                                  Text("약속 목록"), // <-- Text
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      Container(
+                          child: AppText(
+                            text: '약속 목록',
+                            color: Colors.black,
+                          )
+                      ),
+                    ],
+                  ),
+                  Column( // 3
+                    children: [
+                      SizedBox.fromSize(
+                        size: Size(120, 120),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Material(
+                            color: Colors.white,
+                            child: InkWell(
+                              splashColor: Colors.white70,
+                              onTap: () {
+                                print("후기 버튼 클릭");
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(Icons.reviews), // <-- Icon
+                                  Text("후기 목록"), // <-- Text
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      Container(
+                          child: AppText(
+                            text: '후기',
+                            color: Colors.black,
+                          )
+                      ),
+                    ],
+                  )
                 ],
-              ),
+              )
             ),
             SizedBox(
               height: 30,
             ),
             Container(
-              margin: const EdgeInsets.only(left: 20, right: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, //정렬
-                children: [
-                  AppLargeText(
-                    text: "나의 관심사",
-                    size: 22,
-                  ),
-                  AppText(text: "See all", color: Colors.teal)
-                ],
-              ),
+                width: double.maxFinite,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column( // 4
+                      children: [
+                        SizedBox.fromSize(
+                          size: Size(120, 120),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Material(
+                              color: Colors.white,
+                              child: InkWell(
+                                splashColor: Colors.white70,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>
+                                          UserInterestSave())
+                                  );
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(Icons.edit_note), // <-- Icon
+                                    Text("프로필수정"), // <-- Text
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                        Container(
+                            child: AppText(
+                              text: '프로필 수정',
+                              color: Colors.black,
+                            )
+                        ),
+                      ],
+                    ),
+                    Column( // 5
+                      children: [
+                        SizedBox.fromSize(
+                          size: Size(120, 120),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Material(
+                              color: Colors.white,
+                              child: InkWell(
+                                splashColor: Colors.white70,
+                                onTap: () {
+                                  FirebaseAuth.instance.signOut();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>
+                                          LogIn())
+                                  );
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(Icons.logout), // <-- Icon
+                                    Text("로그아웃"), // <-- Text
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(height: 10,),
+                        Container(
+                            child: AppText(
+                              text: '로그아웃',
+                              color: Colors.black,
+                            )
+                        ),
+                      ],
+                    ),
+                    Column( // 6
+                      children: [
+                        SizedBox.fromSize(
+                          size: Size(120, 120),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Material(
+                              color: Colors.white,
+                              child: InkWell(
+                                splashColor: Colors.white70,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>
+                                          DeleteAccount())
+                                  );
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(Icons.error), // <-- Icon
+                                    Text("탈퇴"), // <-- Text
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(height: 10,),
+                        Container(
+                            child: AppText(
+                              text: '탈퇴',
+                              color: Colors.black,
+                            )
+                        ),
+                      ],
+                    )
+                  ],
+                )
             ),
             SizedBox(
-              height: 10,
+              height: 30,
             ),
-            Container(
-              height: 120, width: double.maxFinite,
-                margin: const EdgeInsets.only(left: 20),
-                child: ListView.builder(
-                    itemCount: 4, //후에 dynamic으로 바꿔야함
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (_, index) {
-                      return Container(
-                        margin: const EdgeInsets.only(right: 30),
-                        child: Column(
-                          children: [
-                            Container(
-                             // margin: const EdgeInsets.only(right: 50),
-                              width: 80,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.white,
-                                  image: DecorationImage(
-                                      image: AssetImage("img/"+images.keys.elementAt(index)),
-                                      fit: BoxFit.cover)),
-                            ),
-                            SizedBox(height: 10,),
-                            Container(
-                              child: AppText(
-                                text: images.values.elementAt(index),
-                                color: Colors.black,
-                              )
-                            )
-                          ],
-                        ),
-                      );
-                    }))
+            Divider(),
           ],
         ),
       ),
