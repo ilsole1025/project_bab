@@ -5,7 +5,7 @@ class AppLargeText extends StatelessWidget {
   double size;
   final String text;
   final Color color;
-   AppLargeText({Key? key,
+  AppLargeText({Key? key,
     this.size=30,
     required this.text,
     this.color=Colors.black}) : super(key: key);
@@ -13,12 +13,12 @@ class AppLargeText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text,
-      style: TextStyle(
-        color: color,
-        fontSize: size,
-        fontWeight: FontWeight.bold
-      )
+        text,
+        style: TextStyle(
+            color: color,
+            fontSize: size,
+            fontWeight: FontWeight.bold
+        )
     );
   }
 }

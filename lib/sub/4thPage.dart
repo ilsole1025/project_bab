@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_bab/sub/DelAccount.dart';
 import 'package:project_bab/sub/LoginPage.dart';
 import 'package:project_bab/sub/userinfosave.dart';
+import 'package:project_bab/sub/DbGet.dart';
 import 'package:project_bab/widgets/app_large_text.dart';
 import 'package:project_bab/widgets/app_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,6 +48,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
             SizedBox(height: 10,),
             // 프로필 자리
             Container(
+
               margin: const EdgeInsets.only(left: 20, right: 20),
               child: Row(
                 // mainAxisAlignment: MainAxisAlignment.spaceBetween, //정렬
@@ -327,6 +329,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
       ),
     );
   }
+
 }
 
 class CircleTabIndicator extends Decoration {

@@ -74,17 +74,24 @@ class _ChangeInterestState extends State<ChangeInterest> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.grey,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                  child: Text("관심사 수정")
-              ),
-              Icon(Icons.notifications),
-            ],
-          )
-      ),
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children:[
+                        Text('관심사 수정',)
+                      ]
+                  ),
+                ),
+                Icon(Icons.notifications_outlined, color:Colors.black),
+              ],
+            )
+        ),
       body: Container(
         padding: EdgeInsets.all(5),
         margin: EdgeInsets.only(left: 10, right: 10, top: 20, bottom: 20),
@@ -224,17 +231,25 @@ class MakingDate extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.grey,
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                    child: Text("랜덤매칭 찾는중!!!")
+                  width: 150,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children:[
+                        Text('랜덤매칭 찾는 중',)
+                      ]
+                  ),
                 ),
-                Icon(Icons.notifications),
+                Icon(Icons.notifications_outlined, color:Colors.black),
               ],
             )
         ),
+
         body: Container(
             margin: EdgeInsets.only(left: 10, right: 10, top: 39, bottom: 39),
             padding: EdgeInsets.all(10),
@@ -319,17 +334,23 @@ class MakeDate extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.grey,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 80,
-                child: Text("랜덤매칭")
-              ),
-              Icon(Icons.notifications),
-            ],
-          )
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 150,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children:[
+                        Text('…랜덤매칭…',)
+                      ]
+                  ),
+                ),
+                Icon(Icons.notifications_outlined, color:Colors.black),
+              ],
+            )
         ),
         body: Container(
           margin: EdgeInsets.only(left: 10, right: 10, top: 39, bottom: 39),
@@ -471,24 +492,25 @@ class FirstApp extends StatelessWidget{
     return SafeArea(
           child: Scaffold(
             appBar: AppBar(
-                backgroundColor: Colors.grey,
-                automaticallyImplyLeading: false,
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
+                      width: 100,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children:[
-                            //Icon(Icons.arrow_back),
-                            Text("홈")
+                            Text('Home',)
                           ]
                       ),
                     ),
-                    Icon(Icons.notifications),
+                    Icon(Icons.notifications_outlined, color:Colors.black),
                   ],
                 )
             ),
+
             body: Column(
               children: [
               Expanded(
