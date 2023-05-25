@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'sub/LoginPage.dart';
+import 'package:flutter/cupertino.dart';
 
 var db = FirebaseFirestore.instance;
 
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.blueGrey,
       ),
       home: StreamBuilder<User?> (
         stream: FirebaseAuth.instance.authStateChanges(),
@@ -93,10 +94,10 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         ),
         bottomNavigationBar:TabBar(tabs: <Tab>[
           // 아이콘 찾기 : https://fonts.google.com/icons
-          Tab(icon: Icon(Icons.home, color: Colors.teal),) ,
-          Tab(icon: Icon(Icons.chat, color:  Colors.blue),),
-          Tab(icon: Icon(Icons.dashboard, color: Colors.blue),) ,
-          Tab(icon: Icon(Icons.person, color:  Colors.blue),)
+          Tab(icon: Icon(Icons.home, color: Colors.black87),) ,
+          Tab(icon: Icon(Icons.chat, color:  Colors.black38),),
+          Tab(icon: Icon(Icons.dashboard, color: Colors.black38),) ,
+          Tab(icon: Icon(Icons.person, color:  Colors.black38),)
         ], controller: controller,
         )
     );
