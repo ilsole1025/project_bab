@@ -67,10 +67,20 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      FutureBuilder( // 닉네임 불러와서 표시 (간단하게)
+                          future: getUserData("nickname"),
+                          builder: (context, snapshot){
+                            return AppLargeText(
+                              text: snapshot.data.toString(),
+                              size: 22,
+                            );
+                          }
+                      ),
+                      /* 이전 코드 주석처리
                       AppLargeText(
                         text: "닉네임",
                         size: 22,
-                      ),
+                      ),*/
                       AppText(text: "36.5도", color: Colors.redAccent),
                       AppText(text: "이것은 한줄소개입니다", size:15, color: Colors.black),
                     ],
