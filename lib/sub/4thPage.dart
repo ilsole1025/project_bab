@@ -213,7 +213,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Column( // 4
+                    Column( // 4 프로필 수정
                       children: [
                         SizedBox.fromSize(
                           size: Size(120, 120),
@@ -289,7 +289,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                         ),
                       ],
                     ),
-                    Column( // 6
+                    Column( // 6 탈퇴
                       children: [
                         SizedBox.fromSize(
                           size: Size(120, 120),
