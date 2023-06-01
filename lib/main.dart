@@ -91,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         body: TabBarView(
           children: <Widget>[FirstApp(), SecondApp(), ThirdApp(), MyPage()],
           controller: controller,
+          physics: NeverScrollableScrollPhysics(),
         ),
         bottomNavigationBar:TabBar(tabs: <Tab>[
           // 아이콘 찾기 : https://fonts.google.com/icons
