@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_bab/sub/1st/history.dart';
+import 'package:project_bab/sub/1st/matched.dart';
 import '1st/make.dart';
 //import 'interest.dart';
 
@@ -19,46 +21,64 @@ var ME =
 var OLD_LIST = [
   //map타입.key value pair방식(한쌍.짝)
   {
-    "name": "딩기리맛때",
+    "name": "딩기리맛때1",
     "temperature": "36.9°",
-    "introduction": "안녕 나는 딩기리맛때 띰맛때야",
+    "introduction": "안녕 나는 딩기리맛때 띰맛때야1",
     "image": "111.jpeg",
     "date": "2023.03.08.13:30",
+    "interest" : [
+      "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp"
+    ]
   },
   {
-    "name": "딩기리맛때",
+    "name": "딩기리맛때2",
     "temperature": "36.9°",
-    "introduction": "안녕 나는 딩기리맛때 띰맛때야",
+    "introduction": "안녕 나는 딩기리맛때 띰맛때야2",
     "image": "111.jpeg",
     "date": "2023.03.08.13:30",
+    "interest" : [
+      "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp"
+    ]
   },
   {
-    "name": "딩기리맛때",
+    "name": "딩기리맛때3",
     "temperature": "36.9°",
-    "introduction": "안녕 나는 딩기리맛때 띰맛때야",
+    "introduction": "안녕 나는 딩기리맛때 띰맛때야3",
     "image": "111.jpeg",
     "date": "2023.03.08.13:30",
+    "interest" : [
+      "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp"
+    ]
   },
   {
-    "name": "딩기리맛때",
+    "name": "딩기리맛때4",
     "temperature": "36.9°",
-    "introduction": "안녕 나는 딩기리맛때 띰맛때야",
+    "introduction": "안녕 나는 딩기리맛때 띰맛때야4",
     "image": "111.jpeg",
     "date": "2023.03.08.13:30",
+    "interest" : [
+      "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp"
+    ]
   },
   {
-    "name": "딩기리맛때",
+    "name": "딩기리맛때5",
     "temperature": "36.9°",
-    "introduction": "안녕 나는 딩기리맛때 띰맛때야",
+    "introduction": "안녕 나는 딩기리맛때 띰맛때야5",
     "image": "111.jpeg",
     "date": "2023.03.08.13:30",
+    "interest" : [
+      "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp"
+    ]
   },
   {
-    "name": "딩기리맛때",
+    "name": "딩기리맛때6",
     "temperature": "36.9°",
-    "introduction": "안녕 나는 딩기리맛때 띰맛때야",
+    "introduction": "안녕 나는 딩기리맛때 띰맛때야6",
     "image": "111.jpeg",
     "date": "2023.03.08.13:30",
+    "interest" : [
+      "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp"
+    ]
   },
 ];
 var NEW_LIST = [
@@ -69,6 +89,9 @@ var NEW_LIST = [
     "introduction": "안녕 나는 딩기리맛때 띰맛때야",
     "image": "111.jpeg",
     "date": "2023.03.08.13:30",
+    "interest" : [
+      "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp"
+    ]
   },
   {
     "name": "딩기리맛때",
@@ -76,6 +99,9 @@ var NEW_LIST = [
     "introduction": "안녕 나는 딩기리맛때 띰맛때야",
     "image": "111.jpeg",
     "date": "2023.03.08.13:30",
+    "interest" : [
+      "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp"
+    ]
   },
   {
     "name": "딩기리맛때",
@@ -83,6 +109,9 @@ var NEW_LIST = [
     "introduction": "안녕 나는 딩기리맛때 띰맛때야",
     "image": "111.jpeg",
     "date": "2023.03.08.13:30",
+    "interest" : [
+      "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp"
+    ]
   },
   {
     "name": "딩기리맛때",
@@ -90,6 +119,9 @@ var NEW_LIST = [
     "introduction": "안녕 나는 딩기리맛때 띰맛때야",
     "image": "111.jpeg",
     "date": "2023.03.08.13:30",
+    "interest" : [
+      "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp"
+    ]
   },
   {
     "name": "딩기리맛때",
@@ -97,6 +129,9 @@ var NEW_LIST = [
     "introduction": "안녕 나는 딩기리맛때 띰맛때야",
     "image": "111.jpeg",
     "date": "2023.03.08.13:30",
+    "interest" : [
+      "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp"
+    ]
   },
   {
     "name": "딩기리맛때",
@@ -104,6 +139,9 @@ var NEW_LIST = [
     "introduction": "안녕 나는 딩기리맛때 띰맛때야",
     "image": "111.jpeg",
     "date": "2023.03.08.13:30",
+    "interest" : [
+      "infp", "enfp", "isfp", "infj", "intp", "isfj", "enfj", "istp", "esfp"
+    ]
   },
 ];
 
@@ -310,86 +348,91 @@ class FirstApp extends StatelessWidget{
             margin: EdgeInsets.only(bottom: 20),
             child: Column(
               children: [
-                Container(
-                    height: 80,
-                    width: double.infinity,
-                    margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+                Expanded(
               child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: newList.length + 1,
+                itemCount: oldList.length + 1,
                 itemBuilder: (BuildContext context, int index) {
                   if(index == 0){
                     return Container(
-                        margin: EdgeInsets.only(right: 20),
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0)),
-                            backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
-                            foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
-                            shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => MakeDate())
-                            );
-                          },
-                          child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Colors.amber,
-                          backgroundImage: AssetImage('../img/${my_info['image']}'),
-                          child: Text(
-                              '+',
-                              style: TextStyle(fontSize: 20),
-                              textAlign: TextAlign.center
-                          ),
-                        ),
-                        Text(
-                            //'${my_info['name']}',
-                            '랜덤 매칭',
-                            style: TextStyle(fontSize: 10),
-                            textAlign: TextAlign.center
-                        ),
-                      ]
-                    )
-                    ));
+                        height: 80,
+                        width: double.infinity,
+                        margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: newList.length + 1,
+                            itemBuilder: (BuildContext context, int index) {
+                              if(index == 0){
+                                return Container(
+                                    margin: EdgeInsets.only(right: 20),
+                                    child: ElevatedButton(
+                                        style: ButtonStyle(
+                                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0)),
+                                          backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
+                                          foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
+                                          shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => MakeDate())
+                                          );
+                                        },
+                                        child: Column(
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 30,
+                                                backgroundColor: Colors.amber,
+                                                backgroundImage: AssetImage('../img/${my_info['image']}'),
+                                                child: Text(
+                                                    '+',
+                                                    style: TextStyle(fontSize: 20),
+                                                    textAlign: TextAlign.center
+                                                ),
+                                              ),
+                                              Text(
+                                                //'${my_info['name']}',
+                                                  '랜덤 매칭',
+                                                  style: TextStyle(fontSize: 10),
+                                                  textAlign: TextAlign.center
+                                              ),
+                                            ]
+                                        )
+                                    ));
+                              }
+                              return Container(
+                                  margin: EdgeInsets.only(right: 20),
+                                  child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0)),
+                                        backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
+                                        foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
+                                        shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => Matched(my_info: my_info, other_info: newList[index-1],))
+                                        );
+                                      },
+                                      child: Column(
+                                          children: [
+                                            CircleAvatar(
+                                              radius: 30,
+                                              backgroundColor: Colors.amber,
+                                              backgroundImage: AssetImage('../img/${newList[index-1]['image']}'),
+                                            ),
+                                            Text(
+                                                '${newList[index-1]['name']}',
+                                                style: TextStyle(fontSize: 10),
+                                                textAlign: TextAlign.center
+                                            ),
+                                          ]
+                                      )
+                                  ));
+                            }
+                        )
+                    );
                   }
-                  return Container(
-                  margin: EdgeInsets.only(right: 20),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0)),
-                      backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
-                      foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
-                      shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
-                    ),
-                    onPressed: () {
-
-                    },
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Colors.amber,
-                          backgroundImage: AssetImage('../img/${oldList[index-1]['image']}'),
-                        ),
-                        Text(
-                          '${oldList[index-1]['name']}',
-                          style: TextStyle(fontSize: 10),
-                          textAlign: TextAlign.center
-                        ),
-                      ]
-                    )
-                    ));
-                    }
-              )
-            ),
-                Expanded(
-              child: ListView.builder(
-                itemCount: oldList.length,
-                itemBuilder: (BuildContext context, int index) {
 
                   return Container(
                       height: 200,
@@ -409,26 +452,26 @@ class FirstApp extends StatelessWidget{
                               children: [
                                 CircleAvatar(
                                   backgroundColor: Colors.amber,
-                                  backgroundImage: AssetImage('../img/${oldList[index]['image']}'),
+                                  backgroundImage: AssetImage('../img/${oldList[index-1]['image']}'),
                                   radius: 58.0,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        '${oldList[index]['name']}',
+                                        '${oldList[index-1]['name']}',
                                         style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20)
                                     ),
                                     Text(
-                                      '${oldList[index]['temperature']}\n',
+                                      '${oldList[index-1]['temperature']}\n',
                                       style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
                                     ),
                                     Text(
-                                      '${oldList[index]['introduction']}\n',
+                                      '${oldList[index-1]['introduction']}\n',
                                       style: TextStyle(fontSize: 13,color: Colors.black),
                                     ),
                                     Text(
-                                      '${oldList[ index]['date']}',
+                                      '${oldList[index-1]['date']}',
                                       style: TextStyle(fontSize: 13,color: Colors.black),
                                     ),
                                   ],
@@ -449,7 +492,10 @@ class FirstApp extends StatelessWidget{
                                   ),
                                   child: Text("히스토리 보기", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
                                   onPressed: (){
-
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => History(my_info: my_info, other_info: oldList[index-1],))
+                                    );
                                   },
                                 )
                             ),
