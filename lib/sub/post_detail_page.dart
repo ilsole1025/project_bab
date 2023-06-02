@@ -17,7 +17,6 @@ class PostDetailPage extends StatefulWidget {
 
 class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAliveClientMixin{
   bool _isLiked = false; //좋아요 상태 저장 변수
-  //List<Map<String,dynamic>> _comments = []; //댓글을 유지하는 리스트
   TextEditingController _commentController = TextEditingController();
 
   @override
@@ -103,20 +102,11 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                   Row(
                     children: [
                       TextButton.icon(
-                        onPressed: () async {
-                          setState(() {
-                            if(! _isLiked){
-                              post["likes"]++;
-                              _isLiked = true;
-                            }
-                            else {
-                              post["likes"]--;
-                              _isLiked = false;
-                            }
-                          });
+                        onPressed: () async{
+                          _isLiked = await clickedLike(post["id"]);
                         },
                         icon: Icon(Icons.thumb_up_outlined, color: Colors.red),
-                        label: Text('좋아요 ${post["likes"]}', style: TextStyle(color: Colors.red)),
+                        label: Text('좋아요 ${post["likes"].length}', style: TextStyle(color: Colors.red)),
                       ),
                       SizedBox(width: 8),
                       Row(

@@ -26,7 +26,7 @@ Future<Map<String, dynamic>> getUser() async{
     return userData;
   } else {
     throw Exception("User data not found");
-  } // nickname 정보가 없는 경우
+  }
 }
 
 Future<dynamic> getUserData(String fieldName) async {
@@ -63,12 +63,12 @@ Future<bool> setPost(Map<String, dynamic> post) async {
   return false;
 }
 
-Future<bool> addComment(String DocID, Map<String, dynamic> comment) async {
+Future<bool> addComment(String pid, Map<String, dynamic> comment) async {
   try {
     int commentCount = 0;
     // 예외 처리가 들어갈 곳
 
-    DocumentSnapshot<Map<String, dynamic>> snapshot = await db.collection("posts").doc(DocID).get();
+    DocumentSnapshot<Map<String, dynamic>> snapshot = await db.collection("posts").doc(pid).get();
     if (snapshot.exists) {
       Map<String, dynamic> data = snapshot.data()!;
       if (data.containsKey("commentCount")) {
@@ -79,9 +79,9 @@ Future<bool> addComment(String DocID, Map<String, dynamic> comment) async {
     final Map<String, dynamic> post = {
       "commentCount" : commentCount+1,
     };
-    await db.collection("posts").doc(DocID).update(post);
+    await db.collection("posts").doc(pid).update(post);
 
-    await db.collection("posts").doc(DocID).collection("comments").doc(commentCount.toString()).set(comment);
+    await db.collection("posts").doc(pid).collection("comments").doc(commentCount.toString()).set(comment);
     return true;
   } catch (e) {
     ;
@@ -89,10 +89,49 @@ Future<bool> addComment(String DocID, Map<String, dynamic> comment) async {
   return false;
 }
 
+Future<bool> clickedLike(String pid) async {
+  String uid = getUid();
+  if (uid == "User not logged in.") {
+    throw Exception("User not logged in.");
+  }
+
+  DocumentSnapshot<Map<String, dynamic>> snapshot = await db.collection("posts").doc(pid).get();
+  if(snapshot.exists) {
+    List<dynamic> likes = snapshot.data()!["likes"] ?? [];
+    bool uidExists = likes.contains(uid);
+    if(uidExists == true){
+      likes.remove(uid);
+      db.collection("posts").doc(pid).update({"likes": likes});
+    } else {
+      likes.add(uid);
+      db.collection("posts").doc(pid).update({"likes": likes});
+    }
+    return !uidExists;
+  } else {
+    throw Exception("Document not exists");
+  }
+}
+
+Future<bool> isLiked(String pid) async {
+  String uid = getUid();
+  if (uid == "User not logged in.") {
+    throw Exception("User not logged in.");
+  }
+
+  DocumentSnapshot<Map<String, dynamic>> snapshot = await db.collection("posts").doc(pid).get();
+  if(snapshot.exists) {
+    List<String> likes = snapshot.data()!["likes"] ?? [];
+    bool uidExists = likes.contains(uid);
+    return uidExists;
+  } else {
+    throw Exception("Document not exists");
+  }
+}
+
 
 Future<List<Map<String, dynamic>>> getPostList() async {
   // Future<List<Map<String, dynamic>>> getPostList() async : db에 존재하는 모든 post들을 List형태로 반환함
-  QuerySnapshot<Map<String, dynamic>> snapshot = await db.collection("posts").get();
+  QuerySnapshot<Map<String, dynamic>> snapshot = await db.collection("posts").orderBy("createdAt", descending: true).get();
   List<Map<String, dynamic>> postList = [];
   snapshot.docs.forEach((doc) {
     postList.add(doc.data());

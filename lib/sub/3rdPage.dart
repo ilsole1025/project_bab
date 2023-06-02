@@ -136,7 +136,7 @@ class _PostListPageState extends State<PostListPage> {
                                 Icon(Icons.thumb_up_outlined, size: 16, color: Colors.red),
                                 SizedBox(width: 4),
                                 Text(
-                                  '${post["likes"]}', // 좋아요 수
+                                  '${post["likes"].length}', // 좋아요 수
                                   style: TextStyle(fontSize: 16, color: Colors.red,),
                                 ),
                               ],

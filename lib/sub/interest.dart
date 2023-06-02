@@ -39,7 +39,7 @@ const Map<String, List<String>> emptyInterest =
 
 const Map<String, int> maxSelectCountOfInterest = {
   "MBTI" : 1,
-  "성격" : 4,
+  "성격" : 1,
   "관심사" : 10,
   "엔터테인먼트" : 10,
   "스포츠" : 10,

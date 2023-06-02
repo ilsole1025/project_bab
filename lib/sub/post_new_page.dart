@@ -73,7 +73,7 @@ class NewPostPage extends StatelessWidget {
                   "content": content,
                   "author": '익명',
                   "createdAt": DateTime.now(),
-                  "likes": 0,
+                  "likes": [],
                   "commentCount" : 0
                 };
 
