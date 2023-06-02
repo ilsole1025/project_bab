@@ -114,19 +114,19 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       bottomNavigationBar: TabBar(
         tabs: <Tab>[
           Tab(
-            icon: Icon(Icons.home,
+            icon: Icon(Icons.home_rounded,
                 color: controller?.index == 0 ? selectedTabColor : unselectedTabColor),
           ),
           Tab(
-            icon: Icon(Icons.chat,
+            icon: Icon(Icons.calendar_today_rounded,
                 color: controller?.index == 1 ? selectedTabColor : unselectedTabColor),
           ),
           Tab(
-            icon: Icon(Icons.dashboard,
+            icon: Icon(Icons.space_dashboard_rounded,
                 color: controller?.index == 2 ? selectedTabColor : unselectedTabColor),
           ),
           Tab(
-            icon: Icon(Icons.person,
+            icon: Icon(Icons.person_rounded,
                 color: controller?.index == 3 ? selectedTabColor : unselectedTabColor),
           ),
         ],
@@ -134,4 +134,5 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       ),
     );
   }
+
 }

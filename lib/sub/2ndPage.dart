@@ -14,8 +14,8 @@ class SecondApp extends StatelessWidget{
 }
 */
 
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class SecondApp extends StatelessWidget {
@@ -52,11 +52,16 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       children: [
         TableCalendar(
           headerStyle: HeaderStyle(
-            formatButtonVisible: false,
-            titleCentered: true,
-            leftChevronVisible: false,
-            rightChevronVisible: false,
-            ),
+              formatButtonVisible: false, // 월 헤더의 월 변경 버튼 숨김
+              leftChevronIcon: Icon(Icons.chevron_left), // 이전 월로 이동하는 화살표 아이콘
+              rightChevronIcon: Icon(Icons.chevron_right), // 다음 월로 이동하는 화살표 아이콘
+              titleCentered: true, // 월 헤더의 제목 중앙 정렬
+              titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold), // 월 헤더 제목 스타일
+              formatButtonDecoration: BoxDecoration(
+                border: Border.all(),
+                borderRadius: BorderRadius.circular(12),
+              ),
+          ),
           firstDay: DateTime(2023, 6, 1),
           lastDay: DateTime(2024, 12, 31),
           calendarFormat: _calendarFormat,
