@@ -24,8 +24,11 @@ var ME =
 
 
 
+
 class MakeDate extends StatelessWidget{
   @override
+
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -48,6 +51,7 @@ class MakeDate extends StatelessWidget{
             )
         ),
         body: Container(
+
 
             margin: EdgeInsets.only(left: 10, right: 10, top: 39, bottom: 39),
             padding: EdgeInsets.all(10),
@@ -74,6 +78,8 @@ class MakeDate extends StatelessWidget{
                   ),
 
                   SizedBox(height: 20,),
+
+
                   AppLargeText(text: '${ME['name']}', size:20),
                   AppText(text: "${ME['temperature']}\n",
                       size: 16, color: Colors.redAccent),
