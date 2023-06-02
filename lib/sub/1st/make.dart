@@ -34,7 +34,7 @@ class MakeDate extends StatelessWidget{
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children:[
-                        Text('…랜덤매칭…',)
+                        Text('랜덤매칭 시작하기',)
                       ]
                   ),
                 ),
@@ -154,7 +154,7 @@ class MakeDate extends StatelessWidget{
                                 borderRadius: BorderRadius.circular(20),
                               )),
                         ),
-                        child: Text("랜덤 매칭 시작!!!", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+                        child: Text("랜덤 매칭 시작하기", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
                         onPressed: () async {
 
                           final HttpsCallableResult result2 = await FirebaseFunctions
