@@ -17,7 +17,6 @@ class PostDetailPage extends StatefulWidget {
 
 class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAliveClientMixin{
   bool _isLiked = false; //좋아요 상태 저장 변수
-  int _postLikes = 0;
   //List<Map<String,dynamic>> _comments = []; //댓글을 유지하는 리스트
   TextEditingController _commentController = TextEditingController();
 
@@ -104,14 +103,14 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                   Row(
                     children: [
                       TextButton.icon(
-                        onPressed: () {
+                        onPressed: () async {
                           setState(() {
                             if(! _isLiked){
-                              _postLikes++;
+                              post["likes"]++;
                               _isLiked = true;
                             }
                             else {
-                              _postLikes--;
+                              post["likes"]--;
                               _isLiked = false;
                             }
                           });
@@ -150,7 +149,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
             FutureBuilder(
               future: getCommentList(post["id"]),
               builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.done || snapshot.data == null) {
+                if (snapshot.connectionState != ConnectionState.done) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
                   final List<dynamic> commentList = snapshot.data != null
