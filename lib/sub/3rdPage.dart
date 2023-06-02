@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -6,6 +7,7 @@ import 'post_detail_page.dart';
 import 'post_data.dart';
 import 'dart:async';
 import 'DbGet.dart';
+import 'package:project_bab/main.dart';
 
 class ThirdApp extends StatelessWidget{
   @override
@@ -67,13 +69,13 @@ class _PostListPageState extends State<PostListPage> {
                 ),
               ])
       ),
-      body: FutureBuilder(
-        future: getPostList(),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: db.collection("posts").snapshots(),
         builder: (context, snapshot){
-          if (snapshot.connectionState != ConnectionState.done || snapshot.data == null) {
+          if (snapshot.connectionState == ConnectionState.waiting || snapshot.data == null) {
             return const Center(child: CircularProgressIndicator());
           }
-          postList = snapshot.data!.toList();
+          final postList = snapshot.data!.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
           return ListView.builder(
             itemCount: postList.length,
             itemBuilder: (ctx, index) {
