@@ -104,6 +104,13 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                       TextButton.icon(
                         onPressed: () async{
                           _isLiked = await clickedLike(post["id"]);
+                          setState(() {
+                            if(_isLiked == true) {
+                              post["likes"].add(post["id"]);
+                            } else {
+                              post["likes"].remove(post["id"]);
+                            }
+                          });
                         },
                         icon: Icon(Icons.thumb_up_outlined, color: Colors.red),
                         label: Text('좋아요 ${post["likes"].length}', style: TextStyle(color: Colors.red)),
