@@ -42,3 +42,9 @@ exports.removeUserFromPool = functions.https.onCall((data, context) => {
   return;
 });
 
+exports.scheduledFunctionCrontab = functions.pubsub.schedule("5 11 * * *")
+    .timeZone("America/New_York") // Users can choose timezone - default is UTC
+    .onRun((context) => {
+      console.log("This will be run every day at 11:05 AM Eastern!");
+      return null;
+    });
