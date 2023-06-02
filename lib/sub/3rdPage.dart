@@ -58,20 +58,14 @@ class _PostListPageState extends State<PostListPage> {
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 100,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:[
-                      Text('자유게시판',)
-                    ]
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'img/blacklogo.png',
+                  width: 90,
+                  height: 90,
                 ),
-              ),
-              Icon(Icons.settings_outlined, color:Colors.black),
-            ],
-          )
+              ])
       ),
       body: FutureBuilder(
         future: getPostList(),

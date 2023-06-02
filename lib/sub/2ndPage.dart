@@ -25,7 +25,15 @@ class SecondApp extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
-        title: Text('달력'),
+          title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'img/blacklogo.png',
+                  width: 90,
+                  height: 90,
+                ),
+              ])
       ),
       body: Center(
         child: CalendarWidget(),

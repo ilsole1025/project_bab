@@ -26,20 +26,14 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 100,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:[
-                      Text('마이페이지',)
-                    ]
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'img/blacklogo.png',
+                  width: 90,
+                  height: 90,
                 ),
-              ),
-         //     Icon(Icons.settings_outlined, color:Colors.black),
-            ],
-          )
+              ])
       ),
       body: SingleChildScrollView(
         child: Column(

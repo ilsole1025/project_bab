@@ -335,7 +335,7 @@ class _FirstAppState extends State<FirstApp> {
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 automaticallyImplyLeading: false,
-                title: Row(
+                /*title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
@@ -346,33 +346,18 @@ class _FirstAppState extends State<FirstApp> {
                             Text('홈',)
                           ]
                       ),
-                    ),
-                    /*
-                    Container(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Material(
-                          color: Colors.white,
-                          child: InkWell(
-                            splashColor: Colors.white70,
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const MyPage()),
-                              );
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:  [Icon(Icons.settings_outlined)],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                   */
-                    // Icon(Icons.settings_outlined, color:Colors.black),
+                    )
                   ],
-                )
+                )*/
+                title: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'img/blacklogo.png',
+                        width: 90,
+                        height: 90,
+                      ),
+                    ])
             ),
 
             body:
