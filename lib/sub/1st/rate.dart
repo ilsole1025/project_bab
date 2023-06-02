@@ -90,6 +90,7 @@ class _RatingState extends State<Rating> {
                         ),
                         child: Text("저장!!", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
                         onPressed: (){
+                          // 여기에 넣어 주세요!! - _rating 에 1~5점 사이의 값이 저장되어있음!!
                           Navigator.of(context).popUntil((route) => route.isFirst);
                         },
                       )
