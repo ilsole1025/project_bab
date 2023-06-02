@@ -18,6 +18,8 @@ class _UserInfoSaveState extends State<UserInfoSave> {
   final List<String> _ageList = ['선택하기','20','21','22','23','24','25','26','27','28','29','30'];
   TextEditingController nicknamecontroller = TextEditingController();
   TextEditingController namecontroller = TextEditingController();
+  TextEditingController kakaotalkidcontroller = TextEditingController();
+  TextEditingController introducecontroller = TextEditingController();
   String _gender = '', _age = '선택하기';
 
   bool showSpinner = false;
@@ -34,6 +36,9 @@ class _UserInfoSaveState extends State<UserInfoSave> {
       "name" : namecontroller.text,
       "gender": _gender,
       "age": _age,
+      "kakaotalkid": kakaotalkidcontroller.text,
+      "introduce": introducecontroller.text,
+      "mannertemp": 36.5,
       "checked": true
     };
     if (currentUser != null) {
@@ -66,6 +71,15 @@ class _UserInfoSaveState extends State<UserInfoSave> {
         if(_age == '선택하기'){
           throw myException('no-age');
         }
+        // 카카오톡 id 입력 안했을 때
+        if(kakaotalkidcontroller.text == ''){
+          throw myException('no-kakaotalkid');
+        }
+        // 한줄소개 입력 안했을 때
+        if(kakaotalkidcontroller.text == ''){
+          throw myException('no-introduce');
+        }
+
         db.collection("users").doc("${currentUser.uid}").update(user);
         showSpinner = false;
         Navigator.push(
@@ -92,6 +106,10 @@ class _UserInfoSaveState extends State<UserInfoSave> {
           message = "성별을 선택해주세요";
         } else if(e.toString() == 'no-age') {
           message = "나이를 선택해주세요";
+        } else if(e.toString() == 'no-kakaotalkid') {
+          message = "카톡 아이디를 입력해주세요";
+        } else if(e.toString() == 'no-introduce') {
+          message = "한줄소개를 입력해주세요";
         }
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -238,6 +256,40 @@ class _UserInfoSaveState extends State<UserInfoSave> {
                                         });
                                       },
                                     )
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 100,
+                                  child: Text("카카오톡 아이디"),
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    controller: kakaotalkidcontroller,
+                                    keyboardType: TextInputType.name,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 100,
+                                  child: Text("한줄소개"),
+                                ),
+                                Expanded(
+                                  child: TextField(
+                                    controller: introducecontroller,
+                                    keyboardType: TextInputType.name,
+                                  ),
                                 ),
                               ],
                             ),
