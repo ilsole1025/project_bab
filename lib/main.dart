@@ -76,39 +76,62 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
-
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
   TabController? controller;
+  Color selectedTabColor = Colors.black;
+  Color unselectedTabColor = Colors.red;
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
     controller = TabController(length: 4, vsync: this);
+    controller!.addListener(updateTabColors); // 탭 선택 시 색상 업데이트 리스너 추가
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: TabBarView(
-          children: <Widget>[FirstApp(), SecondApp(), ThirdApp(), MyPage()],
-          controller: controller,
-          physics: NeverScrollableScrollPhysics(),
-        ),
-        bottomNavigationBar:TabBar(tabs: <Tab>[
-          // 아이콘 찾기 : https://fonts.google.com/icons
-          Tab(icon: Icon(Icons.home, color: Colors.black87),) ,
-          Tab(icon: Icon(Icons.chat, color:  Colors.black38),),
-          Tab(icon: Icon(Icons.dashboard, color: Colors.black38),) ,
-          Tab(icon: Icon(Icons.person, color:  Colors.black38),)
-        ], controller: controller,
-        )
-    );
-  }
-
-
-  @override
-  void dispose(){
+  void dispose() {
+    controller!.removeListener(updateTabColors); // 리스너 제거
     controller!.dispose();
     super.dispose();
   }
 
+  void updateTabColors() {
+    setState(() {
+      // 선택된 탭 색상 업데이트
+      selectedTabColor = Colors.black87;
+      // 선택되지 않은 탭 색상 업데이트
+      unselectedTabColor = Colors.black38;
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: TabBarView(
+        children: <Widget>[FirstApp(), SecondApp(), ThirdApp(), MyPage()],
+        controller: controller,
+        physics: NeverScrollableScrollPhysics(),
+      ),
+      bottomNavigationBar: TabBar(
+        tabs: <Tab>[
+          Tab(
+            icon: Icon(Icons.home,
+                color: controller?.index == 0 ? selectedTabColor : unselectedTabColor),
+          ),
+          Tab(
+            icon: Icon(Icons.chat,
+                color: controller?.index == 1 ? selectedTabColor : unselectedTabColor),
+          ),
+          Tab(
+            icon: Icon(Icons.dashboard,
+                color: controller?.index == 2 ? selectedTabColor : unselectedTabColor),
+          ),
+          Tab(
+            icon: Icon(Icons.person,
+                color: controller?.index == 3 ? selectedTabColor : unselectedTabColor),
+          ),
+        ],
+        controller: controller,
+      ),
+    );
+  }
 }
