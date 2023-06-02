@@ -23,12 +23,22 @@ exports.addUserToPool = functions.https.onCall((data, context) => {
   const uid = data["uid"];
   admin
       .firestore()
-      .collection("machingPool")
+      .collection("matchingPool")
       .doc("users")
       .set(
-          {userpool: admin.firestore.FieldValue.arrayUnion({uid: uid})},
+          {userpool: admin.firestore.FieldValue.arrayUnion(uid)},
           {merge: true},
       );
+  return;
+});
+
+exports.removeUserFromPool = functions.https.onCall((data, context) => {
+  const uid = data["uid"];
+  const target = admin.firestore().collection("matchingPool").doc("users");
+  target.update({
+    userpool: admin.firestore.FieldValue.arrayRemove(uid),
+  });
+
   return;
 });
 
