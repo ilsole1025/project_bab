@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'making.dart';
 
+import 'package:http/http.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:project_bab/sub/DbGet.dart';
+
 var ME =
 {
   "name": "딩기리맛때",
@@ -151,7 +155,13 @@ class MakeDate extends StatelessWidget{
                               )),
                         ),
                         child: Text("랜덤 매칭 시작!!!", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
-                        onPressed: (){
+                        onPressed: () async {
+
+                          final HttpsCallableResult result2 = await FirebaseFunctions
+                              .instance
+                              .httpsCallable("addUserToPool")
+                              .call(<String, dynamic>{'uid': getUid()});
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => MakingDate())
