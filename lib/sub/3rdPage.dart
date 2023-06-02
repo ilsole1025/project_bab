@@ -68,7 +68,7 @@ class _PostListPageState extends State<PostListPage> {
                     ]
                 ),
               ),
-              Icon(Icons.notifications_outlined, color:Colors.black),
+              Icon(Icons.settings_outlined, color:Colors.black),
             ],
           )
       ),

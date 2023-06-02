@@ -50,7 +50,7 @@ class NewPostPage extends StatelessWidget {
                 child: TextField(
                   controller: _contentController,
                   decoration: InputDecoration(
-                    hintText: '내용을 입력하세요',
+                    hintText: '게시글은 삭제와 수정이 불가하니 신중하게 작성해주세요.',
                     contentPadding: EdgeInsets.all(16.0),
                     border: InputBorder.none,
                   ),
@@ -70,7 +70,7 @@ class NewPostPage extends StatelessWidget {
                   id: DateTime.now().toString(),
                   title: title,
                   content: content,
-                  author: '작성자',
+                  author: '익명',
                   createdAt: DateTime.now(),
                 );
 

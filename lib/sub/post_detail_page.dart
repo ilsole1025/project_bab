@@ -72,7 +72,6 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                     ]
                 ),
               ),
-              Icon(Icons.notifications_outlined, color: Colors.black),
             ],
           )
       ),
@@ -182,7 +181,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                     final comment = Comment(
                       id: '1',
                       postId: post.id,
-                      author: '작성자',
+                      author: '익명',
                       content: _commentController.text,
                       createdAt: DateTime.now(), //현재 시간 할당
                     );

@@ -338,7 +338,7 @@ class FirstApp extends StatelessWidget{
                           ]
                       ),
                     ),
-                    Icon(Icons.notifications_outlined, color:Colors.black),
+                    Icon(Icons.settings_outlined, color:Colors.black),
                   ],
                 )
             ),
