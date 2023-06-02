@@ -30,7 +30,7 @@ class MakeDate extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  width: 150,
+                  width: 200,
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children:[
@@ -43,10 +43,15 @@ class MakeDate extends StatelessWidget{
             )
         ),
         body: Container(
+
             margin: EdgeInsets.only(left: 10, right: 10, top: 39, bottom: 39),
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Color(int.parse("0x338E4444")),
+              image: DecorationImage(
+                image: AssetImage('img/texture_bab.jpg'),
+                fit: BoxFit.cover,
+              ),
+              // color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
             child: Column(
@@ -87,7 +92,7 @@ class MakeDate extends StatelessWidget{
                           margin: EdgeInsets.only(left: 6, right: 6),
                           width: (ME['interest'] as List<String>)[index].length * 12.0 + 20.0,
                           decoration: BoxDecoration(
-                            color: Color(int.parse("0xFFEBEBEB")),
+                            color: Colors.grey,
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
                           child: Text((ME['interest'] as List<String>)[index], style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
