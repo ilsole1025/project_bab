@@ -156,7 +156,7 @@ class MakeDate extends StatelessWidget{
                         child: Text("랜덤 매칭 시작하기", style: TextStyle(fontSize: 16), textAlign: TextAlign.center),
                         onPressed: () async {
 
-                          final HttpsCallableResult result2 = await FirebaseFunctions
+                          final HttpsCallableResult result = await FirebaseFunctions
                               .instance
                               .httpsCallable("addUserToPool")
                               .call(<String, dynamic>{'uid': getUid()});
