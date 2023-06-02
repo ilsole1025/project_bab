@@ -107,7 +107,7 @@ class MakingDate extends StatelessWidget{
                               )),
                         ),
                         child: Text("랜덤 매칭 찾기 취소", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
-                        onPressed: (){
+                        onPressed: () async{
                           final HttpsCallableResult result = await FirebaseFunctions
                               .instance
                               .httpsCallable("removeUserFromPool")
