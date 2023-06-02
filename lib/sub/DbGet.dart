@@ -38,7 +38,7 @@ Future<bool> setPost(Map<String, dynamic> post) async {
   try {
     // 예외 처리가 들어갈 곳
     final DocId = db.collection("posts").doc();
-    post["id"] = DocId.toString();
+    post["id"] = DocId.id;
     await DocId.set(post);
     return true;
   } catch (e) {
@@ -47,16 +47,25 @@ Future<bool> setPost(Map<String, dynamic> post) async {
   return false;
 }
 
-Future<bool> addComment(String DocID, int commentCount, Map<String, dynamic> comment) async {
+Future<bool> addComment(String DocID, Map<String, dynamic> comment) async {
   try {
+    int commentCount = 0;
     // 예외 처리가 들어갈 곳
 
+    DocumentSnapshot<Map<String, dynamic>> snapshot = await db.collection("posts").doc(DocID).get();
+    if (snapshot.exists) {
+      Map<String, dynamic> data = snapshot.data()!;
+      if (data.containsKey("commentCount")) {
+        commentCount = data["commentCount"];
+      }
+    }
 
     final Map<String, dynamic> post = {
       "commentCount" : commentCount+1,
-      "comment" : comment
     };
-    await db.collection("posts").doc(DocID).update(comment);
+    await db.collection("posts").doc(DocID).update(post);
+
+    await db.collection("posts").doc(DocID).collection("comments").doc(commentCount.toString()).set(comment);
     return true;
   } catch (e) {
     ;
@@ -75,6 +84,14 @@ Future<List<Map<String, dynamic>>> getPostList() async {
   return postList;
 }
 
+Future<List<Map<String, dynamic>>> getCommentList(String DocID) async {
+  QuerySnapshot<Map<String, dynamic>> snapshot = await db.collection("posts").doc(DocID).collection("comments").get();
+  List<Map<String, dynamic>> commentList = [];
+  snapshot.docs.forEach((doc) {
+    commentList.add(doc.data());
+  });
+  return commentList;
+}
 
 delPost() async {
   ;

@@ -76,6 +76,9 @@ class _PostListPageState extends State<PostListPage> {
       body: FutureBuilder(
         future: getPostList(),
         builder: (context, snapshot){
+          if (snapshot.connectionState != ConnectionState.done || snapshot.data == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
           postList = snapshot.data!.toList();
           return ListView.builder(
             itemCount: postList.length,

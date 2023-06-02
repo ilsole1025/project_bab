@@ -74,8 +74,7 @@ class NewPostPage extends StatelessWidget {
                   "author": '익명',
                   "createdAt": DateTime.now(),
                   "likes": 0,
-                  "commentCount" : 0,
-                  "comment": []
+                  "commentCount" : 0
                 };
 
                 // Add the new post to the postList

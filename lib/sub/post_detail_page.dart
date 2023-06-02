@@ -147,19 +147,33 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
               ),
             ),
             Divider(),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: post["commentCount"],
-              itemBuilder: (ctx, index) {
-                final comment = post["comment"][index];
-                String formattedTimestamp = DateFormat('MM/dd HH:mm').format(comment.createdAt);
+            FutureBuilder(
+              future: getCommentList(post["id"]),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.done || snapshot.data == null) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  final List<dynamic> commentList = snapshot.data != null
+                      ? snapshot.data!.toList()
+                      : [];
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: commentList.length,
+                    itemBuilder: (ctx, index) {
+                      final comment = commentList[index];
+                      String formattedTimestamp = DateFormat('MM/dd HH:mm')
+                          .format(comment["createdAt"].toDate());
 
-                return ListTile(
-                  title:Text(comment.content),
-                  subtitle: Text('${comment.author} | $formattedTimestamp'),
-                );
-              },
+                      return ListTile(
+                        title: Text(comment["content"]),
+                        subtitle: Text(
+                            '${comment["author"]} | $formattedTimestamp'),
+                      );
+                    },
+                  );
+                }
+              }
             ),
             Divider(),
             Padding(
@@ -186,7 +200,8 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                       "content": _commentController.text,
                       "createdAt": DateTime.now(),
                     };
-                    //addComment(post["id"], post["commentCount"], comment);
+                    addComment(post["id"], comment);
+                    post["commentCount"]++;
                     _commentController.clear();
                   });
                 },

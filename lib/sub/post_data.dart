@@ -50,5 +50,4 @@ List<String> postfieldList = [
   "createdAt",
   "likes",
   "commentCount",
-  "comment",
 ];
