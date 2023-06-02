@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_bab/sub/1st/rate.dart';
 
 class History extends StatelessWidget {
   var my_info;
@@ -135,10 +136,11 @@ class History extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20),
                               )),
                         ),
-                        child: Text("뒤로가기", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+                        child: Text("평가하기", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
                         onPressed: (){
-                          Navigator.pop(
+                          Navigator.push(
                               context,
+                              MaterialPageRoute(builder: (context) => Rating())
                           );
                         },
                       )

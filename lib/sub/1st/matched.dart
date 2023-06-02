@@ -135,11 +135,60 @@ class Matched extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20),
                               )),
                         ),
-                        child: Text("뒤로가기", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
-                        onPressed: (){
-                          Navigator.pop(
-                            context,
+                        child: Text("날짜 선택하기!!", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+                        onPressed: () async {
+                          final date = await showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2000),
+                            lastDate: DateTime(2100),
                           );
+                          if(date == null)
+                            return;
+                          final time = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.now(),
+                          );
+                          if(time == null)
+                            return;
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0)),
+                                  title: Column(
+                                    children: <Widget>[
+                                      new Text("날짜 확인"),
+                                    ],
+                                  ),
+                                  //
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        "${date?.year}.${date?.month}.${date?.day}, ${time?.hour}:${time?.minute}",
+                                      ),
+                                    ],
+                                  ),
+                                  actions: <Widget>[
+                                    new ElevatedButton(
+                                      child: new Text("확인"),
+                                      onPressed: () {
+                                        Navigator.of(context).popUntil((route) => route.isFirst);
+                                      },
+                                    ),
+                                    new ElevatedButton(
+                                      child: new Text("취소"),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              });
                         },
                       )
                   ),
