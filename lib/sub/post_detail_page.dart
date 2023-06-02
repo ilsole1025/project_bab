@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:project_bab/sub/DbGet.dart';
 import 'post_data.dart';
 import 'dart:async';
+import 'package:project_bab/main.dart';
 
 class PostDetailPage extends StatefulWidget {
   final String id;
@@ -16,7 +18,6 @@ class PostDetailPage extends StatefulWidget {
 }
 
 class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAliveClientMixin{
-  bool _isLiked = false; //좋아요 상태 저장 변수
   TextEditingController _commentController = TextEditingController();
 
   @override
@@ -102,15 +103,15 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                   Row(
                     children: [
                       TextButton.icon(
-                        onPressed: () async{
-                          _isLiked = await clickedLike(post["id"]);
-                          setState(() {
-                            if(_isLiked == true) {
-                              post["likes"].add(post["id"]);
-                            } else {
-                              post["likes"].remove(post["id"]);
-                            }
-                          });
+                        onPressed: () async {
+                          final uid = getUid();
+                          if (post["likes"].contains(uid) == true) {
+                            post["likes"].remove(uid);
+                          } else {
+                            post["likes"].add(uid);
+                          }
+                          final isLiked = await clickedLike(post["id"]);
+                          setState(() {});
                         },
                         icon: Icon(Icons.thumb_up_outlined, color: Colors.red),
                         label: Text('좋아요 ${post["likes"].length}', style: TextStyle(color: Colors.red)),
@@ -143,15 +144,13 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
               ),
             ),
             Divider(),
-            FutureBuilder(
-              future: getCommentList(post["id"]),
+            StreamBuilder<QuerySnapshot>(
+              stream: db.collection("posts").doc(post["id"]).collection("comments").snapshots(),
               builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.done) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
-                  final List<dynamic> commentList = snapshot.data != null
-                      ? snapshot.data!.toList()
-                      : [];
+                  final commentList = snapshot.data!.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
