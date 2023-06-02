@@ -6,6 +6,9 @@ import 'package:http/http.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:project_bab/sub/DbGet.dart';
 
+import 'package:project_bab/widgets/app_large_text.dart';
+import 'package:project_bab/widgets/app_text.dart';
+
 var ME =
 {
   "name": "딩기리맛때",
@@ -18,6 +21,8 @@ var ME =
     "entp", "esfj", "intj", "istj", "entj", "estp", "estj"
   ]
 };
+
+
 
 class MakeDate extends StatelessWidget{
   @override
@@ -50,6 +55,10 @@ class MakeDate extends StatelessWidget{
               image: DecorationImage(
                 image: AssetImage('img/texture_bab.jpg'),
                 fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.3), // 투명도 조절
+                  BlendMode.dstATop, // 블렌드 모드 설정 (필요에 따라 변경 가능)
+                ),
               ),
               // color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -63,22 +72,19 @@ class MakeDate extends StatelessWidget{
                     backgroundImage: AssetImage('../img/${ME['image']}'),
                     radius: 58.0,
                   ),
-                  Text(
-                      '\n${ME['name']}',
-                      style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20)
-                  ),
-                  Text(
-                    '${ME['temperature']}\n',
-                    style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
-                  ),
-                  Text(
-                    '${ME['introduction']}\n',
-                    style: TextStyle(fontSize: 13,color: Colors.black),
-                  ),
-                  Text(
-                    '카톡 아이디: ${ME['kakao']}\n',
-                    style: TextStyle(fontSize: 13,color: Colors.black),
-                  ),
+
+                  SizedBox(height: 20,),
+                  AppLargeText(text: '${ME['name']}', size:20),
+                  AppText(text: "${ME['temperature']}\n",
+                      size: 16, color: Colors.redAccent),
+                  AppText(text: "${ME['introduction']}\n",
+                      size: 13, color: Colors.black),
+
+                  Divider(),
+                  SizedBox(height: 10,),
+
+                  AppText(text: "나의 관심사"),
+
                   Container(
                     height: 25,
                     width: double.infinity,
@@ -87,15 +93,17 @@ class MakeDate extends StatelessWidget{
                       scrollDirection: Axis.horizontal,
                       itemCount: (ME['interest'] as List<String>).length,
                       itemBuilder: (BuildContext context, int index) {
+                        //Color c1 = const Color.fromRGBO(66, 165, 245, 1.0);
                         return Container(
                           padding: EdgeInsets.all(5),
                           margin: EdgeInsets.only(left: 6, right: 6),
                           width: (ME['interest'] as List<String>)[index].length * 12.0 + 20.0,
                           decoration: BoxDecoration(
-                            color: Colors.grey,
+                            color: Colors.black38,
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
-                          child: Text((ME['interest'] as List<String>)[index], style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+                          child: Text((ME['interest'] as List<String>)[index],
+                              style: TextStyle(fontSize: 12, color:Colors.white), textAlign: TextAlign.center),
                         );
                         // return Container(
                         //     height: 25,
@@ -120,46 +128,26 @@ class MakeDate extends StatelessWidget{
                       },
                     ),
                   ),
-                  // Container(
-                  //     width: double.infinity,
-                  //     child: ElevatedButton(
-                  //       style: ButtonStyle(
-                  //         padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(5)),
-                  //         backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
-                  //         foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
-                  //         shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
-                  //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  //             RoundedRectangleBorder(
-                  //               borderRadius: BorderRadius.circular(20),
-                  //             )),
-                  //       ),
-                  //       child: Text("관심사 수정!!!", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
-                  //       onPressed: (){
-                  //         Navigator.push(
-                  //             context,
-                  //             MaterialPageRoute(builder: (context) => ChangeInterest())
-                  //         );
-                  //       },
-                  //     )
-                  // ),
-                  // SizedBox(
-                  //   height: 20,
-                  //   width: double.infinity,
-                  // ),
+
+                  Divider(),
+                  SizedBox(height: 10,),
+
+                  AppText(text: "위의 정보로 매칭을 시작합니다.\n", size:12),
+
                   Container(
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(5)),
-                          backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
-                          foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
-                          shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.white70),
+                          foregroundColor: MaterialStateProperty.all<Color>(Colors.black54),
+                          shadowColor: MaterialStateProperty.all<Color>(Colors.grey),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               )),
                         ),
-                        child: Text("랜덤 매칭 시작하기", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+                        child: Text("랜덤 매칭 시작하기", style: TextStyle(fontSize: 16), textAlign: TextAlign.center),
                         onPressed: () async {
 
                           final HttpsCallableResult result2 = await FirebaseFunctions

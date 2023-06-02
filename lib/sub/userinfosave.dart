@@ -133,12 +133,12 @@ class _UserInfoSaveState extends State<UserInfoSave> {
       appBar: AppBar(
         title: Text('save user info'),
         elevation: 0.0,
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.red[300],
         centerTitle: true,
         leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {})
-        ],
+        //actions: <Widget>[
+        //  IconButton(icon: Icon(Icons.search), onPressed: () {})
+        //],
       ),
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
@@ -397,7 +397,7 @@ class _UserInterestSaveState extends State<UserInterestSave> {
         appBar: AppBar(
           title: Text('save user interest'),
           elevation: 0.0,
-          backgroundColor: Colors.redAccent,
+          backgroundColor: Colors.red[300],
           centerTitle: true,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () {
             Navigator.pop(context);
@@ -461,12 +461,14 @@ class _UserInterestSaveState extends State<UserInterestSave> {
                       },
                     ),
                   ),
+
                   Container(
                     height: 10,
                     width: double.infinity,
-                    color: Color(int.parse("0xFFEBEBEB")),
+                    color: Colors.white70,
                     margin: EdgeInsets.only(bottom: 20),
                   ),
+                  Divider(),
                   Expanded(
                       child: Container(
                           height: INTEREST.length * 300,
@@ -517,12 +519,14 @@ class _UserInterestSaveState extends State<UserInterestSave> {
                                             },
                                           )
                                       ),
+                                      Divider(),
                                     ]
                                 );
                               }
                           )
                       )
                   ),
+
                   Container(
                       width: double.infinity,
                       child: ElevatedButton(
