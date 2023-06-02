@@ -347,10 +347,10 @@ class _UserInterestSaveState extends State<UserInterestSave> {
           elevation: 0.0,
           backgroundColor: Colors.redAccent,
           centerTitle: true,
-          leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.search), onPressed: () {})
-          ],
+          leading: IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () {
+            Navigator.pop(context);
+          }),
+          // actions: <Widget>[IconButton(icon: Icon(Icons.search), onPressed: () {}) ],
         ),
         body: Container(
             padding: EdgeInsets.all(5),

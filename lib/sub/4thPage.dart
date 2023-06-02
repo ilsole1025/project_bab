@@ -37,7 +37,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                     ]
                 ),
               ),
-              Icon(Icons.settings_outlined, color:Colors.black),
+         //     Icon(Icons.settings_outlined, color:Colors.black),
             ],
           )
       ),

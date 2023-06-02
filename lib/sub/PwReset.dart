@@ -71,9 +71,7 @@ class _PwResetState extends State<PwReset> {
         leading: IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () {
           Navigator.pop(context);
         }),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {})
-        ],
+        // actions: <Widget>[ IconButton(icon: Icon(Icons.search), onPressed: () {} ],
       ),
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
