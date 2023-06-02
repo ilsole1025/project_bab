@@ -29,7 +29,8 @@ Future<dynamic> getUserData(String fieldName) async {
       return data[fieldName];
     }
   }
-  return "닉네임"; // nickname 정보가 없는 경우
+
+  return "null"; // nickname 정보가 없는 경우
 }
 
 Future<bool> setPost(Map<String, dynamic> post) async {

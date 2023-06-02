@@ -3,7 +3,10 @@ import 'package:project_bab/sub/1st/history.dart';
 import 'package:project_bab/sub/1st/matched.dart';
 import '1st/make.dart';
 //import 'interest.dart';
-
+import 'package:http/http.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:project_bab/sub/DbGet.dart';
+import 'package:project_bab/sub/4thPage.dart';
 
 var ME =
   {
@@ -338,7 +341,30 @@ class FirstApp extends StatelessWidget{
                           ]
                       ),
                     ),
-                    Icon(Icons.settings_outlined, color:Colors.black),
+                    /*
+                    Container(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Material(
+                          color: Colors.white,
+                          child: InkWell(
+                            splashColor: Colors.white70,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const MyPage()),
+                              );
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children:  [Icon(Icons.settings_outlined)],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                   */
+                   // Icon(Icons.settings_outlined, color:Colors.black),
                   ],
                 )
             ),
