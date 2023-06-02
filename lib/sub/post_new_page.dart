@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'post_data.dart';
+import 'DbGet.dart';
 
 class NewPostPage extends StatelessWidget {
   final TextEditingController _titleController = TextEditingController();
@@ -61,21 +62,24 @@ class NewPostPage extends StatelessWidget {
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 final title = _titleController.text;
                 final content = _contentController.text;
 
                 // Create a new Post instance with the entered data
-                final newPost = Post(
-                  id: DateTime.now().toString(),
-                  title: title,
-                  content: content,
-                  author: '익명',
-                  createdAt: DateTime.now(),
-                );
+                final Map<String, dynamic> newPost = {
+                  "id": DateTime.now().toString(),
+                  "title": title,
+                  "content": content,
+                  "author": '익명',
+                  "createdAt": DateTime.now(),
+                  "likes": 0,
+                  "commentCount" : 0,
+                  "comment": []
+                };
 
                 // Add the new post to the postList
-                postList.add(newPost);
+                await setPost(newPost);
 
                 // Navigate back to the previous page
                 Navigator.pop(context);

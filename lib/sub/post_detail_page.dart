@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:project_bab/sub/DbGet.dart';
 import 'post_data.dart';
 import 'dart:async';
 
 class PostDetailPage extends StatefulWidget {
   final String id;
-  final List<Post> postList;
+  final List<Map<String, dynamic>> postList;
 
   const PostDetailPage({required this.id, required this.postList, Key? key}) : super(key: key);
 
@@ -17,7 +18,7 @@ class PostDetailPage extends StatefulWidget {
 class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAliveClientMixin{
   bool _isLiked = false; //좋아요 상태 저장 변수
   int _postLikes = 0;
-  List<Comment> _comments = []; //댓글을 유지하는 리스트
+  //List<Map<String,dynamic>> _comments = []; //댓글을 유지하는 리스트
   TextEditingController _commentController = TextEditingController();
 
   @override
@@ -41,13 +42,13 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
   Widget build(BuildContext context) {
       initializeDateFormatting(); // intl 패키지의 날짜 형식을 초기화
       super.build(context);
-      final post = widget.postList.firstWhere((post) => post.id == widget.id);
+      final Map<String, dynamic> post = widget.postList.firstWhere((post) => post["id"] == widget.id);
       final now = DateTime.now();
-      final difference = now.difference(post.createdAt);
+      final difference = now.difference(post["createdAt"].toDate());
       String formattedTime;
 
       if (difference.inDays >= 1) {
-        formattedTime = DateFormat('MM/dd HH:mm').format(post.createdAt);
+        formattedTime = DateFormat('MM/dd HH:mm').format(post["createdAt"].toDate());
       } else if (difference.inHours >= 1) {
         formattedTime = '${difference.inHours}시간 전';
       } else if (difference.inMinutes >= 1) {
@@ -84,7 +85,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    post.title,
+                    post["title"],
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -92,13 +93,13 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                   ),
                   SizedBox(height: 5),
                   Text(
-                    '${post.author} | $formattedTime',
+                    '${post["author"]} | $formattedTime',
                     style: const TextStyle(
                       fontSize: 12,
                     ),
                   ),
                   SizedBox(height: 16),
-                  Text(post.content),
+                  Text(post["content"]),
                   SizedBox(height: 16),
                   Row(
                     children: [
@@ -116,7 +117,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                           });
                         },
                         icon: Icon(Icons.thumb_up_outlined, color: Colors.red),
-                        label: Text('좋아요 ${post.likes}', style: TextStyle(color: Colors.red)),
+                        label: Text('좋아요 ${post["likes"]}', style: TextStyle(color: Colors.red)),
                       ),
                       SizedBox(width: 8),
                       Row(
@@ -124,7 +125,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                           Icon(Icons.chat_bubble_outline, color: Colors.orange),
                           SizedBox(width: 6),
                           Text(
-                            '댓글 ${post.commentCount}', // 댓글 수
+                            '댓글 ${post["commentCount"]}', // 댓글 수
                             style: TextStyle(color: Colors.orange),
                           ),
                         ],
@@ -149,9 +150,9 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: _comments.length,
+              itemCount: post["commentCount"],
               itemBuilder: (ctx, index) {
-                final comment = _comments[index];
+                final comment = post["comment"][index];
                 String formattedTimestamp = DateFormat('MM/dd HH:mm').format(comment.createdAt);
 
                 return ListTile(
@@ -176,16 +177,16 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
             Padding(
               padding: const EdgeInsets.all(16),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   setState(() {
-                    final comment = Comment(
-                      id: '1',
-                      postId: post.id,
-                      author: '익명',
-                      content: _commentController.text,
-                      createdAt: DateTime.now(), //현재 시간 할당
-                    );
-                    _comments.add(comment);
+                    final Map<String,dynamic> comment = {
+                      "id": '1',
+                      "postId": post["id"],
+                      "author": '익명',
+                      "content": _commentController.text,
+                      "createdAt": DateTime.now(),
+                    };
+                    //addComment(post["id"], post["commentCount"], comment);
                     _commentController.clear();
                   });
                 },

@@ -1,3 +1,4 @@
+/*
 class Post {
   final String id;
   final String title;
@@ -37,25 +38,17 @@ class Comment {
     this.likes = 0,
     });
 }
+*/
 
+List<Map<String, dynamic>> postList = [];
 
-List<Post> postList = [
-  Post(
-    id: '1',
-    title: '첫번째 게시글',
-    content: '첫번째 게시글입니다.',
-    author: '작성자1',
-    likes: 10,
-    createdAt: DateTime.now(),
-    commentCount: 2,
-  ),
-  Post(
-    id: '2',
-    title: '두번째 게시글',
-    content: '집에 가고 싶어용.',
-    author: '작성자2',
-    likes: 5,
-    createdAt: DateTime.now(),
-    commentCount: 0,
-  ),
+List<String> postfieldList = [
+  "id",
+  "title",
+  "content",
+  "author",
+  "createdAt",
+  "likes",
+  "commentCount",
+  "comment",
 ];

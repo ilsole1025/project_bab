@@ -37,14 +37,33 @@ Future<bool> setPost(Map<String, dynamic> post) async {
   // Future<bool> setPost(Map<String, dynamic> post) async : post데이터를 db에 저장, 성공적으로 저장될 경우 true를 return함
   try {
     // 예외 처리가 들어갈 곳
-
-    await db.collection("posts").add(post);
+    final DocId = db.collection("posts").doc();
+    post["id"] = DocId.toString();
+    await DocId.set(post);
     return true;
   } catch (e) {
     ;
   }
   return false;
 }
+
+Future<bool> addComment(String DocID, int commentCount, Map<String, dynamic> comment) async {
+  try {
+    // 예외 처리가 들어갈 곳
+
+
+    final Map<String, dynamic> post = {
+      "commentCount" : commentCount+1,
+      "comment" : comment
+    };
+    await db.collection("posts").doc(DocID).update(comment);
+    return true;
+  } catch (e) {
+    ;
+  }
+  return false;
+}
+
 
 Future<List<Map<String, dynamic>>> getPostList() async {
   // Future<List<Map<String, dynamic>>> getPostList() async : db에 존재하는 모든 post들을 List형태로 반환함
@@ -55,6 +74,7 @@ Future<List<Map<String, dynamic>>> getPostList() async {
   });
   return postList;
 }
+
 
 delPost() async {
   ;

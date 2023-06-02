@@ -5,6 +5,7 @@ import 'post_new_page.dart';
 import 'post_detail_page.dart';
 import 'post_data.dart';
 import 'dart:async';
+import 'DbGet.dart';
 
 class ThirdApp extends StatelessWidget{
   @override
@@ -72,93 +73,99 @@ class _PostListPageState extends State<PostListPage> {
             ],
           )
       ),
-      body: ListView.builder(
-        itemCount: postList.length,
-        itemBuilder: (ctx, index) {
-        final post = postList[index];
-        final now = DateTime.now();
-        final difference = now.difference(post.createdAt);
-        String formattedTime;
+      body: FutureBuilder(
+        future: getPostList(),
+        builder: (context, snapshot){
+          postList = snapshot.data!.toList();
+          return ListView.builder(
+            itemCount: postList.length,
+            itemBuilder: (ctx, index) {
+              final post = postList[index];
+              final now = DateTime.now();
+              final difference = now.difference(post["createdAt"].toDate());
+              String formattedTime;
 
-        if (difference.inDays > 0) {
-        // 24시간 이상 전의 경우
-        final formatter = DateFormat('MM/dd HH:mm');
-        formattedTime = formatter.format(post.createdAt);
-        } else if (difference.inHours > 0) {
-        // 1시간 이상 24시간 미만 전의 경우
-        final hours = difference.inHours;
-        final formatter = DateFormat('HH:mm');
-        formattedTime = '$hours시간 전';
-        } else if (difference.inMinutes > 0) {
-        // 1분 이상 1시간 미만 전의 경우
-        final minutes = difference.inMinutes;
-        formattedTime = '$minutes분 전';
-        } else {
-        // 1분 이내인 경우
-        formattedTime = '방금 전';
-        }
+              if (difference.inDays > 0) {
+                // 24시간 이상 전의 경우
+                final formatter = DateFormat('MM/dd HH:mm');
+                formattedTime = formatter.format(post["createdAt"].toDate());
+              } else if (difference.inHours > 0) {
+                // 1시간 이상 24시간 미만 전의 경우
+                final hours = difference.inHours;
+                final formatter = DateFormat('HH:mm');
+                formattedTime = '$hours시간 전';
+              } else if (difference.inMinutes > 0) {
+                // 1분 이상 1시간 미만 전의 경우
+                final minutes = difference.inMinutes;
+                formattedTime = '$minutes분 전';
+              } else {
+                // 1분 이내인 경우
+                formattedTime = '방금 전';
+              }
 
-      return InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>PostDetailPage(id: post.id, postList: postList),
-                ),
-              );
-            },
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      post.title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>PostDetailPage(id: post["id"], postList: postList),
                     ),
-                    SizedBox(height: 8),
-                    Text(
-                      '${post.author} | $formattedTime',
-                      style: TextStyle(fontSize: 13),
-                    ),
-                    SizedBox(height: 8),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
+                  );
+                },
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          post["title"],
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          '${post["author"]} | $formattedTime',
+                          style: TextStyle(fontSize: 13),
+                        ),
+                        SizedBox(height: 8),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(Icons.thumb_up_outlined, size: 16, color: Colors.red),
-                            SizedBox(width: 4),
-                            Text(
-                              '${post.likes}', // 좋아요 수
-                              style: TextStyle(fontSize: 16, color: Colors.red,),
+                            Row(
+                              children: [
+                                Icon(Icons.thumb_up_outlined, size: 16, color: Colors.red),
+                                SizedBox(width: 4),
+                                Text(
+                                  '${post["likes"]}', // 좋아요 수
+                                  style: TextStyle(fontSize: 16, color: Colors.red,),
+                                ),
+                              ],
+                            ),
+                            SizedBox(width: 15),
+                            Row(
+                              children: [
+                                Icon(Icons.chat_bubble_outline, size: 16, color: Colors.orange),
+                                SizedBox(width: 4),
+                                Text(
+                                  '${post["commentCount"]}', // 댓글 수
+                                  style: TextStyle(fontSize: 16, color: Colors.orange),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                          SizedBox(width: 15),
-                          Row(
-                            children: [
-                              Icon(Icons.chat_bubble_outline, size: 16, color: Colors.orange),
-                              SizedBox(width: 4),
-                              Text(
-                                '${post.commentCount}', // 댓글 수
-                                style: TextStyle(fontSize: 16, color: Colors.orange),
-                              ),
-                            ],
-                          ),
-                        ],
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-            ),
-          ),
-      );
-        },
-        ),
+              );
+            },
+          );
+        }
+      )
       );
     }
   }

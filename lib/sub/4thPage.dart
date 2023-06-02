@@ -76,11 +76,6 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                             );
                           }
                       ),
-                      /* 이전 코드 주석처리
-                      AppLargeText(
-                        text: "닉네임",
-                        size: 22,
-                      ),*/
                       AppText(text: "36.5도", color: Colors.redAccent),
                       AppText(text: "이것은 한줄소개입니다", size:15, color: Colors.black),
                     ],
