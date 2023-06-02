@@ -47,39 +47,85 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
           children: [
             SizedBox(height: 10,),
             // 프로필 자리
-            Container(
 
+            Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween, //정렬
+              child: Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.center,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(right: 15, top: 10),
-                    width: 120,
-                    height: 120,
+                    width: double.infinity,
+                    height: 200,
                     decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.white,
-                    image: DecorationImage(
-                    image: AssetImage("img/111.jpeg"), //프로필사진
-                    fit: BoxFit.cover)),
-                ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FutureBuilder( // 닉네임 불러와서 표시 (간단하게)
-                          future: getUserData("nickname"),
-                          builder: (context, snapshot){
-                            return AppLargeText(
-                              text: snapshot.data.toString(),
-                              size: 22,
-                            );
-                          }
+                      image: DecorationImage(
+                        image: AssetImage("img/header.jpg"),
+                        fit: BoxFit.cover,
                       ),
-                      AppText(text: "36.5도", color: Colors.redAccent),
-                      AppText(text: "이것은 한줄소개입니다", size:15, color: Colors.black),
-                    ],
-                  )
+                    ),
+                  ),
+                  Positioned(
+                    top: 140,
+                    left: 20,
+                    child: Container(
+                      width: 120,
+                      height: 120,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 5),
+                        image: DecorationImage(
+                          image: AssetImage("img/111.jpeg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              alignment: Alignment(0.8, 0.0),
+              margin: const EdgeInsets.only(left: 0, right: 0, top: 20),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UserInterestSave()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.transparent, // 배경색을 투명하게 설정
+                  side: BorderSide(color: Colors.black), // 선 색을 검정으로 설정
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '프로필 편집',
+                    style: TextStyle(color: Colors.black), // 글자 색을 검정으로 설정
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 40, right: 20, top: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FutureBuilder(
+                    future: getUserData("nickname"),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return AppLargeText(
+                          text: snapshot.data.toString(),
+                          size: 22,
+                        );
+                      } else {
+                        return Container(); // 데이터가 없을 경우 아무것도 보여주지 않음
+                      }
+                    },
+                  ),
+                  AppText(text: "36.5도", color: Colors.redAccent),
+                  AppText(text: "이것은 한줄소개입니다", size: 15, color: Colors.black),
                 ],
               ),
             ),

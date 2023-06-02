@@ -78,8 +78,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
   TabController? controller;
-  Color selectedTabColor = Colors.black;
-  Color unselectedTabColor = Colors.red;
+  Color selectedTabColor = Colors.black87;
+  Color unselectedTabColor = Colors.black38; //기본값
 
   @override
   void initState() {
