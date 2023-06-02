@@ -47,68 +47,34 @@ class History extends StatelessWidget {
               color: Color(int.parse("0x338E4444")),
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+            child: ListView(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:[
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.amber,
-                              backgroundImage: AssetImage('../img/${my_info['image']}'),
-                              radius: 58.0,
-                            ),
-                            Text(
-                                '\n${my_info['name']}',
-                                style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20)
-                            ),
-                            Text(
-                              '${my_info['temperature']}\n',
-                              style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
-                            ),
-                            Text(
-                              '${my_info['introduction']}\n',
-                              style: TextStyle(fontSize: 13,color: Colors.black),
-                            ),
-                            Text(
-                              '카톡 아이디: ${my_info['kakao']}\n',
-                              style: TextStyle(fontSize: 13,color: Colors.black),
-                            )
-                            ]
-                      ),
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: Colors.amber,
-                              backgroundImage: AssetImage('../img/${other_info['image']}'),
-                              radius: 58.0,
-                            ),
-                            Text(
-                                '\n${other_info['name']}',
-                                style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20)
-                            ),
-                            Text(
-                              '${other_info['temperature']}\n',
-                              style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
-                            ),
-                            Text(
-                              '${other_info['introduction']}\n',
-                              style: TextStyle(fontSize: 13,color: Colors.black),
-                            ),
-                            Text(
-                              '카톡 아이디: ${other_info['kakao']}\n',
-                              style: TextStyle(fontSize: 13,color: Colors.black),
-                            )
-                          ]
-                      ),
-                    ]
+                  CircleAvatar(
+                    backgroundColor: Colors.amber,
+                    backgroundImage: AssetImage('../img/${other_info['image']}'),
+                    radius: 58.0,
+                  ),
+                  Text(
+                      '\n${other_info['name']}',
+                      style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                      textAlign: TextAlign.center
+                  ),
+                  Text(
+                      '${other_info['temperature']}\n',
+                      style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
+                      textAlign: TextAlign.center
+                  ),
+                  Text(
+                      '${other_info['introduction']}\n',
+                      style: TextStyle(fontSize: 13,color: Colors.black),
+                      textAlign: TextAlign.center
+                  ),
+                  Text(
+                      '카톡 아이디: ${other_info['kakao']}\n',
+                      style: TextStyle(fontSize: 13,color: Colors.black),
+                      textAlign: TextAlign.center
                   ),
                   Container(
                     height: 25,
@@ -130,6 +96,31 @@ class History extends StatelessWidget {
                         );
                       },
                     ),
+                  ),
+                  CircleAvatar(
+                    backgroundColor: Colors.amber,
+                    backgroundImage: AssetImage('../img/${my_info['image']}'),
+                    radius: 58.0,
+                  ),
+                  Text(
+                      '\n${my_info['name']}',
+                      style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
+                      textAlign: TextAlign.center
+                  ),
+                  Text(
+                      '${my_info['temperature']}\n',
+                      style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
+                      textAlign: TextAlign.center
+                  ),
+                  Text(
+                      '${my_info['introduction']}\n',
+                      style: TextStyle(fontSize: 13,color: Colors.black),
+                      textAlign: TextAlign.center
+                  ),
+                  Text(
+                      '카톡 아이디: ${my_info['kakao']}\n',
+                      style: TextStyle(fontSize: 13,color: Colors.black),
+                      textAlign: TextAlign.center
                   ),
                   Container(
                       width: double.infinity,

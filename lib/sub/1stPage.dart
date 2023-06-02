@@ -328,6 +328,7 @@ class FirstApp extends StatelessWidget{
             appBar: AppBar(
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
+                automaticallyImplyLeading: false,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
