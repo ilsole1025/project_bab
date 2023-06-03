@@ -19,7 +19,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
   TextEditingController nicknamecontroller = TextEditingController();
   TextEditingController namecontroller = TextEditingController();
   TextEditingController kakaotalkidcontroller = TextEditingController();
-  TextEditingController introducecontroller = TextEditingController();
+  TextEditingController introductioncontroller = TextEditingController();
   String _gender = '', _age = '선택하기';
 
   bool showSpinner = false;
@@ -37,7 +37,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
       "gender": _gender,
       "age": _age,
       "kakaotalkid": kakaotalkidcontroller.text,
-      "introduce": introducecontroller.text,
+      "introduction": introductioncontroller.text,
       "mannertemp": 36.5,
       "checked": true
     };
@@ -77,7 +77,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
         }
         // 한줄소개 입력 안했을 때
         if(kakaotalkidcontroller.text == ''){
-          throw myException('no-introduce');
+          throw myException('no-introduction');
         }
 
         db.collection("users").doc("${currentUser.uid}").update(user);
@@ -108,7 +108,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
           message = "나이를 선택해주세요";
         } else if(e.toString() == 'no-kakaotalkid') {
           message = "카톡 아이디를 입력해주세요";
-        } else if(e.toString() == 'no-introduce') {
+        } else if(e.toString() == 'no-introduction') {
           message = "한줄소개를 입력해주세요";
         }
         ScaffoldMessenger.of(context).showSnackBar(
@@ -287,7 +287,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
                                 ),
                                 Expanded(
                                   child: TextField(
-                                    controller: introducecontroller,
+                                    controller: introductioncontroller,
                                     keyboardType: TextInputType.name,
                                   ),
                                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_bab/sub/DbGet.dart';
 
 class Matched extends StatelessWidget {
   var my_info;
@@ -53,7 +54,7 @@ class Matched extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.amber,
-                    backgroundImage: AssetImage('../img/${other_info['image']}'),
+                    backgroundImage: AssetImage('../img/111'),
                     radius: 58.0,
                   ),
                   Text(
@@ -99,7 +100,7 @@ class Matched extends StatelessWidget {
                   ),
                   CircleAvatar(
                     backgroundColor: Colors.amber,
-                    backgroundImage: AssetImage('../img/${my_info['image']}'),
+                    backgroundImage: AssetImage('../img/111'),
                     radius: 58.0,
                   ),
                   Text(
@@ -143,14 +144,16 @@ class Matched extends StatelessWidget {
                             firstDate: DateTime(2000),
                             lastDate: DateTime(2100),
                           );
-                          if(date == null)
+                          if(date == null) {
                             return;
+                          }
                           final time = await showTimePicker(
                             context: context,
                             initialTime: TimeOfDay.now(),
                           );
-                          if(time == null)
+                          if(time == null) {
                             return;
+                          }
                           showDialog(
                               context: context,
                               barrierDismissible: false,
@@ -176,8 +179,8 @@ class Matched extends StatelessWidget {
                                   actions: <Widget>[
                                     new ElevatedButton(
                                       child: new Text("확인"),
-                                      onPressed: () {
-                                        // 여기에 넣어 주세요!! - date, time에 각각 만날 날짜 시간이 넣어져 있음
+                                      onPressed: () async {
+                                        await setMatched(my_info, other_info, date, time);
                                         Navigator.of(context).popUntil((route) => route.isFirst);
                                       },
                                     ),
