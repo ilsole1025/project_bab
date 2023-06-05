@@ -335,7 +335,7 @@ class UserInterestSave extends StatefulWidget {
 }
 
 class _UserInterestSaveState extends State<UserInterestSave> {
-  Map<String, List<String>> _interest = {
+  Map<String, List<String>> _interest_view = {
     "MBTI" : [],
     "성격" : [],
     "관심사" : [],
@@ -343,11 +343,18 @@ class _UserInterestSaveState extends State<UserInterestSave> {
     "스포츠" : [],
     "커리어" : []
   };
-
+  Map<String, List<String>> _interest_value = {
+    "MBTI" : [],
+    "성격" : [],
+    "관심사" : [],
+    "엔터테인먼트" : [],
+    "스포츠" : [],
+    "커리어" : []
+  };
   bool showSpinner = false;
 
   String _checkinterestList() {
-    for (var entry in _interest.entries) {
+    for (var entry in _interest_value.entries) {
       String key = entry.key;
       List<String> list = entry.value;
       int min = minSelectCountOfInterest[key] ?? 0;
@@ -368,7 +375,7 @@ class _UserInterestSaveState extends State<UserInterestSave> {
     if (currentUser != null) {
       try {
         if(message != "true") throw Exception(message);
-        await db.collection("users").doc("${currentUser.uid}").update(_interest);
+        await db.collection("users").doc("${currentUser.uid}").update(_interest_value);
         await db.collection("users").doc("${currentUser.uid}").update(chk);
         Navigator.pushAndRemoveUntil(context,
             MaterialPageRoute(
@@ -418,13 +425,13 @@ class _UserInterestSaveState extends State<UserInterestSave> {
                     margin: EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: _interest.values.fold<int>(0, (sum, list) => sum + list.length),
+                      itemCount: _interest_value.values.fold<int>(0, (sum, list) => sum + list.length),
                       itemBuilder: (BuildContext context, int index) {
                         int sumLength = 0;
                         String key = '';
                         List<String> values = [];
 
-                        for (final entry in _interest.entries) { // new
+                        for (final entry in _interest_view.entries) { // new
                           final list = entry.value;
                           if (index < sumLength + list.length) {
                             key = entry.key;
@@ -453,7 +460,8 @@ class _UserInterestSaveState extends State<UserInterestSave> {
                             child: Text(values[index - sumLength] + " ✖", style: TextStyle(fontSize: 12), textAlign: TextAlign.center), // x표시는 임시
                             onPressed: () {
                               setState(() {
-                                _interest[key]!.removeAt(index - sumLength);
+                                _interest_view[key]!.removeAt(index - sumLength);
+                                _interest_value[key]!.removeAt(index - sumLength);
                               });
                             },
                           ),
@@ -507,10 +515,12 @@ class _UserInterestSaveState extends State<UserInterestSave> {
                                                     ),
                                                     child: Text((INTEREST[key] as List<String>)[index], style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
                                                     onPressed: (){
-                                                      if((_interest[key] as List<String>).length < (maxSelectCountOfInterest[key] ?? 0)) {
+                                                      if((_interest_view[key] as List<String>).length < (maxSelectCountOfInterest[key] ?? 0)) {
                                                         setState(() {
-                                                          (_interest[key] as List<String>).add((INTEREST[key] as List<String>)[index]);
-                                                          _interest[key] = (_interest[key.toString()] as List<String>).toSet().toList();
+                                                          (_interest_view[key] as List<String>).add((INTEREST[key] as List<String>)[index]);
+                                                          _interest_view[key] = (_interest_view[key.toString()] as List<String>).toSet().toList();
+                                                          (_interest_value[key] as List<String>).add((INTEREST_VALUE[key] as List<String>)[index]);
+                                                          _interest_value[key] = (_interest_value[key.toString()] as List<String>).toSet().toList();
                                                         });
                                                       }
                                                     },
