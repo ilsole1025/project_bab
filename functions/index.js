@@ -41,8 +41,12 @@ const MBTI = [
 function Person(uid) {
   this.uid = uid;
   this.gender = -1;
-  this.mbti = "";
+  this.mbti = -1;
   this.personality = -1;
+  this.interest = [];
+  this.sport = [];
+  this.entertainment = [];
+  this.career = [];
 }
 
 exports.helloWorld = onRequest((request, response) => {
@@ -92,7 +96,7 @@ exports.matchingAlgorythm = functions.pubsub.schedule("* * * * *")
           userCount += 1;
         }
       }
-      //    calculate MBTI
+      //    save User Information
       await Promise.all(userArray.map(async (user) => {
         const docUser = await admin
             .firestore()
@@ -100,14 +104,98 @@ exports.matchingAlgorythm = functions.pubsub.schedule("* * * * *")
             .doc(user.uid)
             .get();
         const mbti = docUser.data().MBTI[0];
-        console.log("Check MBTI:", mbti);
-        user.mbti = mbti;
-      }));
+
+        if (mbti == "infp") {
+          user.mbti = 0;
+        } else if (mbti == "enfp") {
+          user.mbti = 1;
+        } else if (mbti == "infj") {
+          user.mbti = 2;
+        } else if (mbti == "enfj") {
+          user.mbti = 3;
+        } else if (mbti == "intj") {
+          user.mbti = 4;
+        } else if (mbti == "entj") {
+          user.mbti = 5;
+        } else if (mbti == "intp") {
+          user.mbti = 6;
+        } else if (mbti == "entp") {
+          user.mbti = 7;
+        } else if (mbti == "isfp") {
+          user.mbti = 8;
+        } else if (mbti == "esfp") {
+          user.mbti = 9;
+        } else if (mbti == "istp") {
+          user.mbti = 10;
+        } else if (mbti == "estp") {
+          user.mbti = 11;
+        } else if (mbti == "isfj") {
+          user.mbti = 12;
+        } else if (mbti == "esfj") {
+          user.mbti = 13;
+        } else if (mbti == "istj") {
+          user.mbti = 14;
+        } else if (mbti == "estj") {
+          user.mbti = 15;
+        }
+
+        const personality = docUser.data().성격[0];
+        if (personality == "내향적") {
+          user.personality = 0;
+        } else if (personality == "외향적") {
+          user.personality = 1;
+        } else if (personality == "이성적") {
+          user.personality = 2;
+        } else if (personality == "감성적") {
+          user.personality = 3;
+        } else if (personality == "낙천적") {
+          user.personality = 4;
+        }
+
+
+        user.interest[0] = docUser.data().관심사[0];
+        user.interest[1] = docUser.data().관심사[1];
+        user.interest[2] = docUser.data().관심사[2];
+
+        user.sport[0] = docUser.data().스포츠[0];
+        user.sport[1] = docUser.data().스포츠[1];
+        user.sport[2] = docUser.data().스포츠[2];
+
+        user.entertainment.push(docUser.data().엔터테인먼트[0]);
+        user.entertainment.push(docUser.data().엔터테인먼트[1]);
+        user.entertainment.push(docUser.data().엔터테인먼트[2]);
+
+        user.career.push(docUser.data().커리어[0]);
+        user.career.push(docUser.data().커리어[1]);
+        user.career.push(docUser.data().커리어[2]);
+
+        const gender = docUser.data().gender;
+        if (gender == "man") {
+          user.gender = 0;
+        } else {
+          user.gender = 1;
+        }
+
+        const age = docUser.data().age;
+        user.age = parseInt(age);
+
+      },
+      ));
+
+      await Promise.all(userArray.map(async (user) => {
+
+      }
 
       //    check code is working
       userArray.forEach((user) => {
         console.log("user: ", user.uid);
         console.log("mbti: ", user.mbti);
+        console.log("gender: ", user.gender);
+        console.log("age: ", user.age);
+        console.log("personality: ", user.personality);
+        console.log("sport: ", user.sport);
+        console.log("interest: ", user.interest);
+        console.log("career: ", user.career);
       });
       console.log("count: ", userCount);
       console.log(MBTI[0][0]);
