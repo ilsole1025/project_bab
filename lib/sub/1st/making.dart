@@ -73,17 +73,17 @@ class MakingDate extends StatelessWidget{
                       margin: EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: (ME['MBTI'] as List<dynamic>).length,
+                        itemCount: (ME['interests'] as List<dynamic>).length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
                             padding: EdgeInsets.all(5),
                             margin: EdgeInsets.only(left: 6, right: 6),
-                            width: (ME['MBTI'] as List<dynamic>)[index].length * 12.0 + 20.0,
+                            width: (ME['interests'] as List<dynamic>)[index].length * 12.0 + 20.0,
                             decoration: BoxDecoration(
                               color: Color(int.parse("0xFFEBEBEB")),
                               borderRadius: BorderRadius.all(Radius.circular(20)),
                             ),
-                            child: Text((ME['MBTI'] as List<dynamic>)[index], style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+                            child: Text((ME['interests'] as List<dynamic>)[index], style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
                           );
                         },
                       ),

@@ -375,7 +375,9 @@ class _UserInterestSaveState extends State<UserInterestSave> {
     if (currentUser != null) {
       try {
         if(message != "true") throw Exception(message);
+        final Map<String,List<String>> _interest_listmap = {"interests" : _interest_value.values.expand((values) => values).toList()};
         await db.collection("users").doc("${currentUser.uid}").update(_interest_value);
+        await db.collection("users").doc("${currentUser.uid}").update(_interest_listmap);
         await db.collection("users").doc("${currentUser.uid}").update(chk);
         Navigator.pushAndRemoveUntil(context,
             MaterialPageRoute(

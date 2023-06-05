@@ -106,23 +106,23 @@ class MakeDate extends StatelessWidget{
                           margin: EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: (ME['MBTI'] as List<dynamic>).length,
+                            itemCount: (ME['interests'] as List<dynamic>).length,
                             itemBuilder: (BuildContext context, int index) {
                               //Color c1 = const Color.fromRGBO(66, 165, 245, 1.0);
                               return Container(
                                 padding: EdgeInsets.all(5),
                                 margin: EdgeInsets.only(left: 6, right: 6),
-                                width: (ME['MBTI'] as List<dynamic>)[index].length * 12.0 + 20.0,
+                                width: (ME['interests'] as List<dynamic>)[index].length * 12.0 + 20.0,
                                 decoration: BoxDecoration(
                                   color: Colors.black38,
                                   borderRadius: BorderRadius.all(Radius.circular(20)),
                                 ),
-                                child: Text((ME['MBTI'] as List<dynamic>)[index],
+                                child: Text((ME['interests'] as List<dynamic>)[index],
                                     style: TextStyle(fontSize: 12, color:Colors.white), textAlign: TextAlign.center),
                               );
                               // return Container(
                               //     height: 25,
-                              //     width: (ME['MBTI'] as List<String>)[index].length * 12.0 + 20.0,
+                              //     width: (ME['interests'] as List<String>)[index].length * 12.0 + 20.0,
                               //     child: ElevatedButton(
                               //       style: ButtonStyle(
                               //         padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(5)),
@@ -134,9 +134,9 @@ class MakeDate extends StatelessWidget{
                               //               borderRadius: BorderRadius.circular(20),
                               //             )),
                               //       ),
-                              //       child: Text((ME['MBTI'] as List<String>)[index], style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+                              //       child: Text((ME['interests'] as List<String>)[index], style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
                               //       onPressed: (){
-                              //         (ME['MBTI'] as List<String>).removeAt(index);
+                              //         (ME['interests'] as List<String>).removeAt(index);
                               //       },
                               //     )
                               // );
