@@ -49,6 +49,16 @@ function Person(uid) {
   this.career = [];
 }
 
+/**
+ * @param {user1} user1 The first number.
+ * @param {user2} user2 The first number.
+ */
+function Edge(user1, user2) {
+  this.user1 = user1;
+  this.user2 = user2;
+  this.score = 0;
+}
+
 exports.helloWorld = onRequest((request, response) => {
   response.send({data: "hello world!"});
 });
@@ -178,12 +188,64 @@ exports.matchingAlgorythm = functions.pubsub.schedule("* * * * *")
 
         const age = docUser.data().age;
         user.age = parseInt(age);
-
       },
       ));
 
-      await Promise.all(userArray.map(async (user) => {
+      const edgeArray = [];
+      let edgeCount = -1;
+      for (let i = 0; i < userCount; i++) {
+        for (let j = i + 1; j < userCount; j++) {
+          edgeCount += 1;
+          edgeArray.push(new Edge(userArray[i], userArray[j]));
+          userArray[i].interest.forEach((v) => {
+            if (userArray[j].interest.includes(v)) {
+              edgeArray[edgeCount].score += 1;
+              console.log("이씀");
+            } else {
+              console.log("없씀ㅠ");
+            }
+            if (userArray[j].sport.includes(v)) {
+              edgeArray[edgeCount].score += 1;
+              console.log("이씀");
+            } else {
+              console.log("없씀ㅠ");
+            }
+            if (userArray[j].entertainment.includes(v)) {
+              edgeArray[edgeCount].score += 1;
+              console.log("이씀");
+            } else {
+              console.log("없씀ㅠ");
+            }
+            if (userArray[j].career.includes(v)) {
+              edgeArray[edgeCount].score += 1;
+              console.log("이씀");
+            } else {
+              console.log("없씀ㅠ");
+            }
+            console.log("score : ", edgeArray[edgeCount].score);
+          },
 
+          );
+        }
+      }
+
+      edgeArray.sort();
+      console.log(edgeArray);
+      const matchedUser = [];
+      let matchedCount = 0;
+
+      for (let i = 0; i < edgeArray.length; i++) {
+        if (matchedUser.includes(edgeArray[i].user1.uid) ||
+        matchedUser.includes(edgeArray[i].user2.uid)) {
+          continue;
+        } else {
+          matchedUser.push(edgeArray[i].user1.uid);
+          matchedUser.push(edgeArray[i].user2.uid);
+          matchedCount += 2;
+        }
+        if (matchedCount > userCount/2) {
+          break;
+        }
       }
 
       //    check code is working
@@ -199,5 +261,35 @@ exports.matchingAlgorythm = functions.pubsub.schedule("* * * * *")
       });
       console.log("count: ", userCount);
       console.log(MBTI[0][0]);
+
+      for (let i=0; i<matchedUser.length; i++) {
+        if (i%2 == 0) {
+          admin
+              .firestore()
+              .collection("users")
+              .doc(matchedUser[i])
+              .update(
+                  {matched: true,
+                    matchingUser: matchedUser[i+1]},
+              );
+          admin
+              .firestore()
+              .collection("users")
+              .doc(matchedUser[i+1])
+              .update(
+                  {matched: true,
+                    matchingUser: matchedUser[i]},
+              );
+
+          const target = admin.firestore()
+              .collection("matchingPool").doc("users");
+          target.update({
+            userpool: admin.firestore.FieldValue.arrayRemove(matchedUser[i]),
+          });
+          target.update({
+            userpool: admin.firestore.FieldValue.arrayRemove(matchedUser[i+1]),
+          });
+        }
+      }
     });
 

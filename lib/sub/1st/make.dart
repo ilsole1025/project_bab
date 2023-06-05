@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project_bab/sub/1st/matchingComplete.dart';
 
 import 'making.dart';
+import 'matchingComplete.dart';
 
 import 'package:http/http.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -170,7 +172,8 @@ class MakeDate extends StatelessWidget{
 
                                 Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => MakingDate())
+                                    // MaterialPageRoute(builder: (context) => MakingDate())
+                                    MaterialPageRoute(builder: (context) => matchingComplete())
                                 );
                               },
                             )
