@@ -35,6 +35,14 @@ const MBTI = [
   [0, 0, 0, 0, 1, 2, 4, 1, 2, 4, 2, 4, 3, 3, 3, 3],
 ];
 
+const PERSONALITY = [
+  [1, 2, 3, 2, 2],
+  [2, 3, 1, 2, 3],
+  [3, 1, 3, 1, 1],
+  [2, 2, 1, 3, 2],
+  [2, 3, 1, 2, 3],
+];
+
 /**
  * @param {uid} uid The first number.
  */
@@ -191,12 +199,18 @@ exports.matchingAlgorythm = functions.pubsub.schedule("* * * * *")
       },
       ));
 
+      //    점수 계산
       const edgeArray = [];
       let edgeCount = -1;
       for (let i = 0; i < userCount; i++) {
         for (let j = i + 1; j < userCount; j++) {
           edgeCount += 1;
           edgeArray.push(new Edge(userArray[i], userArray[j]));
+          edgeArray[edgeCount].score +=
+            MBTI[userArray[i].mbti][userArray[j].mbti];
+          edgeArray[edgeCount].score +=
+            PERSONALITY[userArray[i].personality][userArray[j].personality];
+
           userArray[i].interest.forEach((v) => {
             if (userArray[j].interest.includes(v)) {
               edgeArray[edgeCount].score += 1;
@@ -204,28 +218,33 @@ exports.matchingAlgorythm = functions.pubsub.schedule("* * * * *")
             } else {
               console.log("없씀ㅠ");
             }
+          });
+
+          userArray[i].sport.forEach((v) => {
             if (userArray[j].sport.includes(v)) {
               edgeArray[edgeCount].score += 1;
               console.log("이씀");
             } else {
               console.log("없씀ㅠ");
             }
+          });
+          userArray[i].entertainment.forEach((v) => {
             if (userArray[j].entertainment.includes(v)) {
               edgeArray[edgeCount].score += 1;
               console.log("이씀");
             } else {
               console.log("없씀ㅠ");
             }
+          });
+          userArray[i].career.forEach((v) => {
             if (userArray[j].career.includes(v)) {
               edgeArray[edgeCount].score += 1;
               console.log("이씀");
             } else {
               console.log("없씀ㅠ");
             }
-            console.log("score : ", edgeArray[edgeCount].score);
-          },
-
-          );
+          });
+          console.log("score : ", edgeArray[edgeCount].score);
         }
       }
 
@@ -260,7 +279,6 @@ exports.matchingAlgorythm = functions.pubsub.schedule("* * * * *")
         console.log("career: ", user.career);
       });
       console.log("count: ", userCount);
-      console.log(MBTI[0][0]);
 
       for (let i=0; i<matchedUser.length; i++) {
         if (i%2 == 0) {
