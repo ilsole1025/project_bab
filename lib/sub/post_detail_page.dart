@@ -110,7 +110,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                           } else {
                             post["likes"].add(uid);
                           }
-                          final isLiked = await clickedLike(post["id"]);
+                          final isLiked = await updateLike(post["id"]);
                           setState(() {});
                         },
                         icon: Icon(Icons.thumb_up_outlined, color: Colors.red),
@@ -195,7 +195,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                       "content": _commentController.text,
                       "createdAt": DateTime.now(),
                     };
-                    addComment(post["id"], comment);
+                    setComment(post["id"], comment);
                     post["commentCount"]++;
                     _commentController.clear();
                   });

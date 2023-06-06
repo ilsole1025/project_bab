@@ -19,7 +19,7 @@ Future<bool> setPost(Map<String, dynamic> post) async {
   return false;
 }
 
-Future<bool> addComment(String pid, Map<String, dynamic> comment) async {
+Future<bool> setComment(String pid, Map<String, dynamic> comment) async {
   try {
     int commentCount = 0;
     // 예외 처리가 들어갈 곳
@@ -160,7 +160,7 @@ Future<List<Map<String, dynamic>>> getCommentList(String DocID) async {
 
 /// UPDATE
 
-Future<bool> clickedLike(String pid) async {
+Future<bool> updateLike(String pid) async {
   String uid = getUid();
   if (uid == "User not logged in.") {
     throw Exception("User not logged in.");
