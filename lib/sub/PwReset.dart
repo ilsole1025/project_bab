@@ -66,7 +66,7 @@ class _PwResetState extends State<PwReset> {
       appBar: AppBar(
         title: Text('비밀번호 재설정'),
         elevation: 0.0,
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.red[300],
         centerTitle: true,
         leading: IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () {
           Navigator.pop(context);

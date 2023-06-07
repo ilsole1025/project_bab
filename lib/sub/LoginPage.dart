@@ -97,12 +97,12 @@ class _LogInState extends State<LogIn> {
       appBar: AppBar(
         title: Text('Log in'),
         elevation: 0.0,
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.red[300],
         centerTitle: true,
         leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {})
-        ],
+      //  actions: <Widget>[
+      //   IconButton(icon: Icon(Icons.search), onPressed: () {})
+      //  ],
       ),
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
