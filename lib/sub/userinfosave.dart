@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_bab/main.dart';
+import 'package:project_bab/widgets/app_large_text.dart';
 import 'exception.dart';
 import 'interest.dart';
 import 'dart:math';
@@ -15,13 +16,14 @@ class UserInfoSave extends StatefulWidget {
 }
 
 class _UserInfoSaveState extends State<UserInfoSave> {
+
+  /* 회원가입 */
   final List<String> _ageList = ['선택하기','20','21','22','23','24','25','26','27','28','29','30'];
   TextEditingController nicknamecontroller = TextEditingController();
   TextEditingController namecontroller = TextEditingController();
   TextEditingController kakaotalkidcontroller = TextEditingController();
   TextEditingController introductioncontroller = TextEditingController();
   String _gender = '', _age = '선택하기';
-  final int _tmpNumber = Random().nextInt(10)+1;
 
   bool showSpinner = false;
 
@@ -37,7 +39,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
       "name" : namecontroller.text,
       "gender": _gender,
       "age": _age,
-      "profileimg": _tmpNumber,
+      "profileimg": Random().nextInt(10)+1,
       "kakaotalkid": kakaotalkidcontroller.text,
       "introduction": introductioncontroller.text,
       "mannertemp": 36.5,
@@ -330,6 +332,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
 
 
 class UserInterestSave extends StatefulWidget {
+  // 프로필 수정
   const UserInterestSave({Key? key}) : super(key: key);
 
   @override
@@ -406,7 +409,7 @@ class _UserInterestSaveState extends State<UserInterestSave> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('save user interest'),
+          title: Text('프로필 수정'),
           elevation: 0.0,
           backgroundColor: Colors.red[300],
           centerTitle: true,
@@ -422,7 +425,7 @@ class _UserInterestSaveState extends State<UserInterestSave> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("나의 관심사", style: TextStyle(fontSize: 20), textAlign: TextAlign.center),
+                  AppLargeText(text: "나의 관심사", size:20),
                   Container(
                     height: 25,
                     width: double.infinity,
@@ -452,9 +455,9 @@ class _UserInterestSaveState extends State<UserInterestSave> {
                           child: ElevatedButton(
                             style: ButtonStyle(
                               padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(5)),
-                              backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
-                              foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
-                              shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.red[300]!),
+                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                              shadowColor: MaterialStateProperty.all<Color>(Colors.black87),
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
@@ -474,12 +477,8 @@ class _UserInterestSaveState extends State<UserInterestSave> {
                     ),
                   ),
 
-                  Container(
-                    height: 10,
-                    width: double.infinity,
-                    color: Colors.white70,
-                    margin: EdgeInsets.only(bottom: 20),
-                  ),
+                  SizedBox(height: 10,),
+
                   Divider(),
                   Expanded(
                       child: Container(
@@ -509,12 +508,12 @@ class _UserInterestSaveState extends State<UserInterestSave> {
                                                   child: ElevatedButton(
                                                     style: ButtonStyle(
                                                       padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(5)),
-                                                      backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
-                                                      foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
-                                                      shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
+                                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white38),
+                                                      foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                                                      shadowColor: MaterialStateProperty.all<Color>(Colors.white38!),
                                                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                           RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(20),
+                                                            borderRadius: BorderRadius.circular(10),
                                                           )),
                                                     ),
                                                     child: Text((INTEREST[key] as List<String>)[index], style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
@@ -533,7 +532,7 @@ class _UserInterestSaveState extends State<UserInterestSave> {
                                             },
                                           )
                                       ),
-                                      Divider(),
+
                                     ]
                                 );
                               }
@@ -546,9 +545,9 @@ class _UserInterestSaveState extends State<UserInterestSave> {
                       child: ElevatedButton(
                         style: ButtonStyle(
                           padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(5)),
-                          backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
-                          foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
-                          shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.red[200]!),
+                          foregroundColor: MaterialStateProperty.all<Color>(Colors.black87),
+                          shadowColor: MaterialStateProperty.all<Color>(Colors.white70),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),

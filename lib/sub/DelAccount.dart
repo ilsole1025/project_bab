@@ -26,7 +26,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
         return AlertDialog(
           title: const Text('회원 탈퇴'),
           content: const Text(
-            '정말로 회원탈퇴하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다',
+            '정말로 탈퇴하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.',
             textAlign: TextAlign.center,
           ),
           actions: [
@@ -100,11 +100,11 @@ class _DeleteAccountState extends State<DeleteAccount> {
         showSpinner = false;
       });
       if (e.code == 'empty-password') {
-        message = '비밀번호를 입력하세요';
+        message = '비밀번호를 입력해주세요';
       } else if (e.code == 'user-not-logged-in') {
         message = '다시 로그인 후 재시도해 주세요';
       } else if (e.code == 'wrong-password') {
-        message = '잘못된 비밀번호입니다';
+        message = '비밀번호가 잘못되었습니다';
       }
     }
 
@@ -128,7 +128,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
       appBar: AppBar(
         title: Text('회원 탈퇴'),
         elevation: 0.0,
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.red[300],
         centerTitle: true,
         leading: IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () {
           Navigator.pop(context);

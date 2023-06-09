@@ -45,6 +45,8 @@ class _PostListPageState extends State<PostListPage> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +78,7 @@ class _PostListPageState extends State<PostListPage> {
             return const Center(child: CircularProgressIndicator());
           }
           final postList = snapshot.data!.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();
+
           return ListView.builder(
             itemCount: postList.length,
             itemBuilder: (ctx, index) {

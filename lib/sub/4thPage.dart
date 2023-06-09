@@ -293,16 +293,16 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Column( // 4 프로필 수정
+                    Column( // 4. 프로필 수정
                       children: [
                         SizedBox.fromSize(
                           size: Size(120, 120),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: Material(
-                              color: Colors.white,
+                              color: Colors.red[50],
                               child: InkWell(
-                                splashColor: Colors.white70,
+                                splashColor: Colors.white,
                                 onTap: () {
                                   Navigator.push(
                                       context,
