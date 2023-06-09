@@ -37,7 +37,7 @@ class _MatchedListPageState extends State<MatchedListPage> {
             itemBuilder: (ctx, index) {
               final Map<String,dynamic> matchedData = matchedList[index];
               return Container(
-                height: 80,
+                height: 150,
                 width: double.infinity,
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(

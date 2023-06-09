@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_bab/sub/1st/history.dart';
-import 'package:project_bab/sub/1st/matched.dart';
 import '1st/make.dart';
-import 'package:project_bab/main.dart';
-//import 'interest.dart';
-import 'package:http/http.dart';
-import 'package:intl/intl.dart';
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:project_bab/sub/DbGet.dart';
-import 'package:project_bab/sub/4thPage.dart';
 
 
 class FirstApp extends StatefulWidget {
@@ -21,15 +14,11 @@ class FirstApp extends StatefulWidget {
 class _FirstAppState extends State<FirstApp> {
   List<Map<String, dynamic>> newList = [], oldList = [];
 
-  @override
-  void initState() {
-    initializeLists();
-    super.initState();
-  }
 
-  initializeLists() async {
+  Future<Map<String, dynamic>> initializewithgetUser() async {
     newList = await getMatched();
-    oldList = await getMatched();
+    oldList = newList;
+    return await getUser();
   }
 
   @override
@@ -74,12 +63,12 @@ class _FirstAppState extends State<FirstApp> {
                   children: [
                     Expanded(
                       child: FutureBuilder(
-                        future: getUser(),
+                        future: initializewithgetUser(),
                         builder: (context, snapshot){
                           if (snapshot.connectionState == ConnectionState.waiting || snapshot.data == null) {
                             return const Center(child: CircularProgressIndicator());
                           }
-                          final my_info = snapshot.data;
+                          final Map<String, dynamic> my_info = snapshot.data!;
                           return ListView.builder(
                             itemCount: oldList.length + 1,
                             itemBuilder: (BuildContext context, int index) {
@@ -223,11 +212,10 @@ class _FirstAppState extends State<FirstApp> {
                                             ),
                                             child: Text("히스토리 보기", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
                                             onPressed: (){
-                                              /*Navigator.push(
+                                              Navigator.push(
                                                   context,
-                                                  MaterialPageRoute(builder: (context) => History(my_info: my_info, other_info: oldList[index-1],))
-                                              );*/
-                                              /// TODO: MY_INFO와 OTHER_INFO 형식이 변경됨에 따라 발생한 오류가 존재하여 일시적으로 주석 처리
+                                                  MaterialPageRoute(builder: (context) => History(my_info: my_info, other_info: oldList[index-1]))
+                                              );
                                             },
                                           )
                                       ),

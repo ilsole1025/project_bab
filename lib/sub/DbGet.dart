@@ -184,10 +184,12 @@ Future<List<Map<String, dynamic>>> getMatched() async {
       final String nickname = otherUserInfo["nickname"].toString();
       final String mannertemp = otherUserInfo["mannertemp"].toString();
       final String introduction = otherUserInfo["introduction"].toString();
+      final List<String> interests = otherUserInfo["interests"].cast<String>();
 
       docMap['nickname'] = nickname;
       docMap['mannertemp'] = mannertemp;
       docMap['introduction'] = introduction;
+      docMap['interests'] = interests;
 
       final DateTime dt = docMap['timestamp'].toDate().toLocal();
       final String dtstr = DateFormat('yyyy/MM/dd HH:mm:ss').format(dt);
@@ -195,9 +197,10 @@ Future<List<Map<String, dynamic>>> getMatched() async {
 
       documents.add(docMap);
     }
-
+    print(documents.toString());
     return documents;
   } catch (e) {
+    print(e.toString());
     // 오류 처리 로직 추가
     return [];
   }
