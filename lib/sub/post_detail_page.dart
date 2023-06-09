@@ -111,7 +111,7 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
                             post["likes"].add(uid);
                           }
                           final isLiked = await updateLike(post["id"]);
-                          setState(() {});
+                          if(this.mounted) { setState(() {}); }
                         },
                         icon: Icon(Icons.thumb_up_outlined, color: Colors.red),
                         label: Text('좋아요 ${post["likes"].length}', style: TextStyle(color: Colors.red)),
