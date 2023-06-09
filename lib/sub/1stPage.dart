@@ -5,6 +5,7 @@ import '1st/make.dart';
 import 'package:project_bab/main.dart';
 //import 'interest.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:project_bab/sub/DbGet.dart';
 import 'package:project_bab/sub/4thPage.dart';
@@ -26,7 +27,7 @@ class _FirstAppState extends State<FirstApp> {
     super.initState();
   }
 
-  void initializeLists() async {
+  initializeLists() async {
     newList = await getMatched();
     oldList = await getMatched();
   }
@@ -90,8 +91,8 @@ class _FirstAppState extends State<FirstApp> {
                                     child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
                                         itemCount: newList.length + 1,
-                                        itemBuilder: (BuildContext context, int index) {
-                                          if(index == 0){
+                                        itemBuilder: (BuildContext context, int idx) {
+                                          if(idx == 0){
                                             return Container(
                                                 margin: EdgeInsets.only(right: 20),
                                                 child: ElevatedButton(
@@ -107,12 +108,12 @@ class _FirstAppState extends State<FirstApp> {
                                                           MaterialPageRoute(builder: (context) => MakeDate())
                                                       );
                                                     },
-                                                    child: Column(
+                                                    child: const Column(
                                                         children: [
                                                           CircleAvatar(
                                                             radius: 30,
                                                             backgroundColor: Colors.amber,
-                                                            backgroundImage: AssetImage('../img/111'),
+                                                            backgroundImage: AssetImage('img/111.jpeg'),
                                                             child: Text(
                                                                 '+',
                                                                 style: TextStyle(fontSize: 20),
@@ -149,10 +150,10 @@ class _FirstAppState extends State<FirstApp> {
                                                         CircleAvatar(
                                                           radius: 30,
                                                           backgroundColor: Colors.amber,
-                                                          backgroundImage: AssetImage('../img/111'),
+                                                          backgroundImage: AssetImage('img/111.jpeg'),
                                                         ),
                                                         Text(
-                                                            '${newList[index-1]['nickname']}',
+                                                            '${newList[idx-1]['nickname']}',
                                                             style: TextStyle(fontSize: 10),
                                                             textAlign: TextAlign.center
                                                         ),
@@ -182,7 +183,7 @@ class _FirstAppState extends State<FirstApp> {
                                           children: [
                                             CircleAvatar(
                                               backgroundColor: Colors.amber,
-                                              backgroundImage: AssetImage('../img/111'),
+                                              backgroundImage: AssetImage('img/111.jpeg'),
                                               radius: 58.0,
                                             ),
                                             Column(
@@ -201,7 +202,7 @@ class _FirstAppState extends State<FirstApp> {
                                                   style: TextStyle(fontSize: 13,color: Colors.black),
                                                 ),
                                                 Text(
-                                                  '${oldList[index-1]['date']}',
+                                                  '${oldList[index-1]['timestamp']}',
                                                   style: TextStyle(fontSize: 13,color: Colors.black),
                                                 ),
                                               ],
@@ -222,10 +223,11 @@ class _FirstAppState extends State<FirstApp> {
                                             ),
                                             child: Text("히스토리 보기", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
                                             onPressed: (){
-                                              Navigator.push(
+                                              /*Navigator.push(
                                                   context,
                                                   MaterialPageRoute(builder: (context) => History(my_info: my_info, other_info: oldList[index-1],))
-                                              );
+                                              );*/
+                                              /// TODO: MY_INFO와 OTHER_INFO 형식이 변경됨에 따라 발생한 오류가 존재하여 일시적으로 주석 처리
                                             },
                                           )
                                       ),

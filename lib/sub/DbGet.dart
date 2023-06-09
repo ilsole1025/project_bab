@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_bab/main.dart';
+import 'package:intl/intl.dart';
+
 
 /// SET
 
@@ -71,10 +73,6 @@ Future<bool> setMatched(String? uid, String? oid, DateTime? date, TimeOfDay? tim
       "otherid": uid,
       "timestamp": timestamp,
     };
-    //print("uid : " + uid);
-    //print("oid : " + oid);
-    print("time : " + time.toString());
-    print("date : " + date.toString());
     final UDoc = await db.collection("matched").doc(uid).get();
     if(!UDoc.exists) {
       db.collection("matched").doc(uid).set({});
@@ -166,29 +164,45 @@ Future<dynamic> getUserInfo(String fieldName, String uid) async {
   return null; // 정보가 없는 경우
 }
 
-//Future<List<Map<String, dynamic>>>
 Future<List<Map<String, dynamic>>> getMatched() async {
-  List<Map<String, dynamic>> documents = [];
-
-  try{
+  try {
     String uid = getUid();
     if (uid == "User not logged in.") {
       throw Exception("User not logged in.");
     }
 
-    await db.collection("matched").doc(uid).collection("others").get().then(
-            (querySnapshot){
-          for (var docSnapshot in querySnapshot.docs){
-            documents.add(docSnapshot.data());
-          }
-        }
-    );
-  } catch (e) {
-    ;
-  }
+    List<Map<String, dynamic>> documents = [];
 
-  return documents;
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await db.collection("matched").doc(uid).collection("others").get();
+
+    for (var docSnapshot in querySnapshot.docs) {
+      final Map<String, dynamic> docMap = docSnapshot.data();
+      final DocumentSnapshot<Map<String, dynamic>> otherUserSnapshot = await db.collection("users").doc(docMap['otherid']).get();
+      if(!otherUserSnapshot.exists) throw Exception("other user data is null");
+      final Map<String, dynamic> otherUserInfo = otherUserSnapshot.data()!;
+
+      final String nickname = otherUserInfo["nickname"].toString();
+      final String mannertemp = otherUserInfo["mannertemp"].toString();
+      final String introduction = otherUserInfo["introduction"].toString();
+
+      docMap['nickname'] = nickname;
+      docMap['mannertemp'] = mannertemp;
+      docMap['introduction'] = introduction;
+
+      final DateTime dt = docMap['timestamp'].toDate().toLocal();
+      final String dtstr = DateFormat('yyyy/MM/dd HH:mm:ss').format(dt);
+      docMap['timestamp'] = dtstr;
+
+      documents.add(docMap);
+    }
+
+    return documents;
+  } catch (e) {
+    // 오류 처리 로직 추가
+    return [];
+  }
 }
+
 
 Future<List<Map<String, dynamic>>> getPostList() async {
   // Future<List<Map<String, dynamic>>> getPostList() async : db에 존재하는 모든 post들을 List형태로 반환함
