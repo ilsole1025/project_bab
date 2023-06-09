@@ -139,10 +139,10 @@ class _FirstAppState extends State<FirstApp> {
                                                     shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
                                                   ),
                                                   onPressed: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(builder: (context) => Matched(my_info: my_info, other_info: newList[index-1],))
-                                                    );
+                                                    // Navigator.push(
+                                                    //     context,
+                                                    //     MaterialPageRoute(builder: (context) => Matched(my_info: my_info, other_info: newList[index-1],))
+                                                    // );
                                                   },
                                                   child: Column(
                                                       children: [

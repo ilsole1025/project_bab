@@ -114,6 +114,26 @@ Future<dynamic> getUserData(String fieldName) async {
   return null; // 정보가 없는 경우
 }
 
+Future<dynamic> getUserInfo(String fieldName, String uid) async {
+  // Future<dynamic> getUserData(String fieldName) async : fieldName을 인자로 받아 현재 유저의 해당 field 데이터를 return함
+
+  String doc = uid;
+  if (doc == "User not logged in.") {
+    throw Exception("User not logged in.");
+  }
+
+  DocumentSnapshot<Map<String, dynamic>> snapshot = await db.collection("users").doc(doc).get();
+
+  if (snapshot.exists) {
+    Map<String, dynamic> data = snapshot.data()!;
+    if (data.containsKey(fieldName)) {
+      return data[fieldName];
+    }
+  }
+
+  return null; // 정보가 없는 경우
+}
+
 //Future<List<Map<String, dynamic>>>
 Future<List<Map<String, dynamic>>> getMatched() async {
   List<Map<String, dynamic>> documents = [];
