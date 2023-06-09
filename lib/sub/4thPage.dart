@@ -119,7 +119,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                     },
                   ),
                   AppText(text: "36.5도", color: Colors.redAccent),
-                  AppText(text: "이것은 한줄소개입니다", size: 15, color: Colors.black),
+                  AppText(text: "이것은 한줄소개가 들어갈 자리입니다", size: 15, color: Colors.black),
                 ],
               ),
             ),

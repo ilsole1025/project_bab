@@ -97,9 +97,9 @@ class _FirstAppState extends State<FirstApp> {
                                                 child: ElevatedButton(
                                                     style: ButtonStyle(
                                                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0)),
-                                                      backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
-                                                      foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
-                                                      shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
+                                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                                      foregroundColor: MaterialStateProperty.all<Color>(Colors.black87),
+                                                      shadowColor: MaterialStateProperty.all<Color>(Colors.white),
                                                     ),
                                                     onPressed: () {
                                                       Navigator.push(
