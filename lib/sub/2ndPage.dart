@@ -433,7 +433,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             ),
             selectedDecoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.blue, width: 2.0),
+              border: Border.all(color: Colors.red.shade300, width: 2.0),
             ),
             selectedTextStyle: TextStyle(color: Colors.black),
           ),
