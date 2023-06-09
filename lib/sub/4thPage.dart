@@ -22,6 +22,11 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 3, vsync: this);
+    var imgNum;
+    String imgUrl = "";
+
+
+
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
@@ -43,6 +48,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
             SizedBox(height: 10,),
             // 프로필 자리
 
+
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
               child: Stack(
@@ -60,20 +66,36 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                     ),
                   ),
                   Positioned(
-                    top: 140,
-                    left: 20,
-                    child: Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 5),
-                        image: DecorationImage(
-                          image: AssetImage("img/111.jpeg"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
+                      top: 140,
+                      left: 20,
+                      child: FutureBuilder( // imgNum불러오기
+                        future: getUserData("profileimg"),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            imgNum = snapshot.data.toString();
+                            imgUrl = "profileImg/$imgNum.jpg";
+                           // print("이미지 넘버는 " + imgNum);
+                           // print("이미지 URL은 " + imgUrl);
+                            return
+                              Container(
+                                width: 120,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Colors.white, width: 5),
+                                  image: DecorationImage(
+                                    //image: AssetImage("profileImg/$imgNum.jpg";),
+                                    image: AssetImage(imgUrl),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                          } else {
+                            return Container(); // 데이터가 없을 경우 아무것도 보여주지 않음
+                          }
+                        },
+                      )
+
                   ),
                 ],
               ),
@@ -109,14 +131,10 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                   FutureBuilder(
                     future: getUserData("nickname"),
                     builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return AppLargeText(
+                      return AppLargeText(
                           text: snapshot.data.toString(),
                           size: 22,
-                        );
-                      } else {
-                        return Container(); // 데이터가 없을 경우 아무것도 보여주지 않음
-                      }
+                      );
                     },
                   ),
                   SizedBox(height: 5,),
