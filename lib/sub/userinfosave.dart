@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_bab/main.dart';
 import 'exception.dart';
 import 'interest.dart';
-
+import 'dart:math';
 
 class UserInfoSave extends StatefulWidget {
   const UserInfoSave({Key? key}) : super(key: key);
@@ -21,6 +21,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
   TextEditingController kakaotalkidcontroller = TextEditingController();
   TextEditingController introductioncontroller = TextEditingController();
   String _gender = '', _age = '선택하기';
+  final int _tmpNumber = Random().nextInt(10)+1;
 
   bool showSpinner = false;
 
@@ -36,6 +37,7 @@ class _UserInfoSaveState extends State<UserInfoSave> {
       "name" : namecontroller.text,
       "gender": _gender,
       "age": _age,
+      "profileimg": _tmpNumber,
       "kakaotalkid": kakaotalkidcontroller.text,
       "introduction": introductioncontroller.text,
       "mannertemp": 36.5,

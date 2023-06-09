@@ -119,8 +119,33 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                       }
                     },
                   ),
-                  AppText(text: "36.5도", color: Colors.redAccent),
-                  AppText(text: "이것은 한줄소개가 들어갈 자리입니다", size: 15, color: Colors.black),
+                  SizedBox(height: 5,),
+                  FutureBuilder(
+                    future: getUserData("mannertemp"),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return AppText(
+                          text: snapshot.data.toString() + ' °C',
+                          color: Colors.redAccent,
+                        );
+                      } else {
+                        return Container(); // 데이터가 없을 경우 아무것도 보여주지 않음
+                      }
+                    },
+                  ),
+                  SizedBox(height: 5,),
+                  FutureBuilder(
+                    future: getUserData("introduction"),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return AppText(
+                          text: snapshot.data.toString(),
+                        );
+                      } else {
+                        return Container(); // 데이터가 없을 경우 아무것도 보여주지 않음
+                      }
+                    },
+                  ),
                 ],
               ),
             ),
