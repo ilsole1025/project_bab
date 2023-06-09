@@ -52,7 +52,7 @@ class MakingDate extends StatelessWidget{
                       radius: 58.0,
                     ),
                     Text(
-                        '\n${ME['name']}',
+                        '\n${ME['nickname']}',
                         style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20)
                     ),
                     Text(

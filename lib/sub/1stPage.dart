@@ -152,7 +152,7 @@ class _FirstAppState extends State<FirstApp> {
                                                           backgroundImage: AssetImage('../img/111'),
                                                         ),
                                                         Text(
-                                                            '${newList[index-1]['name']}',
+                                                            '${newList[index-1]['nickname']}',
                                                             style: TextStyle(fontSize: 10),
                                                             textAlign: TextAlign.center
                                                         ),
@@ -189,11 +189,11 @@ class _FirstAppState extends State<FirstApp> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                    '${oldList[index-1]['name']}',
+                                                    '${oldList[index-1]['nickname']}',
                                                     style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20)
                                                 ),
                                                 Text(
-                                                  '${oldList[index-1]['temperature']}\n',
+                                                  '${oldList[index-1]['mannertemp']}\n',
                                                   style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
                                                 ),
                                                 Text(

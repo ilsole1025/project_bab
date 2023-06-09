@@ -14,9 +14,9 @@ class Matched extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var matched_interest = <String>[];
-    for(var i =0; i<my_info['interest'].length; i++){
-      if(other_info['interest'].contains(my_info['interest'][i]))
-        matched_interest.add(my_info['interest'][i]);
+    for(var i =0; i<my_info['interests'].length; i++){
+      if(other_info['interests'].contains(my_info['interests'][i]))
+        matched_interest.add(my_info['interests'][i]);
     }
     if (matched_interest.length == 0)
       matched_interest.add('none');
@@ -58,12 +58,12 @@ class Matched extends StatelessWidget {
                     radius: 58.0,
                   ),
                   Text(
-                      '\n${other_info['name']}',
+                      '\n${other_info['nickname']}',
                       style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
                       textAlign: TextAlign.center
                   ),
                   Text(
-                      '${other_info['temperature']}\n',
+                      '${other_info['mannertemp']}\n',
                       style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
                       textAlign: TextAlign.center
                   ),
@@ -73,7 +73,7 @@ class Matched extends StatelessWidget {
                       textAlign: TextAlign.center
                   ),
                   Text(
-                      '카톡 아이디: ${other_info['kakao']}\n',
+                      '카톡 아이디: ${other_info['kakaotalkid']}\n',
                       style: TextStyle(fontSize: 13,color: Colors.black),
                       textAlign: TextAlign.center
                   ),
@@ -104,12 +104,12 @@ class Matched extends StatelessWidget {
                     radius: 58.0,
                   ),
                   Text(
-                      '\n${my_info['name']}',
+                      '\n${my_info['nickname']}',
                       style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
                       textAlign: TextAlign.center
                   ),
                   Text(
-                      '${my_info['temperature']}\n',
+                      '${my_info['mannertemp']}\n',
                       style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
                       textAlign: TextAlign.center
                   ),
@@ -119,7 +119,7 @@ class Matched extends StatelessWidget {
                       textAlign: TextAlign.center
                   ),
                   Text(
-                      '카톡 아이디: ${my_info['kakao']}\n',
+                      '카톡 아이디: ${my_info['kakaotalkid']}\n',
                       style: TextStyle(fontSize: 13,color: Colors.black),
                       textAlign: TextAlign.center
                   ),
