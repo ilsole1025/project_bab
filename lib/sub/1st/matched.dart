@@ -246,7 +246,7 @@ class Matched extends StatelessWidget {
                                             child: new Text("확인"),
                                             onPressed: () async {
                                               await setMatched(
-                                                  my_info, other_info, date,
+                                                  myUid, otherUid, date,
                                                   time);
                                               Navigator.of(context).popUntil((
                                                   route) => route.isFirst);

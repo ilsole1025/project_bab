@@ -46,22 +46,54 @@ Future<bool> setComment(String pid, Map<String, dynamic> comment) async {
 }
 
 
-Future<bool> setMatched(String uid, String oid, DateTime date, TimeOfDay time) async {
+Future<bool> setMatched(String? uid, String? oid, DateTime? date, TimeOfDay? time) async {
+  //print("setMatch Start");
+  uid = getUid(); /// 임시
   try {
+    if(uid == null || oid == null || date == null || time == null){
+      throw Exception("null catched");
+    }
+    Timestamp timestamp = Timestamp.fromDate(
+      DateTime(
+        date.year,
+        date.month,
+        date.day,
+        time.hour,
+        time.minute,
+      ),
+    );
+
     final data_u = {
       "otherid": oid,
-      "time": time,
-      "date": date
+      "timestamp": timestamp,
     };
     final data_o = {
       "otherid": uid,
-      "time": time,
-      "date": date
+      "timestamp": timestamp,
     };
-    await db.collection("matched").doc(uid).collection("others").doc(oid).set(data_u);
-    await db.collection("matched").doc(oid).collection("others").doc(uid).set(data_o);
+    //print("uid : " + uid);
+    //print("oid : " + oid);
+    print("time : " + time.toString());
+    print("date : " + date.toString());
+    final UDoc = await db.collection("matched").doc(uid).get();
+    if(!UDoc.exists) {
+      db.collection("matched").doc(uid).set({});
+    }
+    final messageRef_u = db.collection("matched").doc(uid).collection("others").doc(oid);
+    messageRef_u.set(data_u);
+
+    final ODoc = await db.collection("matched").doc(oid).get();
+    if(!ODoc.exists) {
+      db.collection("matched").doc(oid).set({});
+    }
+    final messageRef_o = db.collection("matched").doc(oid).collection("others").doc(uid);
+    messageRef_o.set(data_o);
+
+    //print("true");
+
     return true;
   } catch (e) {
+    //print(e);
     return false;
   }
 }

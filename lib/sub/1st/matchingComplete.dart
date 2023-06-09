@@ -39,7 +39,7 @@ class matchingComplete extends StatelessWidget {
               var documentData = snapshot.data!.data() as Map<String, dynamic>;
               var currentFieldValue = documentData['matchingUser'];
               if(currentFieldValue != "") {
-                var myuid = documentData['uid'];
+                var myuid = documentData['uid'].toString();
                 var mynickname = documentData['nickname'];
                 var mytemp = documentData['mannertemp'];
                 var myintro = documentData['introduction'];
