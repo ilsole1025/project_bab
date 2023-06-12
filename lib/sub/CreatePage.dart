@@ -75,14 +75,14 @@ class _CreateState extends State<Create> {
         if(value.user!.email == '') {
           throw FirebaseAuthException(code: 'empty-email');
         }
-          // 비밀번호 확인
+        // 비밀번호 확인
         if (password1controller.text != password2controller.text){
-            throw FirebaseAuthException(code : "password-missmatch");
-          }
-          //
+          throw FirebaseAuthException(code : "password-missmatch");
+        }
+        //
         if (emailcontroller.text.substring(emailcontroller.text.indexOf('@')) != '@sogang.ac.kr') {
-            throw FirebaseAuthException(code: "not-sogang");
-          }
+          throw FirebaseAuthException(code: "not-sogang");
+        }
         _makeFirestore(value);
         return value;});
       FirebaseAuth.instance.currentUser?.sendEmailVerification();
@@ -156,47 +156,47 @@ class _CreateState extends State<Create> {
                     child: Text("회원가입!")
                 ),
                 Form(
-                    child: Theme(
+                  child: Theme(
                       data: ThemeData(
                           primaryColor: Colors.blue,
                           inputDecorationTheme: InputDecorationTheme(
                               labelStyle: TextStyle(color: Colors.teal, fontSize: 15.0))),
                       child: Container(
-                          padding: EdgeInsets.all(50.0),
-                          child: Column(
-                            children: [
-                              TextField(
-                                  controller: emailcontroller,
-                                  decoration: InputDecoration(labelText: '이메일'),
-                                  keyboardType: TextInputType.emailAddress,
-                                ),
-                                TextField(
-                                  controller: password1controller,
-                                  decoration: InputDecoration(labelText: '비밀번호'),
-                                  keyboardType: TextInputType.emailAddress,
-                                  obscureText: true,
-                                ),
-                                TextField(
-                                  controller: password2controller,
-                                  decoration: InputDecoration(labelText: '비밀번호 확인'),
-                                  keyboardType: TextInputType.emailAddress,
-                                  obscureText: true,
-                                ),
-                                SizedBox(height: 20.0,),
-                                Container(
-                                  child: ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          showSpinner = true;
-                                        });
-                                        return _checkValidAccount();
-                                      },
-                                      child: Text("이메일 인증하기")),
-                                )
-                              ],
+                        padding: EdgeInsets.all(50.0),
+                        child: Column(
+                          children: [
+                            TextField(
+                              controller: emailcontroller,
+                              decoration: InputDecoration(labelText: '이메일'),
+                              keyboardType: TextInputType.emailAddress,
                             ),
-                          )),
-                    )
+                            TextField(
+                              controller: password1controller,
+                              decoration: InputDecoration(labelText: '비밀번호'),
+                              keyboardType: TextInputType.emailAddress,
+                              obscureText: true,
+                            ),
+                            TextField(
+                              controller: password2controller,
+                              decoration: InputDecoration(labelText: '비밀번호 확인'),
+                              keyboardType: TextInputType.emailAddress,
+                              obscureText: true,
+                            ),
+                            SizedBox(height: 20.0,),
+                            Container(
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      showSpinner = true;
+                                    });
+                                    return _checkValidAccount();
+                                  },
+                                  child: Text("이메일 인증하기")),
+                            )
+                          ],
+                        ),
+                      )),
+                )
               ],
             ),
           ),

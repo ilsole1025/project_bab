@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:project_bab/sub/DbGet.dart';
 
 const MaterialColor whiteP = MaterialColor(
   0xFFFFFFFF,
@@ -18,12 +19,20 @@ const MaterialColor whiteP = MaterialColor(
 );
 
 class Rating extends StatefulWidget {
+  Rating({
+    Key? key,
+    required this.oid,
+  }) : super(key: key);
+
+  final String oid;
+
   @override
   _RatingState createState() => _RatingState();
 }
 
 class _RatingState extends State<Rating> {
   late double _rating;
+  late String oid;
 
   double _initialRating = 3.0;
   IconData? _selectedIcon;
@@ -31,6 +40,7 @@ class _RatingState extends State<Rating> {
   @override
   void initState() {
     super.initState();
+    oid = widget.oid;
     _rating = _initialRating;
   }
 
@@ -89,8 +99,8 @@ class _RatingState extends State<Rating> {
                               )),
                         ),
                         child: Text("저장!!", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
-                        onPressed: (){
-                          /// TODO : _rating 에 1~5점 사이의 값이 저장되어있음, firestore에 rating정보 저장
+                        onPressed: () async {
+                          await updateRate(oid, _rating);
                           Navigator.of(context).popUntil((route) => route.isFirst);
                         },
                       )

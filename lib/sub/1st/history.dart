@@ -140,7 +140,7 @@ class History extends StatelessWidget {
                         onPressed: (){
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Rating())
+                              MaterialPageRoute(builder: (context) => Rating(oid: other_info["otherid"]))
                           );
                         },
                       )
