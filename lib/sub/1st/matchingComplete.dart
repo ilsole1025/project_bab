@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:project_bab/sub/1st/make.dart';
 import 'package:project_bab/sub/DbGet.dart';
 import 'package:project_bab/sub/1st/matched.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 var db = FirebaseFirestore.instance;
+
 
 Future<void> updateDocumentField(String collection, String documentId, String fieldName, dynamic value) async {
   final collectionRef = db.collection(collection);
@@ -65,18 +67,19 @@ class matchingComplete extends StatelessWidget {
             }
             return Stack (
               fit: StackFit.expand,
-              children: const [
+              children: [
                 Center(
-                    child: CircularProgressIndicator(
-                      strokeWidth: 10,
-                      backgroundColor: Colors.lightBlueAccent,
+                    child: SpinKitWanderingCubes(
+                      color: Colors.red,
+                      size: 250.0,
                     )),
-                Center(
-                  child: Text(
-                    "현재 매칭 중입니다. 1~2분 소요되니 기다려주세요",
-                    style: TextStyle(fontSize: 20),
-                  )
-                )
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("    현재 매칭중입니다.\n"),
+                    Text("1~2분 정도 소요되니 기다려주세요."),
+                  ],
+                ),
               ]
             );
           }
