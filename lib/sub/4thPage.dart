@@ -75,8 +75,6 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                           if (snapshot.hasData) {
                             imgNum = snapshot.data.toString();
                             imgUrl = "profileImg/$imgNum.jpg";
-                           // print("이미지 넘버는 " + imgNum);
-                           // print("이미지 URL은 " + imgUrl);
                             return
                               Container(
                                 width: 120,

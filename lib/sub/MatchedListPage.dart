@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_bab/sub/DbGet.dart';
 
+// 약속 목록
+
 class MatchedListPage extends StatefulWidget {
   const MatchedListPage({Key? key}) : super(key: key);
 
@@ -13,25 +15,24 @@ class _MatchedListPageState extends State<MatchedListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar( /// TODO : 상단바 수정
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
+          backgroundColor: Colors.red[300],
+          foregroundColor: Colors.white,
           title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  'img/blacklogo.png',
-                  width: 90,
-                  height: 90,
-                ),
+                Text('약속 목록'),
+               // Image.asset('img/logo.png',width: 90,height: 90, ),
               ])
       ),
+
       body: FutureBuilder(
         future: getMatched(),
         builder : (context, snapshot){
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          final List<Map<String,dynamic>> matchedList = snapshot.data?.map((mapData) => Map<String, dynamic>.from(mapData)).toList() ?? [];
+          final List<Map<String,dynamic>> matchedList =
+              snapshot.data?.map((mapData) => Map<String, dynamic>.from(mapData)).toList() ?? [];
           return ListView.builder( /// TODO : 여기부터 임시 화면구성
             itemCount: matchedList.length,
             itemBuilder: (ctx, index) {
@@ -44,13 +45,12 @@ class _MatchedListPageState extends State<MatchedListPage> {
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Row(
+                child: Column(
+                  //  matchedData.toString(),
                   children: [
-                    Expanded(
-                      child: Text(
-                        matchedData.toString(),
-                        style: const TextStyle(fontSize: 16),
-                      ),
+                    Text( matchedData['nickname'],style: const TextStyle(fontSize: 22),
+                    ),
+                    Text( matchedData['timestamp'],style: const TextStyle(fontSize: 16),
                     ),
                   ],
                 ),

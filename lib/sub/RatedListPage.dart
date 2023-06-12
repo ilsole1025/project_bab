@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_bab/sub/DbGet.dart';
 
+// 후기 목록
+
 class RatedListPage extends StatefulWidget {
   const RatedListPage({Key? key}) : super(key: key);
 
