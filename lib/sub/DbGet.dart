@@ -49,8 +49,7 @@ Future<bool> setComment(String pid, Map<String, dynamic> comment) async {
 
 
 Future<bool> setMatched(String? uid, String? oid, DateTime? date, TimeOfDay? time) async {
-  //print("setMatch Start");
-  uid = getUid(); /// 임시
+  uid = getUid();
   try {
     if(uid == null || oid == null || date == null || time == null){
       throw Exception("null catched");
@@ -87,7 +86,6 @@ Future<bool> setMatched(String? uid, String? oid, DateTime? date, TimeOfDay? tim
     final messageRef_o = db.collection("matched").doc(oid).collection("others").doc(uid);
     messageRef_o.set(data_o);
 
-    //print("true");
 
     return true;
   } catch (e) {
@@ -165,6 +163,7 @@ Future<dynamic> getUserInfo(String fieldName, String uid) async {
 }
 
 Future<List<Map<String, dynamic>>> getMatched() async {
+  /// 'otherid', 'rating', 'timestamp', 'nickname', 'mannertemp', 'introduction', 'interests'
   try {
     String uid = getUid();
     if (uid == "User not logged in.") {
@@ -192,12 +191,11 @@ Future<List<Map<String, dynamic>>> getMatched() async {
       docMap['interests'] = interests;
 
       final DateTime dt = docMap['timestamp'].toDate().toLocal();
-      final String dtstr = DateFormat('yyyy/MM/dd HH:mm:ss').format(dt);
+      final String dtstr = DateFormat('yyyy-MM-dd HH:mm:ss').format(dt);
       docMap['timestamp'] = dtstr;
 
       documents.add(docMap);
     }
-    print(documents.toString());
     return documents;
   } catch (e) {
     print(e.toString());
@@ -211,9 +209,9 @@ Future<List<Map<String, dynamic>>> getPostList() async {
   // Future<List<Map<String, dynamic>>> getPostList() async : db에 존재하는 모든 post들을 List형태로 반환함
   QuerySnapshot<Map<String, dynamic>> snapshot = await db.collection("posts").orderBy("createdAt", descending: true).get();
   List<Map<String, dynamic>> postList = [];
-  snapshot.docs.forEach((doc) {
+  for (var doc in snapshot.docs) {
     postList.add(doc.data());
-  });
+  }
   return postList;
 }
 

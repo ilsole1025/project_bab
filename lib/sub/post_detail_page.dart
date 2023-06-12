@@ -33,9 +33,12 @@ class _PostDetailPageState extends State<PostDetailPage> with AutomaticKeepAlive
 
   void updatePostTime() {
     Timer.periodic(const Duration(minutes: 1), (Timer timer) {
-      setState(() {});
+      if(mounted) {
+        setState(() {});
+      }
     });
   }
+
 
   @override
   Widget build(BuildContext context) {

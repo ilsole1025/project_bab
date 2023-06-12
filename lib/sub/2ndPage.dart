@@ -342,7 +342,9 @@ class SecondApp extends StatelessWidget{
 */
 
 import 'package:flutter/material.dart';
+import 'package:project_bab/sub/DbGet.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
 
 class SecondApp extends StatelessWidget {
   @override
@@ -386,6 +388,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         dayA.day == dayB.day;
   }
 
+  Map<String, List<String>> _scheduleData = {};
+  /// TODO : Map<Datetime,List<String>> 에서 위처럼 형식 수정함. 데이터 표시 관련해서 수정 필요
+  /*
   Map<DateTime, List<String>> _scheduleData = {
     DateTime(2023, 6, 1): ['닉네임1 (12:00 PM)', '닉네임2 (6:00 PM)'],
     DateTime(2023, 6, 3): ['닉네임3 (3:00 PM)'],
@@ -394,6 +399,35 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     DateTime(2023, 6, 21): ['닉sp임 (11:00 PM)'],
     DateTime(2023, 7, 9): ['닉니임 (11:00 PM)'],
   };
+  */
+
+  Future<Map<String, List<String>>> getFutureData() async {
+    Map<String, List<String>> ret = {};
+    try {
+      final List<Map<String, dynamic>> matchList = await getMatched();
+      for (var mapItem in matchList) {
+        if (mapItem.containsKey('otherid') && mapItem.containsKey('timestamp')) {
+
+          List<String> parts = mapItem['timestamp'].split(" ");
+          String dateOnly = parts[0];
+          String hmOnly = parts[1];
+
+          final String? otherNickname = await getUserInfo('nickname', mapItem['otherid']);
+          if (otherNickname != null) {
+            final String customHM = " (${hmOnly})";
+            if (ret.containsKey(dateOnly)) {
+              ret[dateOnly]!.add(otherNickname + customHM);
+            } else {
+              ret[dateOnly] = [otherNickname + customHM];
+            }
+          }
+        }
+      }
+    } catch(e) {
+      print(e.toString());
+    }
+    return ret;
+  }
 
   List<String> getMonthSchedules(DateTime month) {
     final monthStart = DateTime(month.year, month.month);
@@ -409,6 +443,23 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     return schedules;
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: getFutureData(),
+      builder: (context, snapshot){
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        _scheduleData = snapshot.data!; /// getFutureData로 받아온 데이터를 _scheduleData에 저장하고, 그대로 사용하면됨
+        return Text(_scheduleData.toString()); /// TODO : 임시
+      }
+    );
+  }
+
+
+  /// 아래는 오리지널 코드
+  /*
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -485,7 +536,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         ),
       ],
     );
-  }
+  }*/
 }
 
 
