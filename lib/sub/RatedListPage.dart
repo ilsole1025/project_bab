@@ -41,6 +41,9 @@ class _RatedListPageState extends State<RatedListPage> {
               itemCount: matchedList.length,
               itemBuilder: (ctx, index) {
                 final Map<String,dynamic> matchedData = matchedList[index];
+                if(matchedData['message'] == null){
+                  print("평가안매겼음");
+                }
                 return Container(
                   height: 150,
                   width: double.infinity,
