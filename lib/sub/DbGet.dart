@@ -184,11 +184,13 @@ Future<List<Map<String, dynamic>>> getMatched() async {
       final String mannertemp = otherUserInfo["mannertemp"].toString();
       final String introduction = otherUserInfo["introduction"].toString();
       final List<String> interests = otherUserInfo["interests"].cast<String>();
+      final String image = otherUserInfo["profileimg"].toString();
 
       docMap['nickname'] = nickname;
       docMap['mannertemp'] = mannertemp;
       docMap['introduction'] = introduction;
       docMap['interests'] = interests;
+      docMap['profileimg'] = image;
 
       final DateTime dt = docMap['timestamp'].toDate().toLocal();
       final String dtstr = DateFormat('yyyy-MM-dd HH:mm:ss').format(dt);

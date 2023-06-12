@@ -54,7 +54,7 @@ class History extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.amber,
-                    backgroundImage: AssetImage('../img/${other_info['image']}'),
+                    backgroundImage: AssetImage('profileImg/${other_info['profileimg']}.jpg'),
                     radius: 58.0,
                   ),
                   Text(
@@ -100,7 +100,7 @@ class History extends StatelessWidget {
                   ),
                   CircleAvatar(
                     backgroundColor: Colors.amber,
-                    backgroundImage: AssetImage('../img/${my_info['image']}'),
+                    backgroundImage: AssetImage('profileImg/${my_info['profileimg']}.jpg'),
                     radius: 58.0,
                   ),
                   Text(

@@ -48,7 +48,7 @@ class MakingDate extends StatelessWidget{
                   children: [
                     CircleAvatar(
                       backgroundColor: Colors.amber,
-                      backgroundImage: AssetImage('../img/111'),
+                      backgroundImage: AssetImage('profileImg/${ME['profileimg']}.jpg'),
                       radius: 58.0,
                     ),
                     Text(

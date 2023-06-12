@@ -73,6 +73,7 @@ class _FirstAppState extends State<FirstApp> {
                             return const Center(child: CircularProgressIndicator());
                           }
                           final Map<String, dynamic> my_info = snapshot.data!;
+                          my_info['image'] = "profileImg/${my_info['profileimg']}.jpg";
                           return ListView.builder(
                             itemCount: oldList.length + 1,
                             itemBuilder: (BuildContext context, int index) {
@@ -106,7 +107,7 @@ class _FirstAppState extends State<FirstApp> {
                                                           CircleAvatar(
                                                             radius: 30,
                                                             backgroundColor: Colors.amber,
-                                                            backgroundImage: AssetImage('img/111.jpeg'),
+                                                            backgroundImage: AssetImage(my_info['image']),
                                                             child: Text(
                                                                 '+',
                                                                 style: TextStyle(fontSize: 20),
@@ -155,7 +156,7 @@ class _FirstAppState extends State<FirstApp> {
                                                         CircleAvatar(
                                                           radius: 30,
                                                           backgroundColor: Colors.amber,
-                                                          backgroundImage: AssetImage('img/111.jpeg'),
+                                                          backgroundImage: AssetImage('profileImg/${newList[idx-1]['profileimg']}.jpg'),
                                                         ),
                                                         Text(
                                                             '${newList[idx-1]['nickname']}',
@@ -188,7 +189,7 @@ class _FirstAppState extends State<FirstApp> {
                                           children: [
                                             CircleAvatar(
                                               backgroundColor: Colors.amber,
-                                              backgroundImage: AssetImage('img/111.jpeg'),
+                                              backgroundImage: AssetImage('profileImg/${oldList[index-1]['profileimg']}.jpg'),
                                               radius: 58.0,
                                             ),
                                             Column(
