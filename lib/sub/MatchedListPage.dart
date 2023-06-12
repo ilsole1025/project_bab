@@ -70,6 +70,7 @@ class _MatchedListPageState extends State<MatchedListPage> {
                         AppText(text:"\n약속날짜\n"+matchedData['timestamp'],),
                       ]
                     ),
+
                   ],
                 ),
               );
