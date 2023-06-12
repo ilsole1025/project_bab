@@ -210,7 +210,7 @@ class _FirstAppState extends State<FirstApp> {
                                                     style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20)
                                                 ),
                                                 Text(
-                                                  '${oldList[index-1]['mannertemp']}\n',
+                                                  '${oldList[index-1]['mannertemp']}°C\n',
                                                   style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
                                                 ),
                                                 Text(

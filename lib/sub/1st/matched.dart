@@ -115,7 +115,7 @@ class Matched extends StatelessWidget {
                             textAlign: TextAlign.center
                         ),
                         Text(
-                            '${other_info['temperature']}\n',
+                            '${other_info['temperature']}°C\n',
                             style: TextStyle(fontSize: 16,
                                 color: Color(int.parse("0xff8E4444"))),
                             textAlign: TextAlign.center
@@ -173,7 +173,7 @@ class Matched extends StatelessWidget {
                             textAlign: TextAlign.center
                         ),
                         Text(
-                            '${my_info['temperature']}\n',
+                            '${my_info['temperature']}°C\n',
                             style: TextStyle(fontSize: 16,
                                 color: Color(int.parse("0xff8E4444"))),
                             textAlign: TextAlign.center

@@ -89,7 +89,7 @@ class MakeDate extends StatelessWidget{
 
 
                         AppLargeText(text: '${ME['nickname']}', size:20),
-                        AppText(text: "${ME['mannertemp']}\n",
+                        AppText(text: "${ME['mannertemp']}°C\n",
                             size: 16, color: Colors.redAccent),
                         AppText(text: "${ME['introduction']}\n",
                             size: 13, color: Colors.black),
