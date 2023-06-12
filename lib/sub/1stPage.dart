@@ -3,6 +3,10 @@ import 'package:project_bab/sub/1st/history.dart';
 import '1st/make.dart';
 import 'package:project_bab/sub/DbGet.dart';
 
+import '1st/matched.dart';
+
+import 'dart:developer';
+
 
 class FirstApp extends StatefulWidget {
   const FirstApp({Key? key}) : super(key: key);
@@ -87,9 +91,9 @@ class _FirstAppState extends State<FirstApp> {
                                                 child: ElevatedButton(
                                                     style: ButtonStyle(
                                                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0)),
-                                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                                      backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
                                                       foregroundColor: MaterialStateProperty.all<Color>(Colors.black87),
-                                                      shadowColor: MaterialStateProperty.all<Color>(Colors.white),
+                                                      shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
                                                     ),
                                                     onPressed: () {
                                                       Navigator.push(
@@ -129,10 +133,22 @@ class _FirstAppState extends State<FirstApp> {
                                                     shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0x00FFFFFF"))),
                                                   ),
                                                   onPressed: () {
-                                                    // Navigator.push(
-                                                    //     context,
-                                                    //     MaterialPageRoute(builder: (context) => Matched(my_info: my_info, other_info: newList[index-1],))
-                                                    // );
+                                                    // log('myUid: ${my_info['uid']}, otherUid: ${newList[idx-1]['otherid']}, name: ${my_info['nickname']}, temperature: ${my_info['mannertemp']}, introduction: ${my_info['introduction']},image: ${'profileImage/${my_info['profileimage']}.jpg'}, kakao: ${my_info['kakaotalkid']}, interest : ${my_info['관심사']},');
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(builder: (context) => Matched(
+                                                          myUid: my_info['uid'],
+                                                          otherUid: newList[idx-1]['otherid'],
+                                                          my_info: {
+                                                            "name": my_info['nickname'],
+                                                            "temperature": my_info['mannertemp'],
+                                                            "introduction": my_info['introduction'],
+                                                            "image": 'profileImg/${my_info['profileimg']}.jpg',
+                                                            "kakao": my_info['kakaotalkid'],
+                                                            "interest" : my_info['관심사'],
+                                                          },
+                                                        ))
+                                                    );
                                                   },
                                                   child: Column(
                                                       children: [

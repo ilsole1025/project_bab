@@ -52,7 +52,7 @@ class Matched extends StatelessWidget {
             "name": snapshot.data["nickname"],
             "temperature": snapshot.data["mannertemp"],
             "introduction": snapshot.data["introduction"],
-            "image": "111.jpeg",
+            "image": "profileImg/${snapshot.data["profileimg"]}.jpg",
             "kakao": snapshot.data["kakaotalkid"],
             "interest": other_inter,
           };
@@ -100,7 +100,7 @@ class Matched extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           backgroundColor: Colors.amber,
-                          backgroundImage: AssetImage('../img/111'),
+                          backgroundImage: AssetImage(other_info['image']),
                           radius: 58.0,
                         ),
                         Text(
@@ -153,7 +153,7 @@ class Matched extends StatelessWidget {
                         ),
                         CircleAvatar(
                           backgroundColor: Colors.amber,
-                          backgroundImage: AssetImage('../img/111'),
+                          backgroundImage: AssetImage(my_info['image']),
                           radius: 58.0,
                         ),
                         Text(
