@@ -46,6 +46,8 @@ class matchingComplete extends StatelessWidget {
                 var mykakao = documentData['kakaotalkid'];
                 var myinterest = documentData['관심사'];
 
+                setMatched(myuid, currentFieldValue, DateTime.now(), TimeOfDay.now());
+
                 return Matched(
                   myUid: myuid,
                   otherUid: currentFieldValue,
@@ -61,10 +63,22 @@ class matchingComplete extends StatelessWidget {
 
               }
             }
-            return Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: Colors.lightBlueAccent,
-                ));
+            return Stack (
+              fit: StackFit.expand,
+              children: const [
+                Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 10,
+                      backgroundColor: Colors.lightBlueAccent,
+                    )),
+                Center(
+                  child: Text(
+                    "현재 매칭 중입니다. 1~2분 소요되니 기다려주세요",
+                    style: TextStyle(fontSize: 20),
+                  )
+                )
+              ]
+            );
           }
       ),
     );

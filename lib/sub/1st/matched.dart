@@ -33,6 +33,7 @@ class Matched extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return FutureBuilder<dynamic>(
         future: db.collection("users").doc(otherUid).get(),
         builder: (context, snapshot) {

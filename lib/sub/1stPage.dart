@@ -97,7 +97,7 @@ class _FirstAppState extends State<FirstApp> {
                                                           MaterialPageRoute(builder: (context) => MakeDate())
                                                       );
                                                     },
-                                                    child: const Column(
+                                                    child: Column(
                                                         children: [
                                                           CircleAvatar(
                                                             radius: 30,
