@@ -82,10 +82,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(color: Colors.white, width: 5),
-                                  image: DecorationImage(
-                                    //image: AssetImage("profileImg/$imgNum.jpg";),
-                                    image: AssetImage(imgUrl),
-                                    fit: BoxFit.cover,
+                                  image: DecorationImage(image: AssetImage(imgUrl),fit: BoxFit.cover,
                                   ),
                                 ),
                               );
@@ -188,17 +185,21 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
                           child: Material(
-                            color: Colors.black12,
+                            color: Colors.red[50],
                             child: InkWell(
-                              splashColor: Colors.green,
+                              splashColor: Colors.white,
                               onTap: () {
-                                print("프로필 버튼클릭");
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) =>
+                                        UserInterestSave())
+                                );
                               },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Icon(Icons.person), // <-- Icon
-                                  Text("Profile"), // <-- Text
+                                  Icon(Icons.edit_note), // <-- Icon
+                                  Text("프로필수정"), // <-- Text
                                 ],
                               ),
                             ),
@@ -208,7 +209,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                       SizedBox(height: 10,),
                       Container(
                           child: AppText(
-                            text: '내 프로필',
+                            text: '프로필 수정',
                             color: Colors.black,
                           )
                       ),
@@ -299,21 +300,17 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: Material(
-                              color: Colors.red[50],
+                              color: Colors.black12,
                               child: InkWell(
-                                splashColor: Colors.white,
+                                splashColor: Colors.green,
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) =>
-                                          UserInterestSave())
-                                  );
+                                  print("프로필 버튼클릭");
                                 },
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Icon(Icons.edit_note), // <-- Icon
-                                    Text("프로필수정"), // <-- Text
+                                    Icon(Icons.person), // <-- Icon
+                                    Text("Profile"), // <-- Text
                                   ],
                                 ),
                               ),
@@ -323,7 +320,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                         SizedBox(height: 10,),
                         Container(
                             child: AppText(
-                              text: '프로필 수정',
+                              text: '내 프로필',
                               color: Colors.black,
                             )
                         ),

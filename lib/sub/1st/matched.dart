@@ -77,12 +77,9 @@ class Matched extends StatelessWidget {
                         width: 150,
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('매칭 완료',)
-                            ]
+                            children: [Text('매칭 완료',)]
                         ),
                       ),
-                      Icon(Icons.notifications_outlined, color: Colors.black),
                     ],
                   )
               ),
@@ -131,6 +128,11 @@ class Matched extends StatelessWidget {
                         Text(
                             '카톡 아이디: ${other_info['kakao']}\n',
                             style: TextStyle(fontSize: 13, color: Colors.black),
+                            textAlign: TextAlign.center
+                        ),
+                        Text(
+                            '\n공통 관심사\n',
+                            style: TextStyle(fontSize: 13, color: Colors.grey),
                             textAlign: TextAlign.center
                         ),
                         Container(

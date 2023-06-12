@@ -76,6 +76,9 @@ class MakeDate extends StatelessWidget{
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Divider(),
+                        AppText(text: "나의 프로필"),
+                        Divider(),
                         CircleAvatar(
                           backgroundColor: Colors.amber,
                           backgroundImage: AssetImage('profileImg/${ME['profileimg']}.jpg'),
@@ -91,7 +94,6 @@ class MakeDate extends StatelessWidget{
                         AppText(text: "${ME['introduction']}\n",
                             size: 13, color: Colors.black),
 
-                        Divider(),
                         SizedBox(height: 10,),
 
                         AppText(text: "나의 관심사"),

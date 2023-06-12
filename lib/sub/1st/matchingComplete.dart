@@ -7,6 +7,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:project_bab/sub/DbGet.dart';
+import 'package:project_bab/widgets/app_large_text.dart';
+import '../../widgets/app_text.dart';
 
 
 var db = FirebaseFirestore.instance;
@@ -74,14 +76,14 @@ class matchingComplete extends StatelessWidget {
               children: [
                 Center(
                     child: SpinKitWanderingCubes(
-                      color: Colors.red,
+                      color: Colors.red[300],
                       size: 250.0,
                     )),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("    현재 매칭중입니다.\n"),
-                    Text("1~2분 정도 소요되니 기다려주세요."),
+                    AppLargeText(text: "밥공친구를 매칭중입니다.\n"),
+                    AppText(text: "약 1분 정도 소요되니 잠시만 기다려주세요.", color: Colors.blue),
                     SizedBox(height: 50,),
                     Container(
                         width: 200,
