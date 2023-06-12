@@ -176,8 +176,16 @@ class _FirstAppState extends State<FirstApp> {
                                 margin: EdgeInsets.only(left: 10, right: 10, top: 10),
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  color: Color(int.parse("0x338E4444")),
+                                  // color: Color(int.parse("0x338E4444")),
                                   borderRadius: BorderRadius.all(Radius.circular(20)),
+                                  image: DecorationImage(
+                                    image: AssetImage('img/texture_bab.jpg'),
+                                    fit: BoxFit.cover,
+                                    colorFilter: ColorFilter.mode(
+                                      Colors.black.withOpacity(0.3), // 투명도 조절
+                                      BlendMode.dstATop, // 블렌드 모드 설정 (필요에 따라 변경 가능)
+                                    ),
+                                  ),
                                 ),
                                 // color:Color(0xffF5DD9A),
 
