@@ -4,6 +4,10 @@ import 'package:project_bab/sub/1st/make.dart';
 import 'package:project_bab/sub/DbGet.dart';
 import 'package:project_bab/sub/1st/matched.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:http/http.dart';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:project_bab/sub/DbGet.dart';
+
 
 var db = FirebaseFirestore.instance;
 
@@ -78,6 +82,32 @@ class matchingComplete extends StatelessWidget {
                   children: [
                     Text("    현재 매칭중입니다.\n"),
                     Text("1~2분 정도 소요되니 기다려주세요."),
+                    SizedBox(height: 50,),
+                    Container(
+                        width: 200,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(5)),
+                            backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
+                            foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
+                            shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                )),
+                          ),
+                          child: Text("랜덤 매칭 찾기 취소", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+                          onPressed: () async{
+                            final HttpsCallableResult result = await FirebaseFunctions
+                                .instance
+                                .httpsCallable("removeUserFromPool")
+                                .call(<String, dynamic>{'uid': getUid()});
+
+
+                            Navigator.pop(context);
+                          },
+                        )
+                    ),
                   ],
                 ),
               ]
