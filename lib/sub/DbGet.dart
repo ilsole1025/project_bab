@@ -252,14 +252,15 @@ Future<bool> updateLike(String pid) async {
   }
 }
 
-Future<bool> updateRate(String oid, double rating) async {
+Future<bool> updateRate(String oid, double rating, String message) async {
   String uid = getUid();
   if (uid == "User not logged in.") {
     throw Exception("User not logged in.");
   }
 
   final Map<String, dynamic> tmp = {
-    "rating" : rating
+    "rating" : rating,
+    "message" : message,
   };
   await db.collection("matched").doc(uid).collection("others").doc(oid).update(tmp);
   return true;

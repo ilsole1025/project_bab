@@ -33,6 +33,7 @@ class Rating extends StatefulWidget {
 class _RatingState extends State<Rating> {
   late double _rating;
   late String oid;
+  String inputText = '';
 
   double _initialRating = 3.0;
   IconData? _selectedIcon;
@@ -66,9 +67,24 @@ class _RatingState extends State<Rating> {
               ],
             )
         ),
-          body: Center(child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: SingleChildScrollView(
+          body:Container(
+            margin: EdgeInsets.only(left: 10, right: 10, top: 39, bottom: 39),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('img/texture_bab.jpg'),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.3), // 투명도 조절
+                  BlendMode.dstATop, // 블렌드 모드 설정 (필요에 따라 변경 가능)
+                ),
+              ),
+              // color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            child: Column(
+              children: [
+                SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
@@ -76,12 +92,23 @@ class _RatingState extends State<Rating> {
                   SizedBox(
                     height: 40.0,
                   ),
-                  _heading('Rating Bar'),
+                  _heading('평가'),
                   _ratingBar(1),
                   SizedBox(height: 20.0),
                   Text(
-                    'Rating: $_rating',
+                    '$_rating 점',
                     style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 40.0),
+                  TextField(
+                    decoration: const InputDecoration(
+                      labelText: '평가해주세요!!',
+                    ),
+                    onChanged: (text) {
+                      setState(() {
+                        inputText = text;
+                      });
+                    },
                   ),
                   SizedBox(height: 40.0),
                   Container(
@@ -100,7 +127,8 @@ class _RatingState extends State<Rating> {
                         ),
                         child: Text("저장!!", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
                         onPressed: () async {
-                          await updateRate(oid, _rating);
+                          // 여기 inputText 값 가져오ㅘ서 저장해주십셥!!
+                          await updateRate(oid, _rating, inputText);
                           Navigator.of(context).popUntil((route) => route.isFirst);
                         },
                       )
@@ -108,6 +136,7 @@ class _RatingState extends State<Rating> {
                 ],
               ),
             ),
+      ]
           ),
         ));
   }

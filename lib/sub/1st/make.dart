@@ -29,8 +29,6 @@ var ME =
 
 class MakeDate extends StatelessWidget{
   @override
-
-
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -53,8 +51,6 @@ class MakeDate extends StatelessWidget{
             )
         ),
         body: Container(
-
-
             margin: EdgeInsets.only(left: 10, right: 10, top: 39, bottom: 39),
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
