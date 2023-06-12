@@ -185,13 +185,15 @@ class _FirstAppState extends State<FirstApp> {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
+                                            Container(width: 30),
                                             CircleAvatar(
                                               backgroundColor: Colors.amber,
                                               backgroundImage: AssetImage('profileImg/${oldList[index-1]['profileimg']}.jpg'),
                                               radius: 58.0,
                                             ),
+                                            Container(width: 30),
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
