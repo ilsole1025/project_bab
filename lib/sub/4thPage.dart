@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_bab/sub/DelAccount.dart';
 import 'package:project_bab/sub/LoginPage.dart';
 import 'package:project_bab/sub/MatchedListPage.dart';
+import 'package:project_bab/sub/RatedListPage.dart';
 import 'package:project_bab/sub/userinfosave.dart';
 import 'package:project_bab/sub/DbGet.dart';
 import 'package:project_bab/widgets/app_large_text.dart';
@@ -260,7 +261,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                             child: InkWell(
                               splashColor: Colors.white70,
                               onTap: () {
-                                print("후기 버튼 클릭");
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const RatedListPage()));
                               },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
