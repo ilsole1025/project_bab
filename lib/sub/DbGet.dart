@@ -263,6 +263,14 @@ Future<bool> updateRate(String oid, double rating, String message) async {
     "message" : message,
   };
   await db.collection("matched").doc(uid).collection("others").doc(oid).update(tmp);
+  DocumentSnapshot<Map<String, dynamic>> matchsnap = await db.collection("matched").doc(uid).collection("others").doc(oid).get();
+  Map<String, dynamic> match = matchsnap.data()!;
+  DocumentSnapshot<Map<String, dynamic>> othersnap = await db.collection("users").doc(match['otherid']).get();
+  Map<String, dynamic> other = othersnap.data()!;
+
+  other["mannertemp"] = other["mannertemp"] + (rating - 3.0)/5;
+
+  await db.collection("users").doc(match['otherid']).update(other);
   return true;
 }
 
