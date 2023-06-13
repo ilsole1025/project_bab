@@ -70,10 +70,10 @@ const Map<String, List<String>> emptyInterest =
 const Map<String, int> maxSelectCountOfInterest = {
   "MBTI" : 1,
   "성격" : 1,
-  "관심사" : 10,
-  "엔터테인먼트" : 10,
-  "스포츠" : 10,
-  "커리어" : 10,
+  "관심사" : 8,
+  "엔터테인먼트" : 8,
+  "스포츠" : 8,
+  "커리어" : 8,
 };
 
 const Map<String, int> minSelectCountOfInterest = {

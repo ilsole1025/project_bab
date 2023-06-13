@@ -5,6 +5,7 @@ import 'package:project_bab/sub/MatchedListPage.dart';
 import 'package:project_bab/sub/RatedListPage.dart';
 import 'package:project_bab/sub/userinfosave.dart';
 import 'package:project_bab/sub/DbGet.dart';
+import 'package:project_bab/test/test.dart';
 import 'package:project_bab/widgets/app_large_text.dart';
 import 'package:project_bab/widgets/app_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,6 +24,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 3, vsync: this);
+    TextEditingController testController = TextEditingController();
     var imgNum;
     String imgUrl = "";
 
@@ -409,6 +411,21 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
             SizedBox(
               height: 30,
             ),
+            /// 임시 버튼 시작
+            TextField(
+              controller: testController,
+              decoration: InputDecoration(
+                labelText: "생성할 계정수",
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                createTestUsers(testController.text);
+              },
+              child: const Text("테스트생성")
+            ),
+
+            /// 임시 버튼 종료
             Divider(),
           ],
         ),
