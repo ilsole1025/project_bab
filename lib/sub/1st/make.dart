@@ -46,7 +46,7 @@ class MakeDate extends StatelessWidget{
                       ]
                   ),
                 ),
-                Icon(Icons.notifications_outlined, color:Colors.black),
+              //  Icon(Icons.notifications_outlined, color:Colors.black),
               ],
             )
         ),
@@ -80,7 +80,7 @@ class MakeDate extends StatelessWidget{
                         AppText(text: "나의 프로필"),
                         Divider(),
                         CircleAvatar(
-                          backgroundColor: Colors.amber,
+                          backgroundColor: Colors.white,
                           backgroundImage: AssetImage('profileImg/${ME['profileimg']}.jpg'),
                           radius: 58.0,
                         ),
@@ -89,7 +89,7 @@ class MakeDate extends StatelessWidget{
 
 
                         AppLargeText(text: '${ME['nickname']}', size:20),
-                        AppText(text: "${ME['mannertemp']}°C\n",
+                        AppText(text: "${ME['mannertemp']} °C\n",
                             size: 16, color: Colors.redAccent),
                         AppText(text: "${ME['introduction']}\n",
                             size: 13, color: Colors.black),

@@ -71,7 +71,7 @@ class History extends StatelessWidget {
                       textAlign: TextAlign.center
                   ),
                   Text(
-                      '${other_info['mannertemp']}°C\n',
+                      '${other_info['mannertemp']} °C\n',
                       style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
                       textAlign: TextAlign.center
                   ),

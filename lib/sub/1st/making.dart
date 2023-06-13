@@ -64,7 +64,7 @@ class MakingDate extends StatelessWidget{
                         style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20)
                     ),
                     Text(
-                      '${ME['mannertemp']}°C\n',
+                      '${ME['mannertemp']} °C\n',
                       style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
                     ),
                     Text(
