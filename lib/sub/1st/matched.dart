@@ -5,18 +5,26 @@ import 'package:project_bab/sub/DbGet.dart';
 import 'package:project_bab/sub/1st/matched.dart';
 
 var db = FirebaseFirestore.instance;
-Future<void> updateDocumentField(String collection, String documentId, String fieldName, dynamic value) async {
+
+Future<void> updateDocumentField(String collection, String documentId,
+    String fieldName, dynamic value) async {
   final collectionRef = db.collection(collection);
-  await collectionRef.doc(documentId).update({ fieldName: value });
+  await collectionRef.doc(documentId).update({fieldName: value});
 }
-Future<dynamic> getDocumentField(String collection, String documentId, String fieldName) async {
-  final documentSnapshot = await FirebaseFirestore.instance.collection(collection).doc(documentId).get();
+
+Future<dynamic> getDocumentField(
+    String collection, String documentId, String fieldName) async {
+  final documentSnapshot = await FirebaseFirestore.instance
+      .collection(collection)
+      .doc(documentId)
+      .get();
   final data = documentSnapshot.data();
   if (data != null && data.containsKey(fieldName)) {
     return data[fieldName];
   }
   return null;
 }
+
 class Matched extends StatelessWidget {
   final String myUid;
   final String otherUid;
@@ -33,7 +41,6 @@ class Matched extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return FutureBuilder<dynamic>(
         future: db.collection("users").doc(otherUid).get(),
         builder: (context, snapshot) {
@@ -46,7 +53,10 @@ class Matched extends StatelessWidget {
           if (!snapshot.hasData) {
             return Text('No data available');
           }
-          List<dynamic> other_inter = snapshot.data["관심사"] + snapshot.data["스포츠"] +snapshot.data["엔터테인먼트"] +snapshot.data["커리어"];
+          List<dynamic> other_inter = snapshot.data["관심사"] +
+              snapshot.data["스포츠"] +
+              snapshot.data["엔터테인먼트"] +
+              snapshot.data["커리어"];
           print(other_inter);
           other_info = {
             "name": snapshot.data["nickname"],
@@ -62,9 +72,7 @@ class Matched extends StatelessWidget {
             if (other_info['interest'].contains(my_info['interest'][i]))
               matched_interest.add(my_info['interest'][i]);
           }
-          if (matched_interest.length == 0)
-            matched_interest.add('none');
-
+          if (matched_interest.length == 0) matched_interest.add('none');
 
           return Scaffold(
               appBar: AppBar(
@@ -77,15 +85,17 @@ class Matched extends StatelessWidget {
                         width: 150,
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [Text('매칭 완료',)]
-                        ),
+                            children: [
+                              Text(
+                                '매칭 완료',
+                              )
+                            ]),
                       ),
                     ],
-                  )
-              ),
+                  )),
               body: Container(
-                  margin: EdgeInsets.only(
-                      left: 10, right: 10, top: 39, bottom: 39),
+                  margin:
+                      EdgeInsets.only(left: 10, right: 10, top: 39, bottom: 39),
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -100,41 +110,34 @@ class Matched extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   child: ListView(
-                    // crossAxisAlignment: CrossAxisAlignment.center,
-                    // mainAxisAlignment: MainAxisAlignment.start,
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      // mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.amber,
-                          backgroundImage: AssetImage(other_info['image']),
-                          radius: 58.0,
+                        Center(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.amber,
+                            backgroundImage: AssetImage(other_info['image']),
+                            radius: 58.0,
+                          ),
                         ),
-                        Text(
-                            '\n${other_info['name']}',
+                        Text('\n${other_info['name']}',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
-                            textAlign: TextAlign.center
-                        ),
-                        Text(
-                            '${other_info['temperature']} °C\n',
-                            style: TextStyle(fontSize: 16,
+                            textAlign: TextAlign.center),
+                        Text('${other_info['temperature']} °C\n',
+                            style: TextStyle(
+                                fontSize: 16,
                                 color: Color(int.parse("0xff8E4444"))),
-                            textAlign: TextAlign.center
-                        ),
-                        Text(
-                            '${other_info['introduction']}\n',
+                            textAlign: TextAlign.center),
+                        Text('${other_info['introduction']}\n',
                             style: TextStyle(fontSize: 13, color: Colors.black),
-                            textAlign: TextAlign.center
-                        ),
-                        Text(
-                            '카톡 아이디: ${other_info['kakao']}\n',
+                            textAlign: TextAlign.center),
+                        Text('카톡 아이디: ${other_info['kakao']}\n',
                             style: TextStyle(fontSize: 13, color: Colors.black),
-                            textAlign: TextAlign.center
-                        ),
-                        Text(
-                            '\n공통 관심사\n',
+                            textAlign: TextAlign.center),
+                        Text('\n공통 관심사\n',
                             style: TextStyle(fontSize: 13, color: Colors.grey),
-                            textAlign: TextAlign.center
-                        ),
+                            textAlign: TextAlign.center),
                         Container(
                           height: 25,
                           width: double.infinity,
@@ -151,8 +154,8 @@ class Matched extends StatelessWidget {
                                     20.0,
                                 decoration: BoxDecoration(
                                   color: Color(int.parse("0xFFEBEBEB")),
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(20)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
                                 ),
                                 child: Text(matched_interest[index],
                                     style: TextStyle(fontSize: 12),
@@ -161,53 +164,49 @@ class Matched extends StatelessWidget {
                             },
                           ),
                         ),
-                        CircleAvatar(
+                        Center(
+                            child: CircleAvatar(
                           backgroundColor: Colors.amber,
                           backgroundImage: AssetImage(my_info['image']),
                           radius: 58.0,
-                        ),
-                        Text(
-                            '\n${my_info['name']}',
+                        )),
+                        Text('\n${my_info['name']}',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
-                            textAlign: TextAlign.center
-                        ),
-                        Text(
-                            '${my_info['temperature']} °C\n',
-                            style: TextStyle(fontSize: 16,
+                            textAlign: TextAlign.center),
+                        Text('${my_info['temperature']} °C\n',
+                            style: TextStyle(
+                                fontSize: 16,
                                 color: Color(int.parse("0xff8E4444"))),
-                            textAlign: TextAlign.center
-                        ),
-                        Text(
-                            '${my_info['introduction']}\n',
+                            textAlign: TextAlign.center),
+                        Text('${my_info['introduction']}\n',
                             style: TextStyle(fontSize: 13, color: Colors.black),
-                            textAlign: TextAlign.center
-                        ),
-                        Text(
-                            '카톡 아이디: ${my_info['kakao']}\n',
+                            textAlign: TextAlign.center),
+                        Text('카톡 아이디: ${my_info['kakao']}\n',
                             style: TextStyle(fontSize: 13, color: Colors.black),
-                            textAlign: TextAlign.center
-                        ),
+                            textAlign: TextAlign.center),
                         Container(
                             width: double.infinity,
                             child: ElevatedButton(
                               style: ButtonStyle(
                                 padding: MaterialStateProperty.all<EdgeInsets>(
                                     EdgeInsets.all(5)),
-                                backgroundColor: MaterialStateProperty.all<
-                                    Color>(Color(int.parse("0xFFEBEBEB"))),
-                                foregroundColor: MaterialStateProperty.all<
-                                    Color>(Color(int.parse("0xFF000000"))),
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color(int.parse("0xFFEBEBEB"))),
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Color(int.parse("0xFF000000"))),
                                 shadowColor: MaterialStateProperty.all<Color>(
                                     Color(int.parse("0xFFEBEBEB"))),
                                 shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
+                                        RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    )),
+                                  borderRadius: BorderRadius.circular(20),
+                                )),
                               ),
-                              child: Text(
-                                  "날짜 선택하기!!", style: TextStyle(fontSize: 12),
+                              child: Text("날짜 선택하기!!",
+                                  style: TextStyle(fontSize: 12),
                                   textAlign: TextAlign.center),
                               onPressed: () async {
                                 final date = await showDatePicker(
@@ -232,8 +231,8 @@ class Matched extends StatelessWidget {
                                     builder: (BuildContext context) {
                                       return AlertDialog(
                                         shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                                10.0)),
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
                                         title: Column(
                                           children: <Widget>[
                                             new Text("날짜 확인"),
@@ -242,13 +241,11 @@ class Matched extends StatelessWidget {
                                         //
                                         content: Column(
                                           mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              "${date?.year}.${date
-                                                  ?.month}.${date?.day}, ${time
-                                                  ?.hour}:${time?.minute}",
+                                              "${date?.year}.${date?.month}.${date?.day}, ${time?.hour}:${time?.minute}",
                                             ),
                                           ],
                                         ),
@@ -257,10 +254,9 @@ class Matched extends StatelessWidget {
                                             child: new Text("확인"),
                                             onPressed: () async {
                                               await setMatched(
-                                                  myUid, otherUid, date,
-                                                  time);
-                                              Navigator.of(context).popUntil((
-                                                  route) => route.isFirst);
+                                                  myUid, otherUid, date, time);
+                                              Navigator.of(context).popUntil(
+                                                  (route) => route.isFirst);
                                             },
                                           ),
                                           new ElevatedButton(
@@ -273,13 +269,8 @@ class Matched extends StatelessWidget {
                                       );
                                     });
                               },
-                            )
-                        ),
-                      ]
-                  )
-              )
-          );
-        }
-
-    );
-  }}
+                            )),
+                      ])));
+        });
+  }
+}

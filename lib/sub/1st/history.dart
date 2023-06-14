@@ -14,12 +14,11 @@ class History extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var matched_interest = <String>[];
-    for(var i =0; i<my_info['interests'].length; i++){
-      if(other_info['interests'].contains(my_info['interests'][i]))
+    for (var i = 0; i < my_info['interests'].length; i++) {
+      if (other_info['interests'].contains(my_info['interests'][i]))
         matched_interest.add(my_info['interests'][i]);
     }
-    if (matched_interest.length == 0)
-      matched_interest.add('none');
+    if (matched_interest.length == 0) matched_interest.add('none');
 
     return Scaffold(
         appBar: AppBar(
@@ -32,15 +31,15 @@ class History extends StatelessWidget {
                   width: 150,
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children:[
-                        Text('히스토리',)
-                      ]
-                  ),
+                      children: [
+                        Text(
+                          '히스토리',
+                        )
+                      ]),
                 ),
-                Icon(Icons.notifications_outlined, color:Colors.black),
+                Icon(Icons.notifications_outlined, color: Colors.black),
               ],
-            )
-        ),
+            )),
         body: Container(
             margin: EdgeInsets.only(left: 10, right: 10, top: 39, bottom: 39),
             padding: EdgeInsets.all(10),
@@ -60,35 +59,32 @@ class History extends StatelessWidget {
                 // crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  CircleAvatar(
+                  Center(
+                      child: CircleAvatar(
                     backgroundColor: Colors.amber,
-                    backgroundImage: AssetImage('profileImg/${other_info['profileimg']}.jpg'),
+                    backgroundImage: AssetImage(
+                        'profileImg/${other_info['profileimg']}.jpg'),
                     radius: 58.0,
-                  ),
-                  Text(
-                      '\n${other_info['nickname']}',
-                      style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
-                      textAlign: TextAlign.center
-                  ),
-                  Text(
-                      '${other_info['mannertemp']} °C\n',
-                      style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
-                      textAlign: TextAlign.center
-                  ),
-                  Text(
-                      '${other_info['introduction']}\n',
-                      style: TextStyle(fontSize: 13,color: Colors.black),
-                      textAlign: TextAlign.center
-                  ),
-                  Text(
-                      '카톡 아이디: ${other_info['kakaotalkid']}\n',
-                      style: TextStyle(fontSize: 13,color: Colors.black),
-                      textAlign: TextAlign.center
-                  ),
+                  )),
+                  Text('\n${other_info['nickname']}',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      textAlign: TextAlign.center),
+                  Text('${other_info['mannertemp']} °C\n',
+                      style: TextStyle(
+                          fontSize: 16, color: Color(int.parse("0xff8E4444"))),
+                      textAlign: TextAlign.center),
+                  Text('${other_info['introduction']}\n',
+                      style: TextStyle(fontSize: 13, color: Colors.black),
+                      textAlign: TextAlign.center),
+                  Text('카톡 아이디: ${other_info['kakaotalkid']}\n',
+                      style: TextStyle(fontSize: 13, color: Colors.black),
+                      textAlign: TextAlign.center),
                   Container(
                     height: 25,
                     width: double.infinity,
-                    margin: EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 20),
+                    margin: EdgeInsets.only(
+                        left: 40, right: 40, top: 20, bottom: 20),
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: matched_interest.length,
@@ -101,62 +97,63 @@ class History extends StatelessWidget {
                             color: Color(int.parse("0xFFEBEBEB")),
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
-                          child: Text(matched_interest[index], style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+                          child: Text(matched_interest[index],
+                              style: TextStyle(fontSize: 12),
+                              textAlign: TextAlign.center),
                         );
                       },
                     ),
                   ),
-                  CircleAvatar(
+                  Center(
+                      child: CircleAvatar(
                     backgroundColor: Colors.amber,
-                    backgroundImage: AssetImage('profileImg/${my_info['profileimg']}.jpg'),
+                    backgroundImage:
+                        AssetImage('profileImg/${my_info['profileimg']}.jpg'),
                     radius: 58.0,
-                  ),
-                  Text(
-                      '\n${my_info['nickname']}',
-                      style:TextStyle(fontWeight: FontWeight.bold,fontSize: 20),
-                      textAlign: TextAlign.center
-                  ),
-                  Text(
-                      '${my_info['mannertemp']}°C\n',
-                      style: TextStyle(fontSize: 16,color: Color(int.parse("0xff8E4444"))),
-                      textAlign: TextAlign.center
-                  ),
-                  Text(
-                      '${my_info['introduction']}\n',
-                      style: TextStyle(fontSize: 13,color: Colors.black),
-                      textAlign: TextAlign.center
-                  ),
-                  Text(
-                      '카톡 아이디: ${my_info['kakaotalkid']}\n',
-                      style: TextStyle(fontSize: 13,color: Colors.black),
-                      textAlign: TextAlign.center
-                  ),
+                  )),
+                  Text('\n${my_info['nickname']}',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      textAlign: TextAlign.center),
+                  Text('${my_info['mannertemp']}°C\n',
+                      style: TextStyle(
+                          fontSize: 16, color: Color(int.parse("0xff8E4444"))),
+                      textAlign: TextAlign.center),
+                  Text('${my_info['introduction']}\n',
+                      style: TextStyle(fontSize: 13, color: Colors.black),
+                      textAlign: TextAlign.center),
+                  Text('카톡 아이디: ${my_info['kakaotalkid']}\n',
+                      style: TextStyle(fontSize: 13, color: Colors.black),
+                      textAlign: TextAlign.center),
                   Container(
                       width: double.infinity,
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(5)),
-                          backgroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
-                          foregroundColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFF000000"))),
-                          shadowColor: MaterialStateProperty.all<Color>(Color(int.parse("0xFFEBEBEB"))),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              )),
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              EdgeInsets.all(5)),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(int.parse("0xFFEBEBEB"))),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Color(int.parse("0xFF000000"))),
+                          shadowColor: MaterialStateProperty.all<Color>(
+                              Color(int.parse("0xFFEBEBEB"))),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          )),
                         ),
-                        child: Text("평가하기", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
-                        onPressed: (){
+                        child: Text("평가하기",
+                            style: TextStyle(fontSize: 12),
+                            textAlign: TextAlign.center),
+                        onPressed: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => Rating(oid: other_info["otherid"]))
-                          );
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      Rating(oid: other_info["otherid"])));
                         },
-                      )
-                  ),
-                ]
-            )
-        )
-    );
+                      )),
+                ])));
   }
-
 }
