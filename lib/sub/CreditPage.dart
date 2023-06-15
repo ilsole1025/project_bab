@@ -70,7 +70,7 @@ class _CreditPageState extends State<CreditPage> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.red.shade300, // background 속성이 없다.
+                      backgroundColor: Colors.deepOrange.shade200,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
                       elevation: 0.0),
@@ -92,7 +92,7 @@ class _CreditPageState extends State<CreditPage> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: Colors.red.shade300,
+                      backgroundColor: Colors.deepOrange.shade200,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0)),
                       elevation: 0.0),

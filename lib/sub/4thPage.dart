@@ -23,12 +23,10 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    TabController _tabController = TabController(length: 3, vsync: this);
+
     TextEditingController testController = TextEditingController();
     var imgNum;
     String imgUrl = "";
-
-
 
     return Scaffold(
       appBar: AppBar(
@@ -109,8 +107,10 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white, // 배경색을 투명하게 설정
-                  side: BorderSide(color: Colors.red.shade300), // 선 색을 검정으로 설정
+                  // backgroundColor: Colors.white.withOpacity(0.2),
+                  backgroundColor: Colors.transparent, //투명색
+                  elevation: 0.0,// 배경색을 투명하게 설정
+                  side: BorderSide(color: Colors.grey), // 선 색깔 설정
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -189,7 +189,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                           child: Material(
                             color: Colors.red[50],
                             child: InkWell(
-                              splashColor: Colors.white,
+                              splashColor: Colors.red.shade300,
                               onTap: () {
                                 Navigator.push(
                                     context,
@@ -225,7 +225,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                           child: Material(
                             color: Colors.white,
                             child: InkWell(
-                              splashColor: Colors.white70,
+                              splashColor: Colors.red.shade300,
                               onTap: () {
                                 //print("약속목록 버튼 클릭");
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => MatchedListPage()));
@@ -259,7 +259,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                           child: Material(
                             color: Colors.white,
                             child: InkWell(
-                              splashColor: Colors.white70,
+                              splashColor: Colors.red.shade300,
                               onTap: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => const RatedListPage()));
                               },
