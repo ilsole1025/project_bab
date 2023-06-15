@@ -63,7 +63,6 @@ class _RatingState extends State<Rating> {
                       ]
                   ),
                 ),
-                Icon(Icons.notifications_outlined, color:Colors.black),
               ],
             )
         ),
@@ -102,7 +101,7 @@ class _RatingState extends State<Rating> {
                   SizedBox(height: 40.0),
                   TextField(
                     decoration: const InputDecoration(
-                      labelText: '평가해주세요!!',
+                      labelText: '밥약에 대한 후기를 남겨주세요',
                     ),
                     onChanged: (text) {
                       setState(() {
@@ -125,9 +124,9 @@ class _RatingState extends State<Rating> {
                                 borderRadius: BorderRadius.circular(20),
                               )),
                         ),
-                        child: Text("저장!!", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
+                        child: Text("저장하기", style: TextStyle(fontSize: 12), textAlign: TextAlign.center),
                         onPressed: () async {
-                          // 여기 inputText 값 가져오ㅘ서 저장해주십셥!!
+                          // 여기 inputText 값 가져와서 저장
                           await updateRate(oid, _rating, inputText);
                           Navigator.of(context).popUntil((route) => route.isFirst);
                         },

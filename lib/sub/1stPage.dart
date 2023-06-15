@@ -18,12 +18,12 @@ class FirstApp extends StatefulWidget {
 class _FirstAppState extends State<FirstApp> {
   List<Map<String, dynamic>> newList = [], oldList = [];
 
-
   Future<Map<String, dynamic>> initializewithgetUser() async {
     newList = await getMatched();
     oldList = newList;
     return await getUser();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +35,6 @@ class _FirstAppState extends State<FirstApp> {
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 automaticallyImplyLeading: false,
-                /*title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children:[
-                            Text('홈',)
-                          ]
-                      ),
-                    )
-                  ],
-                )*/
                 title: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -87,7 +73,7 @@ class _FirstAppState extends State<FirstApp> {
                                         itemCount: newList.length + 1,
                                         itemBuilder: (BuildContext context, int idx) {
                                           if(idx == 0){
-                                            return Container(
+                                            return Container( // 새 랜덤매칭 시작
                                                 margin: EdgeInsets.only(right: 20),
                                                 child: ElevatedButton(
                                                     style: ButtonStyle(
@@ -124,6 +110,7 @@ class _FirstAppState extends State<FirstApp> {
                                                     )
                                                 ));
                                           }
+                                          // 상단 리스트
                                           return Container(
                                               margin: EdgeInsets.only(right: 20),
                                               child: ElevatedButton(
@@ -224,7 +211,7 @@ class _FirstAppState extends State<FirstApp> {
                                               ],
                                             ),
                                           ]),
-                                      Container(
+                                      Container( //히스토리 보기 버튼
                                           width: double.infinity,
                                           child: ElevatedButton(
                                             style: ButtonStyle(
@@ -256,6 +243,36 @@ class _FirstAppState extends State<FirstApp> {
                     ),
                   ]
               ),)
-        ));
+            ,
+          floatingActionButton: Container(
+            height: 50, width: 200,
+            margin: EdgeInsets.all(30),
+            padding: EdgeInsets.all(5),
+            child: extendButton(),
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        )
+    );
+  }
+
+  FloatingActionButton extendButton() {
+    return FloatingActionButton.extended(
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MakeDate())
+        );
+      },
+      label: const Text("새 랜덤매칭 시작하기"),
+      icon: const Icon(
+        Icons.add,
+        size: 30,
+      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+
+      /// 텍스트 컬러
+      foregroundColor: Colors.white,
+      backgroundColor: Colors.red.shade300,
+    );
   }
 }

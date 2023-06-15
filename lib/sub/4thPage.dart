@@ -110,7 +110,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white, // 배경색을 투명하게 설정
-                  side: BorderSide(color: Colors.black), // 선 색을 검정으로 설정
+                  side: BorderSide(color: Colors.red.shade300), // 선 색을 검정으로 설정
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

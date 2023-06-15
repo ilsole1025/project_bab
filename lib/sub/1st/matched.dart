@@ -135,7 +135,7 @@ class Matched extends StatelessWidget {
                         Text('카톡 아이디: ${other_info['kakao']}\n',
                             style: TextStyle(fontSize: 13, color: Colors.black),
                             textAlign: TextAlign.center),
-                        Text('\n공통 관심사\n',
+                        Text('\n공통 관심사',
                             style: TextStyle(fontSize: 13, color: Colors.grey),
                             textAlign: TextAlign.center),
                         Container(
@@ -205,7 +205,7 @@ class Matched extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(20),
                                 )),
                               ),
-                              child: Text("날짜 선택하기!!",
+                              child: Text("날짜 선택하기",
                                   style: TextStyle(fontSize: 12),
                                   textAlign: TextAlign.center),
                               onPressed: () async {
