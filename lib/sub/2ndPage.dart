@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:project_bab/sub/DbGet.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:project_bab/widgets/app_large_text.dart';
+import 'package:project_bab/widgets/app_text.dart';
 
 class SecondApp extends StatelessWidget {
   @override

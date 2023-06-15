@@ -92,18 +92,25 @@ class _FirstAppState extends State<FirstApp> {
                                                         children: [
                                                           CircleAvatar(
                                                             radius: 30,
-                                                            backgroundColor: Colors.amber,
+                                                            backgroundColor: Colors.lightBlue,
                                                             backgroundImage: AssetImage(my_info['image']),
                                                             child: Text(
                                                                 '+',
-                                                                style: TextStyle(fontSize: 20),
+                                                                style: TextStyle(fontSize: 20, color: Colors.white,
+                                                                  shadows: [
+                                                                  Shadow(
+                                                                  blurRadius: 10.0,
+                                                                  color: Colors.black,
+                                                                  offset: Offset(5, 5),
+                                                                )],
+                                                            ),
                                                                 textAlign: TextAlign.center
                                                             ),
                                                           ),
                                                           Text(
                                                             //'${my_info['name']}',
-                                                              '랜덤 매칭',
-                                                              style: TextStyle(fontSize: 10),
+                                                              '랜덤매칭 시작',
+                                                              style: TextStyle(fontSize: 10, color: Colors.blue,),
                                                               textAlign: TextAlign.center
                                                           ),
                                                         ]
