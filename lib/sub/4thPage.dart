@@ -9,7 +9,7 @@ import 'package:project_bab/test/test.dart';
 import 'package:project_bab/widgets/app_large_text.dart';
 import 'package:project_bab/widgets/app_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:project_bab/sub/CreditPage.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -193,15 +193,14 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                               onTap: () {
                                 Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) =>
-                                        UserInterestSave())
+                                    MaterialPageRoute(builder: (context) => UserInterestSave())
                                 );
                               },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Icon(Icons.edit_note), // <-- Icon
-                                  Text("프로필수정"), // <-- Text
+                                  Text("edit profile"), // <-- Text
                                 ],
                               ),
                             ),
@@ -302,17 +301,17 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: Material(
-                              color: Colors.black12,
+                              color: Colors.white,
                               child: InkWell(
-                                splashColor: Colors.green,
+                                splashColor: Colors.pink.shade100,
                                 onTap: () {
-                                  print("프로필 버튼클릭");
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => CreditPage()));
                                 },
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Icon(Icons.person), // <-- Icon
-                                    Text("Profile"), // <-- Text
+                                    Icon(Icons.group), // <-- Icon
+                                    Text("Credit"), // <-- Text
                                   ],
                                 ),
                               ),
@@ -322,7 +321,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                         SizedBox(height: 10,),
                         Container(
                             child: AppText(
-                              text: '내 프로필',
+                              text: '만든 사람들',
                               color: Colors.black,
                             )
                         ),
@@ -337,7 +336,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                             child: Material(
                               color: Colors.white,
                               child: InkWell(
-                                splashColor: Colors.white70,
+                                splashColor: Colors.pink.shade100,
                                 onTap: () {
                                   FirebaseAuth.instance.signOut();
                                   Navigator.push(
@@ -350,7 +349,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Icon(Icons.logout), // <-- Icon
-                                    Text("로그아웃"), // <-- Text
+                                    Text("Logout"), // <-- Text
                                   ],
                                 ),
                               ),
@@ -376,7 +375,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                             child: Material(
                               color: Colors.white,
                               child: InkWell(
-                                splashColor: Colors.white70,
+                                splashColor: Colors.pink.shade100,
                                 onTap: () {
                                   Navigator.push(
                                       context,
@@ -388,7 +387,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Icon(Icons.error), // <-- Icon
-                                    Text("탈퇴"), // <-- Text
+                                    Text("Withdrawal"), // <-- Text
                                   ],
                                 ),
                               ),
@@ -399,7 +398,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                         SizedBox(height: 10,),
                         Container(
                             child: AppText(
-                              text: '탈퇴',
+                              text: '회원 탈퇴',
                               color: Colors.black,
                             )
                         ),
