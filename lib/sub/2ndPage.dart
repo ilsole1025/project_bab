@@ -177,8 +177,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                         final schedule = schedules![index];
                         final time = schedule['time'];
                         final content = schedule['content'];
+                        final date = DateFormat('yyyy-MM-dd').format(_selectedDay!);
                         return ListTile(
-                          title: Text('$time - $content'),
+                          title: Text('$date - $time - $content'),
                         );
                       },
                     );
@@ -199,8 +200,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                         final schedule = monthSchedules[index];
                         final time = schedule['time'];
                         final content = schedule['content'];
+                        final date = DateFormat('yyyy-MM-dd').format(_focusedDay);
                         return ListTile(
-                          title: Text('$time - $content'),
+                          title: Text('$date $content'),
                         );
                       },
                     );
