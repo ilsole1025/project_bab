@@ -11,7 +11,8 @@ import 'package:project_bab/sub/PwReset.dart';
 import 'CreatePage.dart';
 import 'userinfosave.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
+import 'package:project_bab/widgets/app_large_text.dart';
+import 'package:project_bab/widgets/app_text.dart';
 
 
 class LogIn extends StatefulWidget {
@@ -95,7 +96,7 @@ class _LogInState extends State<LogIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Log in'),
+        title: Text('User Log in'),
         elevation: 0.0,
         backgroundColor: Colors.red[300],
         centerTitle: true,
@@ -114,9 +115,7 @@ class _LogInState extends State<LogIn> {
             child: Column(
               children: [
                 Padding(padding: EdgeInsets.only(top: 50)),
-                Center(
-                    child: Text("로그인!")
-                ),
+                AppText(text: "로그인"),
                 Form(
                     child: Theme(
                       data: ThemeData(
