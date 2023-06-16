@@ -23,9 +23,9 @@
         </intent>
     </queries>
    <application
-        android:label="project_bab"
+        android:label="밥공"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
