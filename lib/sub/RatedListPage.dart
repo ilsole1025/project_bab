@@ -15,6 +15,7 @@ class RatedListPage extends StatefulWidget {
   State<RatedListPage> createState() => _RatedListPageState();
 }
 
+
 class _RatedListPageState extends State<RatedListPage> {
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class _RatedListPageState extends State<RatedListPage> {
               width: 90,
               height: 90,
             ),
-            SizedBox(width: 30)
+            const SizedBox(width: 30)
           ])),
       body: FutureBuilder(
         future: getMatched(),
@@ -57,7 +58,7 @@ class _RatedListPageState extends State<RatedListPage> {
                   height: 150,
                   width: double.infinity,
                   padding: const EdgeInsets.all(10),
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(10),
@@ -66,9 +67,9 @@ class _RatedListPageState extends State<RatedListPage> {
                     //  matchedData.toString(),
                     children: [
                       Container(
-                        width: 120,
-                        height: 120,
-                        margin: EdgeInsets.fromLTRB(10, 10, 30, 10),
+                        width: 60,
+                        height: 60,
+                        margin: const EdgeInsets.fromLTRB(8, 8, 15, 8),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.white, width: 5),
@@ -83,13 +84,13 @@ class _RatedListPageState extends State<RatedListPage> {
                       Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             AppLargeText(text: matchedData['nickname'], size: 25),
-                            SizedBox(height: 7,),
+                            const SizedBox(height: 7,),
 
                             if (loading) ...[ //후기가 작성된 경우
                               RatingBarIndicator(
-                                rating: matchedData['rating'],
+                                rating: matchedData['rating'].toDouble(),
                                 itemBuilder: (context, index) => Icon(
                                   Icons.favorite,
                                   color: Colors.red.shade300,
@@ -97,15 +98,12 @@ class _RatedListPageState extends State<RatedListPage> {
                                 itemCount: 5, itemSize: 25.0,
                                 // direction: Axis.vertical,
                               ),
-                              SizedBox(
-                                height: 5,
+                              const SizedBox(
+                                height: 5.0,
                               ),
                               Expanded(
                                 child:
-                                    Container(
-                                      width: 250,
-                                      child: Text(matchedData['message']),
-                                    )
+                                    Text(matchedData['message']),
                               ),
                             ]
                             else ...[

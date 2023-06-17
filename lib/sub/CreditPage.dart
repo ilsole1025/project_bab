@@ -78,28 +78,6 @@ class _CreditPageState extends State<CreditPage> {
                 SizedBox(
                   height: 10,
                 ),
-                ElevatedButton(
-                  child: const Text('Team wiki'),
-                  onPressed: () async {
-                    final url = Uri.parse(
-                      'http://cscp2.sogang.ac.kr/CSE4186/index.php/Team_F5',
-                    );
-                    if (await canLaunchUrl(url)) {
-                      launchUrl(url);
-                    } else {
-                      // ignore: avoid_print
-                      print("Can't launch $url");
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepOrange.shade200,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0)),
-                      elevation: 0.0),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
                 Divider(),
               ],
             )));
