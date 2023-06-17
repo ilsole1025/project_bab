@@ -47,35 +47,32 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         dayA.day == dayB.day;
   }
 
-  Map<DateTime, List<Map<String, String>>> _scheduleData = {
-    DateTime.parse('2023-06-01'): [
-      {'time': '12:00 PM', 'content': '닉네임1'},
-      {'time': '6:00 PM', 'content': '닉네임2'}
-    ],
-    DateTime.parse('2023-06-03'): [
-      {'time': '3:00 PM', 'content': '닉네임3'}
-    ],
-    DateTime.parse('2023-06-21'): [
-      {'time': '11:00 AM', 'content': '닉네임4'}
-    ],
-    DateTime.parse('2023-07-09'): [
-      {'time': '12:32 PM', 'content': '닉네임5'}
-    ],
-  };
+  Map<DateTime, List<Map<String, String>>> _scheduleData = {};
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   Map<DateTime, List<Map<String, String>>> _convertToDateTimeKeyMap(
-      Map<String, List<Map<String, String>>> data) {
+      Map<String, List<Map<String, String>>> data,
+      ) {
     final convertedMap = <DateTime, List<Map<String, String>>>{};
     data.forEach((key, value) {
       final parts = key.split("-");
-      final year = int.parse(parts[0]);
-      final month = int.parse(parts[1]);
-      final day = int.parse(parts[2]);
-      final dateTime = DateTime(year, month, day);
-      convertedMap[dateTime] = value;
+      final year = int.tryParse(parts[0]);
+      final month = int.tryParse(parts[1]);
+      final day = int.tryParse(parts[2]);
+      if (year != null && month != null && day != null) {
+        final dateTime = DateTime(year, month, day);
+        convertedMap[dateTime] = value;
+      } else {
+        print("Invalid date: $key");
+      }
     });
     return convertedMap;
   }
+
 
   Future<Map<String, List<Map<String, String>>>> getFutureData() async {
     Map<String, List<Map<String, String>>> ret = {};
@@ -96,12 +93,14 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               ret[dateOnly]!.add({
                 'content': otherNickname + customHM,
                 'time': hmOnly,
+                'date': dateOnly,
               });
             } else {
               ret[dateOnly] = [
                 {
                   'content': otherNickname + customHM,
                   'time': hmOnly,
+                  'date': dateOnly,
                 }
               ];
             }
@@ -145,7 +144,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TableCalendar(
-              // ... 기존 코드 ...
               headerStyle: HeaderStyle(
                 titleCentered: true,
                 formatButtonVisible: false, // "2 weeks" 버튼 숨기기
@@ -155,9 +153,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               calendarFormat: _calendarFormat,
               focusedDay: _focusedDay,
               selectedDayPredicate: (day) {
-                final dayWithoutTime =
-                DateTime(day.year, day.month, day.day);
-                return _scheduleData.containsKey(dayWithoutTime);
+                final dayWithoutTime = DateTime(day.year, day.month, day.day);
+                final isSelectedDay = _scheduleData.containsKey(dayWithoutTime);
+                if (isSelectedDay) {
+                  _selectedDay = dayWithoutTime;
+                }
+                return isSelectedDay;
               },
               onDaySelected: (selectedDay, focusedDay) {
                 setState(() {
@@ -165,6 +166,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                   _focusedDay = focusedDay;
                 });
               },
+
+
             ),
             SizedBox(height: 20),
             Expanded(
@@ -177,17 +180,16 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                       itemCount: schedules!.length,
                       itemBuilder: (context, index) {
                         final schedule = schedules![index];
-                        final time = schedule['time'];
                         final content = schedule['content'];
-                        final date = DateFormat('yyyy-MM-dd').format(_selectedDay!);
+                        final date = schedule['date'];
+
                         return ListTile(
-                          title: Text('$date - $time - $content'),
+                          title: Text('$date $content'),
                         );
                       },
                     );
                   } else {
-                    final monthSchedules =
-                    getMonthSchedules(_focusedDay);
+                    final monthSchedules = getMonthSchedules(_focusedDay);
                     if (monthSchedules.isEmpty) {
                       return Center(
                         child: Text(
@@ -200,9 +202,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                       itemCount: monthSchedules.length,
                       itemBuilder: (context, index) {
                         final schedule = monthSchedules[index];
-                        final time = schedule['time'];
                         final content = schedule['content'];
-                        final date = DateFormat('yyyy-MM-dd').format(_focusedDay);
+                        final date = schedule['date'];
+
                         return ListTile(
                           title: Text('$date $content'),
                         );
