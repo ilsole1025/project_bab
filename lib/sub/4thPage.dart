@@ -58,7 +58,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                 children: [
                   Container(
                     width: double.infinity,
-                    height: 200,
+                    height: 150,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("img/header.jpg"),
@@ -67,7 +67,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
                     ),
                   ),
                   Positioned(
-                      top: 140,
+                      top: 90,
                       left: 20,
                       child: FutureBuilder( // imgNum불러오기
                         future: getUserData("profileimg"),
