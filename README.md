@@ -11,10 +11,6 @@ Team F5 - PROJECT BAB
 
 - [Sogang Wiki](http://cscp2.sogang.ac.kr/CSE4186/index.php/Team_F5)
 
-## 주요화면🍴
-
-![Team F5 주요화면](https://github.com/ilsole1025/project_bab/assets/49670996/eee81edb-e4d0-46e0-8d99-0ce124d8c734)
-
 ## 기술스택🥄
 
 <img src="https://img.shields.io/badge/flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white"><img src="https://img.shields.io/badge/dart-0175C2?style=for-the-badge&logo=dart&logoColor=white"><img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"><img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black"><img src="https://img.shields.io/badge/nodedotjs-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
@@ -29,3 +25,9 @@ Team F5 - PROJECT BAB
       <td align="center"><a href="https://github.com/donghs38"><img src="https://avatars.githubusercontent.com/u/81911435?v=4" width="100px;" alt=""/><br /><sub><b>팀원 : 동현석</b></sub></a><br /></td>
   </tbody>
 </table>
+
+## 주요화면🍴
+
+![Team F5 주요화면](https://github.com/ilsole1025/project_bab/assets/49670996/eee81edb-e4d0-46e0-8d99-0ce124d8c734)
+
+
